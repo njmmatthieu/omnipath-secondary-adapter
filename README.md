@@ -164,3 +164,9 @@ repository](https://github.com/biocypher/meta-graph). The read-only setting is
 configured in the `docker-compose.yml` file
 (`NEO4J_dbms_databases_default__to__read__only: "false"`) and is deactivated by
 default.
+
+## Ontoweaver adapter
+
+1. Create a data folder, put the tabular data in it, and add `data/` to the .gitignore.
+2. Download ontoweaver (with poetry -- or manually as an unpublished package).
+3. Create weave_knowledge_graph.py following the ontoweaver python template if there is a step of preprocessing. If not, use the CLI command in the new version. 
