@@ -170,3 +170,12 @@ default.
 1. Create a data folder, put the tabular data in it, and add `data/` to the .gitignore.
 2. Download ontoweaver (with poetry -- or manually as an unpublished package).
 3. Create weave_knowledge_graph.py following the ontoweaver python template if there is a step of preprocessing. If not, use the CLI command in the new version. 
+4. Create a Ontoweaver mapping file (.yaml) based on the columns of the tabular data
+5. Created the schema config according to the structure of the knowledge graph that we want, i.e. the entities and relationships that you want to represent.
+6. Add an ontology to be based on in `config/biocypher_config.yaml` and refer the entities and associations of the ontology in the `config/schema_config.yaml. 
+
+## TO DO
+7. Complete the exercice: Add the properties to the schema and the mapping files
+8. Extract the data
+9. Visualise in neo4j
+

@@ -1,0 +1,10 @@
+row:
+    map:
+        columns: source # column name in the datafrane
+        to_subject: source # node type in the KG
+
+transformers:
+    - map:
+        columns: target
+        to_object: target
+        via_relation: blabla
