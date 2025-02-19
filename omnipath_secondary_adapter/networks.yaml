@@ -34,10 +34,18 @@ transformers:
         column: entity_type_target 
         to_property: entity_type_target 
         for_object: target
-    - map:
-        column: target_genesymbol
-        to_property: GeneSymbol
     # Properties for the edge type 'protein_protein_interaction'
-
+    - map:
+        column: is_directed
+        to_property: is_directed
+        for_object: protein_protein_interaction
+    - map:
+        column: is_stimulation
+        to_property: is_stimulation
+        for_object: protein_protein_interaction
+    - map:
+        column: is_inhibition
+        to_property: is_inhibition
+        for_object: protein_protein_interaction
     
 
