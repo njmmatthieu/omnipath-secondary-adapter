@@ -12,7 +12,7 @@ source:
     input_label: source
     properties:
         source_genesymbol: str
-        ncbi_tax_id_source: str
+        ncbi_tax_id_source: int
         entity_type_source: str
 
 target:
@@ -22,7 +22,7 @@ target:
     input_label: target
     properties:
         target_genesymbol: str
-        ncbi_tax_id_target: str
+        ncbi_tax_id_target: int
         entity_type_target: str
 
 #--------------------  Information about Edges
