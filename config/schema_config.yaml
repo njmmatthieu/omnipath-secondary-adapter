@@ -1,19 +1,36 @@
 # add your desired knowledge graph components here
+# Authors:  Matthieu Najm - Edwin Carreño
 
+#--- Ontology: BioLink
+
+
+#--------------------  Information about Nodes
 source:
     is_a: protein
     represented_as: node
     # preferred_id: uniprot
     input_label: source
-    # properties:
+    properties:
+        source_genesymbol: str
+        ncbi_tax_id_source: str
+        entity_type_source: str
 
 target:
     is_a: protein
     represented_as: node
     # preferred_id: doid
     input_label: target
+    properties:
+        target_genesymbol: str
+        ncbi_tax_id_target: str
+        entity_type_target: str
 
+#--------------------  Information about Edges
 protein protein interaction:
     is_a: pairwise molecular interaction
     represented_as: edge
-    input_label: blabla
+    input_label: protein_protein_interaction
+    properties:
+        is_directed: bool
+        is_stimulation: bool
+        is_inhibition: bool
