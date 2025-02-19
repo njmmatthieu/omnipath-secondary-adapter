@@ -164,3 +164,23 @@ repository](https://github.com/biocypher/meta-graph). The read-only setting is
 configured in the `docker-compose.yml` file
 (`NEO4J_dbms_databases_default__to__read__only: "false"`) and is deactivated by
 default.
+
+## Ontoweaver adapter
+
+1. Create a data folder, put the tabular data in it, and add `data/` to the .gitignore.
+2. Download ontoweaver (with poetry -- or manually as an unpublished package).
+3. If there is a step of preprocessing, create weave_knowledge_graph.py following the ontoweaver python template. If not, use the CLI command in the new version. 
+4. Create a Ontoweaver mapping file (.yaml) based on the columns of the tabular data that you want to map and in the same time, the `config/schema_config.yaml` file following the structure of the knowledge graph that you want (i.e. the entities and relationships that you want to represent).
+5. Add an ontology to be based on in `config/biocypher_config.yaml` and refer the entities and associations of the ontology in the `config/schema_config.yaml. 
+
+## Not to forget
+
+- For each column that you want extract, you need ot have (at least) one transformer. 
+- 'label' == 'node|edge type'
+- underscore are necessary in labels in OntoWeaver adapters
+
+## TO DO
+7. Complete the exercice: Add the properties to the schema and the mapping files
+8. Extract the data
+9. Visualise in neo4j
+
