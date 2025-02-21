@@ -57,15 +57,15 @@ if __name__ == "__main__":
         logging.info(f"Weave Omnipath networks data...")
         
         networks_df = pd.read_csv(asked.networks[0], sep='\t')
-
-        mapping_file = "./omnipath-secondary-adapter/adapters/networks.yaml"
+    
+        mapping_file = "./omnipath_secondary_adapter/adapters/networks.yaml"
         with open(mapping_file) as fd:
             mapping = yaml.full_load(fd)
 
-        adapter = ontoweaver.tabular.extract_all(df=networks_df, 
+        adapter = ontoweaver.tabular.extract_table(df=networks_df, 
                                                  config=mapping,
-                                                 separator = None, 
-                                                 affix= "none")
+                                                 separator = ":", 
+                                                 affix= "suffix")
 
         nodes += adapter.nodes
         edges += adapter.edges
