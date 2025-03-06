@@ -30,6 +30,7 @@ The main goal of this adapter is to provide user the ability to retrieve data fr
 8. Extract the data
 9. Visualise in neo4j
 10. Check if the graph is consistent with the tabular data.
+11. Fix the Ontoweaver dependency (pip library instead folder in the project)
 
 # Frequently Asked Questions
 
