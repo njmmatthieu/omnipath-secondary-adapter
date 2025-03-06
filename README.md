@@ -25,11 +25,19 @@ The main goal of this adapter is to provide user the ability to retrieve data fr
 - 'label' == 'node|edge type'
 - underscore are necessary in labels in OntoWeaver adapters
 
-## TO DO
 7. Complete the exercice: Add the properties to the schema and the mapping files
 8. Extract the data
 9. Visualise in neo4j
+
+## TO DO
+
 10. Check if the graph is consistent with the tabular data.
+    - Possible tests:
+      - Verify there is not error when a source and a target are the same.
+      - Count the number of edges in total.
+      - Count the number of nodes in total.
+      - Count the number of nodes by group.
+      - Test if the schema is correct.
 11. Fix the Ontoweaver dependency (pip library instead folder in the project)
 
 # Frequently Asked Questions
