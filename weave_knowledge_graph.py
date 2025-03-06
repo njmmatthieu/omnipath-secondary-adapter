@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+
 import argparse
 import logging
 import pandas as pd
@@ -6,6 +7,7 @@ import yaml
 
 from biocypher import BioCypher
 import ontoweaver
+
 
 # from omnipath_seconday_adapter.adapters.example_adapter import
 
@@ -93,7 +95,11 @@ if __name__ == "__main__":
             mapping = yaml.full_load(fd)
 
         adapter = ontoweaver.tabular.extract_table(
-            df=networks_df, config=mapping, separator=":", affix="suffix"
+            # df=networks_df, config=mapping, separator=":", affix="suffix"
+            df=networks_df,
+            config=mapping,
+            separator=":",
+            affix="none",
         )
 
         nodes += adapter.nodes
@@ -111,10 +117,6 @@ if __name__ == "__main__":
     )
 
 
-"""
-Example of usage in CLI:
-
-poetry run python weave_knowledge_graph.py \
--net ./data_testing/subset_interactions.tsv
-
-"""
+# Example of usage in CLI:
+# poetry run python weave_knowledge_graph.py \
+# -net ./data_testing/subset_interactions.tsv
