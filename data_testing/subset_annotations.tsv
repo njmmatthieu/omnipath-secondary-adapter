@@ -1,0 +1,101 @@
+uniprot	genesymbol	entity_type	source	label	value	record_id
+P11908	PRPS2	protein	MSigDB	collection	chemical_and_genetic_perturbations	986208
+Q9UBY9	HSPB7	protein	MSigDB	geneset	GOBP_RESPONSE_TO_TOPOLOGICALLY_INCORRECT_PROTEIN	1562027
+Q9UNF0	PACSIN2	protein	MSigDB	collection	mirna_targets_mirdb	2974616
+O95096	NKX2-2	protein	MSigDB	collection	go_biological_process	1449303
+P30566	ADSL	protein	MSigDB	geneset	HP_MYOCLONUS	1113794
+O94763	URI1	protein	HPA_tissue	level	High	275515
+P21964	COMT	protein	MSigDB	geneset	HP_ABNORMALITY_OF_GLOBE_LOCATION	1081832
+O15405	TOX3	protein	MSigDB	collection	cell_type_signatures	2325267
+P32119	PRDX2	protein	HPA_tissue	prognostic	False	1006213
+Q99719	SEPTIN5	protein	HPA_tissue	tissue	Leydig cells	1211624
+COMPLEX:O95467_P38405	COMPLEX:GNAL_GNAS	complex	MSigDB	collection	go_cellular_component	5488333
+Q8N8U3	RTL3	protein	HPA_tissue	favourable	False	1157073
+Q8WXW3	PIBF1	protein	MSigDB	collection	go_biological_process	2085902
+P61952	GNG11	protein	DisGeNet	nof_snps	0	22432
+COMPLEX:O43741_P54646_Q9UGI9	COMPLEX:PRKAA2_PRKAB2_PRKAG3	complex	MSigDB	collection	reactome_pathways	4048004
+Q68CP9	ARID2	protein	MSigDB	collection	human_phenotype_ontology	1965364
+Q96HA9	PEX11G	protein	HPA_tissue	organ	placenta	270813
+Q9BWV3	CDADC1	protein	HPA_tissue	tissue	fibroblasts	243885
+C0HLS1	SCRIB	protein	HPA_tissue	level	Medium	1169768
+Q9BW83	IFT27	protein	MSigDB	collection	immunesigdb	2951890
+COMPLEX:Q05BQ5	COMPLEX:MBTD1	complex	MSigDB	geneset	MIR374C_5P	4754723
+Q5TG30	ARHGAP40	protein	MSigDB	collection	go_biological_process	2875267
+P01042	KNG1	protein	HPA_tissue	favourable	False	377148
+Q4G0P3	HYDIN	protein	MSigDB	geneset	MIR33A_3P	2346516
+COMPLEX:P11926	COMPLEX:ODC1	complex	MSigDB	geneset	GSE42021_CD24HI_VS_CD24INT_TCONV_THYMUS_UP	4293123
+Q9H079	KATNBL1	protein	HPA_tissue	pathology	False	587833
+A6NG13	MGAT4D	protein	HPA_tissue	organ	appendix	1344979
+O00512	BCL9	protein	HPA_tissue	tissue	spermatogonia cells	403365
+Q7L5N7	LPCAT2	protein	HPA_subcellular	location	Endoplasmic reticulum	1339
+P08253	MMP2	protein	MSigDB	geneset	GSE17721_CPG_VS_GARDIQUIMOD_12H_BMDC_DN	468332
+O15173	PGRMC2	protein	HPA_tissue	tissue	exocrine glandular cells	932253
+COMPLEX:P08253	COMPLEX:MMP2	complex	MSigDB	collection	go_biological_process	4306204
+COMPLEX:P50851	COMPLEX:LRBA	complex	MSigDB	collection	tf_targets_gtrf	4443222
+COMPLEX:Q8NHM5	COMPLEX:KDM2B	complex	MSigDB	geneset	QI_PBMC_ZOSTAVAX_AGE_50_75YO_CORRELATED_WITH_EXPANSION_OF_VZV_SPECIFIC_T_CELLS_TO_PEAK_AT_1DY_POSITIVE	4994696
+Q9H6L2	TMEM231	protein	HPA_tissue	prognostic	False	1343169
+Q6UW56	ATRAID	protein	HPA_tissue	favourable	True	654076
+P48643	CCT5	protein	Exocarta	vesicle	Exosomes	6337
+Q6NUT2	DPY19L2	protein	HPA_tissue	pathology	False	1145026
+P11836	MS4A1	protein	MSigDB	geneset	IRF_Q6	1840867
+Q9P055	JKAMP	protein	UniProt_topology	start	79	11110
+O75914	PAK3	protein	DisGeNet	nof_snps	0	39402
+Q9NSY1	BMP2K	protein	Vesiclepedia	vesicle	Extracellular vesicles	128285
+Q03169	TNFAIP2	protein	MSigDB	collection	immunesigdb	90367
+Q9BSJ8	ESYT1	protein	NetPath	pathway	Epidermal growth factor receptor (EGFR)	2562
+P29459	IL12A	protein	MSigDB	collection	human_phenotype_ontology	1365353
+COMPLEX:Q5TC82	COMPLEX:RC3H1	complex	HPA_tissue	level	Not detected	1859161
+COMPLEX:P26196	COMPLEX:DDX6	complex	MSigDB	collection	vaccine_response	4458744
+COMPLEX:P13928	COMPLEX:ANXA8	complex	MSigDB	collection	chemical_and_genetic_perturbations	4461699
+Q13822	ENPP2	protein	HPA_tissue	prognostic	False	634574
+COMPLEX:P01213	COMPLEX:PDYN	complex	DisGeNet	type	disease	126512
+O15379	HDAC3	protein	Ramilowski_location	tmh	0	34731
+Q969S0	SLC35B4	protein	HPA_tissue	favourable	False	1343002
+Q13557	CAMK2D	protein	MSigDB	collection	mirna_targets_mirdb	3181407
+COMPLEX:P07355_Q8NBP7	COMPLEX:ANXA2_PCSK9	complex	UniProt_keyword	keyword	3D-structure	278270
+Q12836	ZP4	protein	UniProt_keyword	keyword	Signal	21755
+Q13114	TRAF3	protein	MSigDB	geneset	GOCC_ENDOSOME	2180486
+P42702	LIFR	protein	MSigDB	collection	tf_targets_gtrf	511409
+Q9NVI1	FANCI	protein	HPA_tissue	pathology	False	684572
+Q0P5P2	C17orf67	protein	PROGENy	weight	-0.050753819130358396	58695
+Q6UX41	BTNL8	protein	HPA_tissue	tissue	spermatogonia cells	1434917
+P12277	CKB	protein	HPA_tissue	prognostic	False	974316
+Q12982	BNIP2	protein	HPA_tissue	favourable	False	681096
+Q15582	TGFBI	protein	MSigDB	geneset	MIR9_5P	107356
+COMPLEX:Q14118_Q8WZA1	COMPLEX:DAG1_POMGNT1	complex	DisGeNet	disease	MUSCULAR DYSTROPHY, LIMB-GIRDLE, TYPE 2K	118842
+P80294	MT1H	protein	PROGENy	weight	0.21676850176376217	151867
+P50750	CDK9	protein	HPA_tissue	score	0.00878	629589
+Q8N3P4	VPS8	protein	MSigDB	collection	chemical_and_genetic_perturbations	3113779
+COMPLEX:P05556_P08648_P26006	COMPLEX:ITGA3_ITGA5_ITGB1	complex	MSigDB	geneset	WP_HIPPOMERLIN_SIGNALING_DYSREGULATION	5414909
+P21730	C5AR1	protein	HPA_tissue	level	Low	1290469
+Q96SB4	SRPK1	protein	CytoSig	cytokine_genesymbol	OSM	160980
+P42771	CDKN2A	protein	MSigDB	geneset	GOBP_REGULATION_OF_MITOTIC_CELL_CYCLE_PHASE_TRANSITION	954897
+Q96T92	INSM2	protein	MSigDB	collection	go_biological_process	2127062
+Q9ULC8	ZDHHC8	protein	HPA_tissue	tissue	pancreatic endocrine cells	195525
+P05106	ITGB3	protein	HPA_tissue	level	Not detected	1411498
+Q76N32	CEP68	protein	MSigDB	geneset	GSE22886_TCELL_VS_BCELL_NAIVE_UP	2704570
+O15431	SLC31A1	protein	DisGeNet	dpi	0.577	11530
+Q08043	ACTN3	protein	MSigDB	collection	go_biological_process	675458
+Q8TB45	DEPTOR	protein	HPA_tissue	status	Enhanced	830730
+Q6Q0C0	TRAF7	protein	HPA_tissue	favourable	True	557227
+Q02446	SP4	protein	DisGeNet	score	0.66	50223
+COMPLEX:P16070_P26038	COMPLEX:CD44_MSN	complex	Vesiclepedia	tissue	Breast cancer cells	243298
+Q14671	PUM1	protein	HPA_tissue	pathology	False	594953
+Q9Y576	ASB1	protein	HPA_tissue	prognostic	False	86935
+Q9UGN4	CD300A	protein	MSigDB	geneset	GOBP_REGULATION_OF_VESICLE_MEDIATED_TRANSPORT	2490660
+O43482	OIP5	protein	HPA_tissue	level	Not detected	261132
+Q7Z6J4	FGD2	protein	UniProt_location	location	Cytoskeleton	18338
+Q9Y271	CYSLTR1	protein	HPMR	subclass	7TM A	826
+P00846	MT-ATP6	protein	MSigDB	geneset	HP_LOW_PLASMA_CITRULLINE	3737193
+COMPLEX:Q3SY84_Q7Z3Z0	COMPLEX:KRT25_KRT71	complex	HPA_tissue	tissue	skin cancer	1645765
+COMPLEX:A7KAX9	COMPLEX:ARHGAP32	complex	Adhesome	mainclass	GAP	356
+Q01543	FLI1	protein	MSigDB	collection	human_phenotype_ontology	1920251
+Q8IVH2	FOXP4	protein	HPA_tissue	pathology	True	638034
+COMPLEX:Q08499	COMPLEX:PDE4D	complex	MSigDB	collection	mirna_targets_mirdb	4388292
+COMPLEX:Q96T68	COMPLEX:SETDB2	complex	MSigDB	geneset	ZNF784_TARGET_GENES	5145109
+COMPLEX:P31749	COMPLEX:AKT1	complex	MSigDB	geneset	HP_VENOUS_MALFORMATION	4827834
+COMPLEX:P52895_Q6P2D0	COMPLEX:AKR1C2_ZFP1	complex	HPA_tissue	tissue	testis cancer	2062057
+Q5T4S7	UBR4	protein	MSigDB	collection	tf_targets_gtrf	1565250
+Q8IXQ5	KLHL7	protein	MSigDB	geneset	GRAESSMANN_APOPTOSIS_BY_DOXORUBICIN_DN	3460537
+Q9H832	UBE2Z	protein	MSigDB	collection	reactome_pathways	2454013
+P16452	EPB42	protein	HPA_tissue	status	Supported	989803
