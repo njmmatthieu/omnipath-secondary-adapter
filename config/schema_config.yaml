@@ -8,22 +8,29 @@
 source:
     is_a: protein
     represented_as: node
-    # preferred_id: uniprot
-    input_label: source
+    input_label: source_protein # temporary node type
     properties:
-        source_genesymbol: str
-        ncbi_tax_id_source: int
-        entity_type_source: str
+        genesymbol: str
+        ncbi_tax_id: int
+        entity_type: str
 
 target:
     is_a: protein
     represented_as: node
-    # preferred_id: doid
-    input_label: target
+    input_label: target_protein # temporary node type
     properties:
-        target_genesymbol: str
-        ncbi_tax_id_target: int
-        entity_type_target: str
+        genesymbol: str
+        ncbi_tax_id: int
+        entity_type: str
+
+protein:
+    represented_as: node
+    input_label: protein # final_type node type
+    properties:
+        genesymbol: str
+        ncbi_tax_id: int
+        entity_type: str
+
 
 #--------------------  Information about Edges
 protein protein interaction:
@@ -31,6 +38,6 @@ protein protein interaction:
     represented_as: edge
     input_label: protein_protein_interaction
     properties:
-        is_directed: bool
-        is_stimulation: bool
-        is_inhibition: bool
+        is_directed: int8
+        is_stimulation: int8
+        is_inhibition: int8
