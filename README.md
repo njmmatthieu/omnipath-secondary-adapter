@@ -1,4 +1,7 @@
 # Omnipath Secondary Adapter
+> [!WARNING]
+> This BioCypher adapter relies on the Ontoweaver library that works with Python 3.12. Ensure the Python version is 3.12 in your virtual environment. 
+
 
 **Description:**
 
