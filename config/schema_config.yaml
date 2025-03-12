@@ -38,6 +38,6 @@ protein protein interaction:
     represented_as: edge
     input_label: protein_protein_interaction
     properties:
-        is_directed: int8
-        is_stimulation: int8
-        is_inhibition: int8
+        is_directed: int
+        is_stimulation: int
+        is_inhibition: int
