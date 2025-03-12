@@ -39,6 +39,8 @@ The main goal of this adapter is to provide user the ability to retrieve data fr
       - Count the number of nodes by group.
       - Test if the schema is correct.
 11. Fix the Ontoweaver dependency (pip library instead folder in the project)
+12. Add the ability to download the data from Omnipath archive directly and automatically. 
+ 
 
 # Frequently Asked Questions
 
