@@ -28,21 +28,22 @@ The main goal of this adapter is to provide user the ability to retrieve data fr
 - 'label' == 'node|edge type'
 - underscore are necessary in labels in OntoWeaver adapters
 
-7. Complete the exercice: Add the properties to the schema and the mapping files
-8. Extract the data
-9. Visualise in neo4j
-
 ## TO DO
 
-10. Check if the graph is consistent with the tabular data.
+1. Estimate time for processing biocypher output and importing data in neo4j.(Matthieu)
+2. Check if the graph is consistent with the tabular data. (Edwin and Matthieu)
     - Possible tests:
       - Verify there is not error when a source and a target are the same.
       - Count the number of edges in total.
       - Count the number of nodes in total.
       - Count the number of nodes by group.
       - Test if the schema is correct.
-11. Fix the Ontoweaver dependency (pip library instead folder in the project)
-12. Add the ability to download the data from Omnipath archive directly and automatically. 
+3. Show the ontoweave command.(next Wed 19/03)
+4. Implement data validation in ontoweaver adapter.(next Wed 19/03)
+5. Have the description with chatGPT. (Edwin)
+6. Import the other tables.
+     - Add meta data.
+7. Add the ability to download the data from Omnipath archive directly and automatically. (Edwin)
  
 
 # Frequently Asked Questions
