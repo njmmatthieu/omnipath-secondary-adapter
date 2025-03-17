@@ -118,5 +118,4 @@ if __name__ == "__main__":
 
 
 # Example of usage in CLI:
-# poetry run python weave_knowledge_graph.py \
-# -net ./data_testing/subset_interactions.tsv
+# poetry run python weave_knowledge_graph.py -net ./data_testing/subset_interactions.tsv
