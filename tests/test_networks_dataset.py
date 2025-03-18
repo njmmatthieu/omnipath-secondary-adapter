@@ -14,7 +14,7 @@ ONTOWEAVER_SCHEMA_FILES = ["networks.yaml"]
 
 BIOCYPHER_OUTPUT_FOLDER = "./biocypher-out"
 
-TESTING_DATASET_INTERACTIONS = "subset_interactions_edgecases.tsv"
+TESTING_DATASET_INTERACTIONS = "networks/subset_interactions_edgecases.tsv"
 
 
 # -------------------------------------   HELPER FUNCTIONS  -----------------------------------
@@ -170,7 +170,7 @@ def test_run_ontoweaver_script_networks():
         "python",
         "weave_knowledge_graph.py",
         "-net",
-        "./data_testing/subset_interactions_edgecases.tsv",
+        "./data_testing/networks/subset_interactions_edgecases.tsv",
     ]
 
     result = subprocess.run(command, capture_output=True, text=False)
@@ -272,7 +272,7 @@ def test_missing_source():
         "python",
         "weave_knowledge_graph.py",
         "-net",
-        "./data_testing/subset_interactions_missing_source.tsv",
+        "./data_testing/networks/subset_interactions_missing_source.tsv",
     ]
 
     with pytest.raises(subprocess.CalledProcessError) as excinfo:
@@ -291,7 +291,7 @@ def test_missing_target():
         "python",
         "weave_knowledge_graph.py",
         "-net",
-        "./data_testing/subset_interactions_missing_target.tsv",
+        "./data_testing/networks/subset_interactions_missing_target.tsv",
     ]
 
     with pytest.raises(subprocess.CalledProcessError) as excinfo:
