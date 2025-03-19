@@ -1,25 +1,26 @@
 #!/usr/bin/env python3
-
 """
 Script Name: Omnipath Adapter (secondary type)
 Description:
-    This script retrieve information from Omnipath databases
+    This script retrieves information from Omnipath databases
 
 Usage:
     Example 1:
-    poetry run python weave_knowledge_graph_backup.py /
-    -net from-cache
+    # Download and process the latest Omnipath file (dataset) from Omnipath Archive.
+    poetry run python weave_knowledge_graph_backup.py \
+    -net download
 
     Example 2:
-    poetry run python weave_knowledge_graph.py \ 
+    # Process the file pointed i.e., ./data_testing/networks/subset_interactions_edgecases.tsv
+    poetry run python weave_knowledge_graph.py \
     -net ./data_testing/networks/subset_interactions_edgecases.tsv
 
 Arguments:
-    -net, --networks        Path.
-    -enz, --enzyme-PTM      Path to the output report file.
-    -co, --complexes        Path.
-    -an, --annotations      Path.
-    -inter, --intercell
+    -net, --networks        Path to the 'networks' dataset, or download latest from archive.
+    -enz, --enzyme-PTM      Path to the 'enz-PTM' dataset, or download latest from archive.
+    -co, --complexes        Path to the 'complexes' dataset, or download latest from archive.
+    -an, --annotations      Path to the 'annotations' dataset, or download latest from archive.
+    -inter, --intercell     Path to the 'intercell' dataset, or download latest from archive.
     -v, --verbose
 
 """
@@ -27,13 +28,13 @@ Arguments:
 
 import argparse
 import logging
+
 import pandas as pd
 import yaml
-
-
-import ontoweaver
 from biocypher import BioCypher
 from biocypher._get import Downloader, FileDownload
+
+import ontoweaver
 
 # ----------------------    CONSTANTS    ----------------------
 
@@ -57,50 +58,78 @@ URL_OMNIPATH_COMPLEXES_LATEST = (
 )
 
 
-# ----------------------    FUNCTIONS    ----------------------
+# ----------------------    HELPER FUNCTIONS    ----------------------
 def parse_arguments():
-    usage = f"Extract nodes and edges from CSV tables of Omnipath database: networks, enzyme-PTM, complexes, annotations and intercell."
+    """
+    Extract nodes and edges from CSV tables of Omnipath database: networks, enzyme-PTM, complexes, annotations and intercell.
 
-    parser = argparse.ArgumentParser(description=usage)
+    This function uses 'argparse' to define and parse arguments related to different
+    Omnipath data sources, including networks, enzyme-PTM interactions, complexes,
+    annotations, and intercellular interactions. Additionally, it allows setting the
+    verbosity level for logging.
+
+    Arguments:
+        -net, --networks        Path to the 'networks' dataset, or download latest from archive.
+        -enz, --enzyme-PTM      Path to the 'enz-PTM' dataset, or download latest from archive.
+        -co, --complexes        Path to the 'complexes' dataset, or download latest from archive.
+        -an, --annotations      Path to the 'annotations' dataset, or download latest from archive.
+        -inter, --intercell     Path to the 'intercell' dataset, or download latest from archive.
+        -v, --verbose
+
+    Returns:
+        argparse.Namespace: An object containing the parsed command-line arguments.
+
+    """
+
+    usage = "Extract nodes and edges from CSV tables of Omnipath database: networks, enzyme-PTM, complexes, annotations and intercell."
+
+    epilog = """Example Usage:
+        poetry run python weave_knowledge_graph_backup.py -net download
+        poetry run python weave_knowledge_graph.py -net ./data_testing/networks/subset_interactions_edgecases.tsv
+    """
+
+    parser = argparse.ArgumentParser(
+        description=usage, epilog=epilog, formatter_class=argparse.RawTextHelpFormatter
+    )
 
     parser.add_argument(
         "-net",
         "--networks",
         metavar="TSV",
-        nargs="+",
-        help="Extract from the Omnipath 'networks' TSV file.",
+        nargs="?",
+        help="extract from the Omnipath 'networks' TSV file.",
     )
 
     parser.add_argument(
         "-enz",
         "--enzyme-PTM",
         metavar="TSV",
-        nargs="+",
-        help="Extract from the Omnipath 'enzyme-PTM' TSV file.",
+        nargs="?",
+        help="extract from the Omnipath 'enzyme-PTM' TSV file.",
     )
 
     parser.add_argument(
         "-co",
         "--complexes",
         metavar="TSV",
-        nargs="+",
-        help="Extract from the Omnipath 'complexes' TSV file.",
+        nargs="?",
+        help="extract from the Omnipath 'complexes' TSV file.",
     )
 
     parser.add_argument(
         "-an",
         "--annotations",
         metavar="TSV",
-        nargs="+",
-        help="Extract from the Omnipath 'annotations' TSV file.",
+        nargs="?",
+        help="extract from the Omnipath 'annotations' TSV file.",
     )
 
     parser.add_argument(
         "-inter",
         "--intercell",
         metavar="TSV",
-        nargs="+",
-        help="Extract from the Omnipath 'intercell' TSV file.",
+        nargs="?",
+        help="extract from the Omnipath 'intercell' TSV file.",
     )
 
     levels = {
@@ -116,13 +145,22 @@ def parse_arguments():
         "--verbose",
         choices=levels.keys(),
         default="WARNING",
-        help="Set the verbose level (default: %(default)s).",
+        help="set the verbose level (default: %(default)s).",
     )
 
     return parser.parse_args()
 
 
-def download_resources(url_resource):
+def download_resources(url_resource: str) -> list:
+    """Download the Omnipath dataset given an URL to the resource
+
+    Args:
+        url_resource (str): URL to the Omnipath dataset
+
+    Returns:
+        list: list containing the directories where the dataset is stored.
+    """
+
     # Define the directory where the data will be store
     cache_directory = CACHE_DIRECTORY
 
@@ -142,7 +180,7 @@ def download_resources(url_resource):
     return paths
 
 
-def setup_logging(level):
+def setup_logging(level: int | str) -> None:
     """Configure logging."""
     logging.basicConfig(level=level, format="%(asctime)s - %(levelname)s - %(message)s")
 
@@ -182,6 +220,9 @@ def fuse_and_write(nodes, edges):
     )
 
 
+# ---------------------------------------------------------------------------
+# ----------------------    M A I N   F U N T I O N    ----------------------
+# ---------------------------------------------------------------------------
 def main():
 
     # Parse CLI arguments
@@ -193,13 +234,13 @@ def main():
     # Instanciate BioCypher with the YAML file information (schema and biocypher config)
     bc = initialize_biocypher()
 
-    # Current graph data
+    # Current graph data (empty in this point)
     nodes, edges = [], []
 
     if asked.networks:
 
         # Extract nodes and edges from the TSV file
-        if asked.networks[0] == "from-cache":
+        if asked.networks[0] == "download":
             path_networks = download_resources(url_resource=URL_OMNIPATH_NETWORKS_LATEST)
             extracted_nodes, extracted_edges = extract_networks(path_networks[0])
         else:
@@ -207,14 +248,10 @@ def main():
 
         nodes += extracted_nodes
         edges += extracted_edges
-        logging.info(f"Wove Networks: {len(nodes)} nodes, {len(edges)} edges.")
+        logging.info(f"\nInfo Networks: {len(nodes)} nodes, {len(edges)} edges.")
 
         import_file = fuse_and_write(nodes, edges)
 
 
 if __name__ == "__main__":
-
     main()
-
-# Example of usage in CLI:
-# poetry run python weave_knowledge_graph.py -net ./data_testing/networks/subset_interactions_edgecases.tsv
