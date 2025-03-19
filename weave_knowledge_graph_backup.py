@@ -231,9 +231,6 @@ def main():
     # Configure logging settings
     setup_logging(asked.verbose)
 
-    # Instanciate BioCypher with the YAML file information (schema and biocypher config)
-    bc = initialize_biocypher()
-
     # Current graph data (empty in this point)
     nodes, edges = [], []
 
