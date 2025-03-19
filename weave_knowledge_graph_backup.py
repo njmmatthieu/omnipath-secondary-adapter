@@ -234,14 +234,18 @@ def main():
     # Current graph data (empty in this point)
     nodes, edges = [], []
 
+    print(asked)
+
     if asked.networks:
 
+        print(asked.networks)
+
         # Extract nodes and edges from the TSV file
-        if asked.networks[0] == "download":
+        if asked.networks == "download":
             path_networks = download_resources(url_resource=URL_OMNIPATH_NETWORKS_LATEST)
             extracted_nodes, extracted_edges = extract_networks(path_networks[0])
         else:
-            extracted_nodes, extracted_edges = extract_networks(asked.networks[0])
+            extracted_nodes, extracted_edges = extract_networks(asked.networks)
 
         nodes += extracted_nodes
         edges += extracted_edges
@@ -252,3 +256,6 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+# Example profiling:  poetry run python -m cProfile -s time weave_knowledge_graph.py -net ./data_testing/networks/subset_interactions_edgecases.tsv
