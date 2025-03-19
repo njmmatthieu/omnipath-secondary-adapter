@@ -145,13 +145,13 @@ def extract_unique_edges_biocypher_dataframe(dataset_filepath):
 # ---------------------------------    T E S T S   ---------------------------------
 # ----------------------------------------------------------------------------------
 # ---- General tests
-# TODO: check if the BioCypher schema file exist and it not empty
+# TODO: check if the BioCypher schema file exist and it is not empty
 def test_biocypher_schema_exists():
     file_path = SCHEMA_FILE
     assert check_file_exists_and_not_empty(file_path)
 
 
-# TODO: check if the OntoWever schema files exist and they are not empty
+# TODO: check if the OntoWever mapping files exist and they are not empty
 def test_ontoweaver_schemas_exists():
     adapter_path = os.path.join("omnipath_secondary_adapter", "adapters")
 
@@ -257,10 +257,6 @@ def test_number_edges():
     )
 
     assert expected_number_edges == actual_number_edges
-
-
-class MyCustomError(Exception):
-    pass
 
 
 # TODO: verify the process stop when found missing source/target
