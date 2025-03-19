@@ -74,12 +74,6 @@ if __name__ == "__main__":
 
     asked = parser.parse_args()
 
-    # Instanciate biocypher with the config files
-    bc = BioCypher(
-        biocypher_config_path="config/biocypher_config.yaml",
-        schema_config_path="config/schema_config.yaml",
-    )
-
     # Actually extract data.
     nodes = []
     edges = []
@@ -113,7 +107,7 @@ if __name__ == "__main__":
         edges,
         "config/biocypher_config.yaml",
         "config/schema_config.yaml",
-        separator=", ",
+        separator=", "
     )
 
 
