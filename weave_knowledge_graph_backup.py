@@ -28,13 +28,13 @@ Arguments:
 
 import argparse
 import logging
-
-import pandas as pd
 import yaml
+
+import ontoweaver
+import pandas as pd
 from biocypher import BioCypher
 from biocypher._get import Downloader, FileDownload
 
-import ontoweaver
 
 # ----------------------    CONSTANTS    ----------------------
 
@@ -198,19 +198,27 @@ def extract_networks(networks_file):
     logging.info("Weaving Omnipath networks data...")
     networks_df = pd.read_csv(networks_file, sep="\t")
 
+    print("Dataset in memory")
+
+    # Filter by "omnipath" field
+    networks_df = networks_df[(networks_df["omnipath"]) == True]
+
     mapping_file = "./omnipath_secondary_adapter/adapters/networks.yaml"
     with open(mapping_file) as fd:
         mapping = yaml.full_load(fd)
 
+    print("Ontoweaver adapter start")
     adapter = ontoweaver.tabular.extract_table(
         df=networks_df, config=mapping, separator=":", affix="none"
     )
+    print("Ontoweaver adapter end")
 
     return adapter.nodes, adapter.edges
 
 
 def fuse_and_write(nodes, edges):
     """Fuse duplicated nodes and edges and write the output."""
+    print("Fuse start")
     return ontoweaver.reconciliate_write(
         nodes,
         edges,
@@ -252,6 +260,7 @@ def main():
         logging.info(f"\nInfo Networks: {len(nodes)} nodes, {len(edges)} edges.")
 
         import_file = fuse_and_write(nodes, edges)
+        print("Fuse end")
 
 
 if __name__ == "__main__":
