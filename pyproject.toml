@@ -14,6 +14,7 @@ python = "^3.12"
 biocypher = "^0.9.1"
 ipykernel = "^6.29.5"
 ontoweaver = "^0.1.3"
+pytest-cov = "^6.0"
 
 [build-system]
 requires = ["poetry-core"]
