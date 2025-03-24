@@ -28,34 +28,36 @@ Arguments:
 
 import argparse
 import logging
+import os
 import yaml
+import sys
+from typing import Dict, Any
 
 import ontoweaver
 import pandas as pd
-from biocypher import BioCypher
-from biocypher._get import Downloader, FileDownload
+from biocypher._get import (
+    Downloader,
+    FileDownload,
+)
 
 
 # ----------------------    CONSTANTS    ----------------------
-
 CACHE_DIRECTORY = "./data"
 
-URL_OMNIPATH_NETWORKS_LATEST = (
-    "https://archive.omnipathdb.org/omnipath_webservice_interactions__latest.tsv.gz"
-)
-URL_OMNIPATH_ANNOTATIONS_LATEST = (
-    "https://archive.omnipathdb.org/omnipath_webservice_annotations__latest.tsv.gz"
-)
-URL_OMNIPATH_ENZPTM_LATEST = (
-    "https://archive.omnipathdb.org/omnipath_webservice_enz_sub__latest.tsv.gz"
-)
-URL_OMNIPATH_INTERCELL_LATEST = (
-    "https://archive.omnipathdb.org/omnipath_webservice_intercell__latest.tsv.gz"
-)
+URLS_OMNIPATH = {
+    "annotations": "https://archive.omnipathdb.org/omnipath_webservice_annotations__latest.tsv.gz",
+    "complexes": "https://archive.omnipathdb.org/omnipath_webservice_complexes__latest.tsv.gz",
+    "enz_PTM": "https://archive.omnipathdb.org/omnipath_webservice_enz_sub__latest.tsv.gz",
+    "intercell": "https://archive.omnipathdb.org/omnipath_webservice_intercell__latest.tsv.gz",
+    "networks": "https://archive.omnipathdb.org/omnipath_webservice_interactions__latest.tsv.gz",
+}
 
-URL_OMNIPATH_COMPLEXES_LATEST = (
-    "https://archive.omnipathdb.org/omnipath_webservice_complexes__latest.tsv.gz"
-)
+ONTOWEAVER_MAPPING_FILES = {
+    "networks": "./omnipath_secondary_adapter/adapters/networks.yaml"
+}
+
+BIOCYPHER_CONFIG_PATH = "config/biocypher_config.yaml"
+SCHEMA_PATH = "config/schema_config.yaml"
 
 
 # ----------------------    HELPER FUNCTIONS    ----------------------
@@ -148,36 +150,11 @@ def parse_arguments():
         help="set the verbose level (default: %(default)s).",
     )
 
+    if len(sys.argv) == 1:
+        parser.print_help(sys.stderr)
+        sys.exit(1)  # Exit with error code 1
+
     return parser.parse_args()
-
-
-def download_resources(url_resource: str) -> list:
-    """Download the Omnipath dataset given an URL to the resource
-
-    Args:
-        url_resource (str): URL to the Omnipath dataset
-
-    Returns:
-        list: list containing the directories where the dataset is stored.
-    """
-
-    # Define the directory where the data will be store
-    cache_directory = CACHE_DIRECTORY
-
-    # Instanciate the Downloader
-    downloader = Downloader(cache_dir=cache_directory)
-
-    # Define the resource
-    dataset = FileDownload(
-        name="omnipath_archive",
-        url_s=[url_resource],
-        lifetime=7,  # Cache for 7 days
-    )
-
-    # Download the resource and store the paths where is stored
-    paths = downloader.download(dataset)
-
-    return paths
 
 
 def setup_logging(level: int | str) -> None:
@@ -185,47 +162,163 @@ def setup_logging(level: int | str) -> None:
     logging.basicConfig(level=level, format="%(asctime)s - %(levelname)s - %(message)s")
 
 
-def initialize_biocypher():
-    """Initialize BioCypher with configuration files."""
-    return BioCypher(
-        biocypher_config_path="config/biocypher_config.yaml",
-        schema_config_path="config/schema_config.yaml",
+def download_resource(resource_name: str, url_resource: str) -> list:
+
+    # Define the directory where the data will be store
+    cache_directory = CACHE_DIRECTORY
+
+    # Instantiate the Downloader class
+    downloader = Downloader(cache_dir=cache_directory)
+
+    # Create a resource to download
+    file_resource = FileDownload(
+        name="omnipath_" + resource_name,
+        url_s=url_resource,
+        lifetime=7,  # Cache for 7 days
     )
 
+    # Download the resource and store the paths where it is stored
+    paths = downloader.download(file_resource)
 
-def extract_networks(networks_file):
-    """Extract nodes and edges from Omnipath networks file."""
-    logging.info("Weaving Omnipath networks data...")
-    networks_df = pd.read_csv(networks_file, sep="\t")
+    return paths
 
-    print("Dataset in memory")
 
-    # Filter by "omnipath" field
-    networks_df = networks_df[(networks_df["omnipath"]) == True]
+def access_to_resource(resource_name: str, argument_resource: str) -> str:
 
-    mapping_file = "./omnipath_secondary_adapter/adapters/networks.yaml"
-    with open(mapping_file) as fd:
-        mapping = yaml.full_load(fd)
+    logging.info(f"Processing resource: {resource_name} with option: {argument_resource}")
 
+    if argument_resource is None:
+        logging.error("Invalid option: None. Use --help for guidance.")
+        raise ValueError("Invalid option: None. Consult the menu using --help.")
+
+    if argument_resource == "download":
+        url = URLS_OMNIPATH.get(resource_name)
+        if not url:
+            logging.error(f"No download URL found for resource: {resource_name}")
+            raise ValueError(f"Download URL not found for resource: {resource_name}")
+
+        paths = download_resource(resource_name=resource_name, url_resource=url)
+        if not paths:
+            logging.error(f"Download failed for resource: {resource_name}")
+            raise RuntimeError(f"Failed to download resource: {resource_name}")
+
+        return paths[0]
+
+    if os.path.isfile(argument_resource):
+        return argument_resource
+
+    logging.error(f"Invalid option provided: {argument_resource}")
+    raise ValueError(f"Invalid option: {argument_resource}")
+
+
+def load_data(resource_path: str) -> pd.DataFrame:
+    dataframe_resource = pd.read_csv(resource_path, sep="\t")
+
+    return dataframe_resource
+
+
+def filtering_data(resource_name: str, dataframe: pd.DataFrame) -> pd.DataFrame:
+    if resource_name == "annotations":
+        dataframe = dataframe
+
+    if resource_name == "complexes":
+        dataframe = dataframe
+
+    if resource_name == "enzyme_PTM":
+        dataframe = dataframe
+
+    if resource_name == "intercell":
+        dataframe = dataframe
+
+    if resource_name == "networks":
+        dataframe = dataframe[dataframe.omnipath == True]
+
+    return dataframe
+
+
+def extract_nodes_edges_ontoweaver(resource_name: str, dataframe_resource: pd.DataFrame):
+
+    # Read Ontoweaver mapping file
+    mapping_file = ONTOWEAVER_MAPPING_FILES.get(resource_name)
+    if mapping_file is None:
+        raise ValueError(f"No mapping file found for resource: {resource_name}")
+
+    try:
+        with open(mapping_file) as fd:
+            mapping = yaml.full_load(fd)
+    except FileNotFoundError:
+        raise FileNotFoundError(f"Mapping file not found: {mapping_file}")
+    except Exception as e:
+        raise RuntimeError(f"An error occurred while reading the mapping file: {e}")
+
+    # Extract nodes and edges with Ontoweaver
     print("Ontoweaver adapter start")
     adapter = ontoweaver.tabular.extract_table(
-        df=networks_df, config=mapping, separator=":", affix="none"
+        df=dataframe_resource,
+        config=mapping,
+        separator=":",
+        affix="none",
     )
     print("Ontoweaver adapter end")
 
-    return adapter.nodes, adapter.edges
+    return adapter
 
 
 def fuse_and_write(nodes, edges):
     """Fuse duplicated nodes and edges and write the output."""
     print("Fuse start")
     return ontoweaver.reconciliate_write(
-        nodes,
-        edges,
-        "config/biocypher_config.yaml",
-        "config/schema_config.yaml",
+        nodes=nodes,
+        edges=edges,
+        biocypher_config_path=BIOCYPHER_CONFIG_PATH,
+        schema_path=SCHEMA_PATH,
         separator=", ",
     )
+    print("Fuse end")
+
+
+def process_resource(resource_name: str, argument_resource: str):
+    """Process a given resource, extract nodes and edges, and update the lists."""
+
+    print(f"Resource Option: {argument_resource}")
+    print(f"Resource Name: {resource_name}")
+
+    # EXTRACTION
+    path_resource = access_to_resource(
+        resource_name=resource_name,
+        argument_resource=argument_resource,
+    )
+
+    # LOADING
+    dataframe = load_data(path_resource)
+
+    # TRANSFORMATION
+    # -- Filtering information
+    dataframe = filtering_data(resource_name, dataframe)
+
+    # -- Extract nodes and edges
+    nodes, edges = [], []
+    adapter = extract_nodes_edges_ontoweaver(
+        resource_name,
+        dataframe,
+    )
+
+    nodes += adapter.nodes
+    edges += adapter.edges
+
+    # -- Fuse nodes, edges and write script for importing to Neo4j
+    import_file = fuse_and_write(nodes, edges)
+    logging.info(f"Processed {resource_name}: {len(nodes)} nodes, {len(edges)} edges.")
+
+
+def resources_to_process(cli_arguments: argparse.Namespace) -> Dict[str, Any]:
+    resource_mapping = {
+        key: value
+        for key, value in vars(cli_arguments).items()
+        if value is not None and key != "verbose"
+    }
+
+    return resource_mapping
 
 
 # ---------------------------------------------------------------------------
@@ -239,32 +332,16 @@ def main():
     # Configure logging settings
     setup_logging(asked.verbose)
 
-    # Current graph data (empty in this point)
-    nodes, edges = [], []
+    # Map the resources to be processed based on CLI arguments
+    resource_mapping = resources_to_process(cli_arguments=asked)
 
-    print(asked)
-
-    if asked.networks:
-
-        print(asked.networks)
-
-        # Extract nodes and edges from the TSV file
-        if asked.networks == "download":
-            path_networks = download_resources(url_resource=URL_OMNIPATH_NETWORKS_LATEST)
-            extracted_nodes, extracted_edges = extract_networks(path_networks[0])
-        else:
-            extracted_nodes, extracted_edges = extract_networks(asked.networks)
-
-        nodes += extracted_nodes
-        edges += extracted_edges
-        logging.info(f"\nInfo Networks: {len(nodes)} nodes, {len(edges)} edges.")
-
-        import_file = fuse_and_write(nodes, edges)
-        print("Fuse end")
+    # Process the resources (ELT or ETL)
+    for resource_name, argument_resource in resource_mapping.items():
+        process_resource(resource_name, argument_resource)
 
 
 if __name__ == "__main__":
     main()
 
 
-# Example profiling:  poetry run python -m cProfile -s time weave_knowledge_graph.py -net ./data_testing/networks/subset_interactions_edgecases.tsv
+# Example profiling:  poetry run python -m cProfile -s time weave_knowledge_graph_backup.py -net ./data_testing/networks/subset_interactions_edgecases.tsv
