@@ -16,7 +16,7 @@ head -n 1 "$input_file" > "$output_file"
 #tail -n +2 "$input_file" | shuf | head -n 10000 >> "$output_file"
 
 # Take the first rows
-tail -n +2 "$input_file" | head -n 1000000 >> "$output_file"
+tail -n +2 "$input_file" | head -n 1000 >> "$output_file"
 
 
 echo "Random sample saved to $output_file"
