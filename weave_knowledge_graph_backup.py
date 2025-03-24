@@ -193,8 +193,6 @@ def access_to_resource(resource_name: str, argument_resource: str) -> str:
 
     if argument_resource == "download":
         url = URLS_OMNIPATH.get(resource_name)
-        print(url)
-
         if not url:
             logging.error(f"No download URL found for resource: {resource_name}")
             raise ValueError(f"Download URL not found for resource: {resource_name}")
@@ -233,7 +231,7 @@ def filtering_data(resource_name: str, dataframe: pd.DataFrame) -> pd.DataFrame:
         dataframe = dataframe
 
     if resource_name == "networks":
-        dataframe = dataframe
+        dataframe = dataframe[dataframe.omnipath == True]
 
     return dataframe
 
@@ -297,8 +295,6 @@ def process_resource(resource_name: str, argument_resource: str):
     # TRANSFORMATION
     # -- Filtering information
     dataframe = filtering_data(resource_name, dataframe)
-
-    print(dataframe.info)
 
     # -- Extract nodes and edges
     nodes, edges = [], []
