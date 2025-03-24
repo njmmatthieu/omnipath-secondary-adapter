@@ -27,4 +27,4 @@ jobs:
     #      Run tests and code quality checks
     #----------------------------------------------
     - name: Run Tests
-      uses: ./.github/actions/test_networks
+      uses: ./.github/actions/test
