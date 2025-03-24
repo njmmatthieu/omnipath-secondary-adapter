@@ -11,7 +11,7 @@ runs:
     - name: Run tests (Linux and MacOS)
       run: |
         poetry run pytest --version
-        poetry run pytest 
+        poetry run pytest --verbose
 
       shell: bash
       if: runner.os != 'Windows'
