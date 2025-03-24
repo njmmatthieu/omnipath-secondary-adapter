@@ -5,12 +5,17 @@ on:
   pull_request:
 
 jobs:
+  build:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]  # Test on different OS
+    runs-on: ${{ matrix.os }}
   tests_and_code_quality:
     runs-on: ubuntu-latest
     steps:
     #----------------------------------------------
     #  Checkout repo and set up Python and Poetry
-    #----------------------------------------------
+    #----------------------------------------------ssss
     - name: Checkout Repository
       uses: actions/checkout@v4
     
