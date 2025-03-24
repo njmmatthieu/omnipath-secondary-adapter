@@ -11,7 +11,15 @@ runs:
     - name: Run tests (Linux and MacOS)
       run: |
         poetry run pytest --version
-        poetry run pytest --verbose
+        poetry run pytest --verbose --disable-warnings
 
       shell: bash
       if: runner.os != 'Windows'
+
+    - name: Run tests (Linux and MacOS)
+      run: |
+        poetry run pytest --version
+        poetry run pytest --verbose --disable-warnings
+
+      shell: bash
+      if: runner.os == 'Windows'
