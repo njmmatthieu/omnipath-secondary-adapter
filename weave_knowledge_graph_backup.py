@@ -344,4 +344,4 @@ if __name__ == "__main__":
     main()
 
 
-# Example profiling:  poetry run python -m cProfile -s time weave_knowledge_graph_backup.py -net ./data_testing/networks/subset_interactions_edgecases.tsv
+# Example profiling:  poetry run python -m cProfile -s time weave_knowledge_graph_backup.py -net ./data/subset_interactions_100.tsv
