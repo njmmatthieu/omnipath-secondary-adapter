@@ -5,9 +5,7 @@ from pandera.typing import Series
 
 
 # data to validate
-df = pd.read_csv(
-    "/home/ecarreno/SSC-Projects/b_REPOSITORIES/ecarrenolozano/omnipath-secondary-adapter/data_testing/networks/subset_interactions_edgecases.tsv"
-)
+df = pd.read_table("data_testing/networks/subset_interactions_edgecases.tsv")
 
 
 class NetworksSchema(pa.DataFrameModel):
@@ -33,7 +31,7 @@ class NetworksSchema(pa.DataFrameModel):
     tf_target: Series[bool] = pa.Field(nullable=False)
     lncrna_mrna: Series[bool] = pa.Field(nullable=False)
     tf_mirna: Series[bool] = pa.Field(nullable=False)
-    small_molecule: Series[bool] = pa.Field(nullable=False)
+    small_molecule: Series[bool] = pa.Field(nullable=True)
     dorothea_curated: Series[str] = pa.Field(nullable=False)
     dorothea_chipseq: Series[str] = pa.Field(nullable=False)
     dorothea_tfbs: Series[str] = pa.Field(nullable=False)

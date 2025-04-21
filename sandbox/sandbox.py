@@ -1,6 +1,15 @@
 from datetime import datetime
 from itertools import zip_longest
 
+
+import pandas as pd
+import pandera as pa
+from pandera import (
+    Column,
+    DataFrameSchema,
+    DataFrameModel,
+)
+from pandera.typing import Index, DataFrame, Series
 from pydantic import BaseModel
 
 from models_pandera import NetworksSchema
@@ -13,17 +22,8 @@ VALID_EXTENSIONS = (
 )
 
 
-import datetime
-
-import pandera as pa
-import pandas as pd
-from pandera import (
-    Column,
-    DataFrameSchema,
-    DataFrameModel,
-)
-from pandera.typing import Index, DataFrame, Series
-from sqlalchemy.dialects.postgresql import JSONB
+# import datetime
+# from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.inspection import inspect
 from sqlalchemy.orm import declarative_base
 
@@ -237,9 +237,9 @@ class InvalidFileExtensionError(Exception):
     pass
 
 
-class Delivery(BaseModel):
-    timestamp: datetime
-    dimensions: tuple[int, int]
+# class Delivery(BaseModel):
+#    timestamp: datetime
+#    dimensions: tuple[int, int]
 
 
 # --------------    CUSTOM FUNCTIONS
@@ -287,13 +287,15 @@ def verify_header(file_path, encoding="utf-8"):
 
 def main():
 
-    file_path = "/home/ecarreno/SSC-Projects/b_REPOSITORIES/ecarrenolozano/omnipath-secondary-adapter/data/subset_interactions_complete.tsv"
+    file_path = "data_testing/networks/subset_interactions_edgecases.tsv"
 
     verify_extension(file_path=file_path)
 
     verify_encoding(file_path=file_path)
 
     verify_header(file_path)
+
+    print(Interactions.return_pandas_dtypes())
 
 
 if __name__ == "__main__":

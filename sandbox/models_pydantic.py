@@ -4,9 +4,7 @@ import pandera as pa
 from pandera.typing import Series
 
 # data to validate
-df = pd.read_csv(
-    "/home/ecarreno/SSC-Projects/b_REPOSITORIES/ecarrenolozano/omnipath-secondary-adapter/data_testing/networks/subset_interactions_edgecases.tsv"
-)
+df = pd.read_csv("data_testing/networks/subset_interactions_edgecases.tsv")
 
 
 class NetworksSchema(pa.DataFrameModel):
