@@ -133,12 +133,14 @@ dmypy.json
 .pyre/
 .idea
 
-# data
-data/*
-data_testing/*
+# Cached Omnipath data 
+data
 
-# import report file
-./import.report
+# Import report file
+import.report
 
-#Profile files
+# Sandbox folder
+sandbox
+
+# Profiling Files
 profile_*

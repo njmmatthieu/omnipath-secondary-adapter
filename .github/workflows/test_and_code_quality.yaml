@@ -1,0 +1,30 @@
+name: Tests and Code Quality
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  tests_and_code_quality:
+    runs-on: ubuntu-latest
+    steps:
+    #----------------------------------------------
+    #  Checkout repo and set up Python and Poetry
+    #----------------------------------------------
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+    
+    - name: Setup Python and Poetry
+      uses: ./.github/actions/initial_setup
+
+    #----------------------------------------------
+    #            Install dependencies
+    #----------------------------------------------
+    - name: Install Dependencies
+      uses: ./.github/actions/install
+
+    #----------------------------------------------
+    #      Run tests and code quality checks
+    #----------------------------------------------
+    - name: Run Tests
+      uses: ./.github/actions/test
