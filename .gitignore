@@ -134,13 +134,13 @@ dmypy.json
 .idea
 
 # Cached Omnipath data 
-./data
+data
 
 # Import report file
-./import.report
+import.report
 
 # Sandbox folder
-./sandbox
+sandbox
 
 # Profiling Files
-./profile_*
+profile_*
