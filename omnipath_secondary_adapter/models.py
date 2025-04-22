@@ -109,3 +109,30 @@ class NetworksPanderaModel(BasePanderaModel):
     # ---- DataFrame Model Configuration
     class Config(BasePanderaModel.Config):
         name = BASE_SCHEMA_NAME
+
+
+class EnzymePTMPanderaModel(BasePanderaModel):
+    """Pandera DataFrame Model for Omnipath Interactions Table.
+    This schema defines the expected structure of the DataFrame
+    containing interaction data, ensuring type and constraint validation.
+    """
+
+    __slots__ = ()  # to avoid any possible dynamic creation of attributes (fields)
+
+    # ---- Column: Pandera datatype validator
+    enzyme: Series[str] = pa.Field(nullable=False)
+    enzyme_genesymbol: Series[str] = pa.Field(nullable=False)
+    substrate: Series[str] = pa.Field(nullable=False)
+    substrate_genesymbol: Series[str] = pa.Field(nullable=False)
+    isoforms: Series[str] = pa.Field(nullable=False)
+    residue_type: Series[str] = pa.Field(nullable=False)
+    residue_offset: Series[int] = pa.Field(nullable=False)
+    modification: Series[str] = pa.Field(nullable=False)
+    sources: Series[str] = pa.Field(nullable=False)
+    references: Series[str] = pa.Field(nullable=True)
+    curation_effort: Series[int] = pa.Field(nullable=False)
+    ncbi_tax_id: Series[int] = pa.Field(nullable=False)
+
+    # ---- DataFrame Model Configuration
+    class Config(BasePanderaModel.Config):
+        name = BASE_SCHEMA_NAME
