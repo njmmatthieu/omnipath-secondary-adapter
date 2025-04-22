@@ -51,7 +51,7 @@ CACHE_DATA_PATH = "./data"
 URLS_OMNIPATH = {
     "annotations": "https://archive.omnipathdb.org/omnipath_webservice_annotations__latest.tsv.gz",
     "complexes": "https://archive.omnipathdb.org/omnipath_webservice_complexes__latest.tsv.gz",
-    "enz_PTM": "https://archive.omnipathdb.org/omnipath_webservice_enz_sub__latest.tsv.gz",
+    "enzyme_PTM": "https://archive.omnipathdb.org/omnipath_webservice_enz_sub__latest.tsv.gz",
     "intercell": "https://archive.omnipathdb.org/omnipath_webservice_intercell__latest.tsv.gz",
     "networks": "https://archive.omnipathdb.org/omnipath_webservice_interactions__latest.tsv.gz",
 }
