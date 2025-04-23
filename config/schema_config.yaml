@@ -38,9 +38,9 @@ protein protein interaction:
     represented_as: edge
     input_label: protein_protein_interaction
     properties:
-        is_directed: int
-        is_stimulation: int
-        is_inhibition: int
+        is_directed: bool
+        is_stimulation: bool
+        is_inhibition: bool
         consensus_direction: bool
         consensus_stimulation: bool
         consensus_inhibition: bool
