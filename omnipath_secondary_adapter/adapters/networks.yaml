@@ -50,8 +50,8 @@ transformers:
         to_property: is_inhibition
         for_object: protein_protein_interaction
     - map:
-        column: consensus_directed
-        to_property: consensus_directed
+        column: consensus_direction
+        to_property: consensus_direction
         for_object: protein_protein_interaction
     - map:
         column: consensus_stimulation
@@ -78,8 +78,8 @@ transformers:
         to_property: kinaseextra
         for_object: protein_protein_interaction
     - map:
-        column: ligecextra
-        to_property: ligecextra
+        column: ligrecextra
+        to_property: ligrecextra
         for_object: protein_protein_interaction
     - map:
         column: pathwayextra
