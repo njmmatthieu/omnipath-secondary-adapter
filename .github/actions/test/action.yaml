@@ -1,0 +1,25 @@
+name: "Test Omnipath Secondary Adapter [Networks]"
+description: "Run tests and code quality checks for Networks adapter"
+
+
+runs:
+  using: "composite"
+  steps:
+    #----------------------------------------------
+    #     run tests and code quality checks
+    #----------------------------------------------
+    - name: Run tests (Linux and MacOS)
+      run: |
+        poetry run pytest --version
+        poetry run pytest --verbose --disable-warnings
+
+      shell: bash
+      if: runner.os != 'Windows'
+
+    - name: Run tests (Linux and MacOS)
+      run: |
+        poetry run pytest --version
+        poetry run pytest --verbose --disable-warnings
+
+      shell: bash
+      if: runner.os == 'Windows'

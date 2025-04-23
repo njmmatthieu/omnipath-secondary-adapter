@@ -11,16 +11,16 @@ Usage:
     -net download
 
     Example 2:
-    # Process the file pointed i.e., ./data_testing/networks/subset_interactions_edgecases.tsv
+    # Process the specified file, e.g., ./data_testing/networks/subset_interactions_edgecases.tsv
     poetry run python weave_knowledge_graph.py \
     -net ./data_testing/networks/subset_interactions_edgecases.tsv
 
 Arguments:
-    -net, --networks        Path to the 'networks' dataset, or download latest from archive.
-    -enz, --enzyme-PTM      Path to the 'enz-PTM' dataset, or download latest from archive.
-    -co, --complexes        Path to the 'complexes' dataset, or download latest from archive.
-    -an, --annotations      Path to the 'annotations' dataset, or download latest from archive.
-    -inter, --intercell     Path to the 'intercell' dataset, or download latest from archive.
+    -net, --networks        Path to the 'networks' dataset, or download the latest from the archive.
+    -enz, --enzyme-PTM      Path to the 'enz-PTM' dataset, or download the latest from archive.
+    -co, --complexes        Path to the 'complexes' dataset, or download the latest from archive.
+    -an, --annotations      Path to the 'annotations' dataset, or download the latest from archive.
+    -inter, --intercell     Path to the 'intercell' dataset, or download the latest from archive.
     -v, --verbose
 
 """
@@ -28,40 +28,54 @@ Arguments:
 
 import argparse
 import logging
+import os
 import yaml
+import sys
+from typing import (
+    Any,
+    Dict,
+)
 
 import ontoweaver
 import pandas as pd
-from biocypher import BioCypher
-from biocypher._get import Downloader, FileDownload
+from biocypher._get import (
+    Downloader,
+    FileDownload,
+)
 
+from omnipath_secondary_adapter.models import NetworksPanderaModel
 
 # ----------------------    CONSTANTS    ----------------------
+CACHE_DATA_PATH = "./data"
 
-CACHE_DIRECTORY = "./data"
+URLS_OMNIPATH = {
+    "annotations": "https://archive.omnipathdb.org/omnipath_webservice_annotations__latest.tsv.gz",
+    "complexes": "https://archive.omnipathdb.org/omnipath_webservice_complexes__latest.tsv.gz",
+    "enz_PTM": "https://archive.omnipathdb.org/omnipath_webservice_enz_sub__latest.tsv.gz",
+    "intercell": "https://archive.omnipathdb.org/omnipath_webservice_intercell__latest.tsv.gz",
+    "networks": "https://archive.omnipathdb.org/omnipath_webservice_interactions__latest.tsv.gz",
+}
 
-URL_OMNIPATH_NETWORKS_LATEST = (
-    "https://archive.omnipathdb.org/omnipath_webservice_interactions__latest.tsv.gz"
-)
-URL_OMNIPATH_ANNOTATIONS_LATEST = (
-    "https://archive.omnipathdb.org/omnipath_webservice_annotations__latest.tsv.gz"
-)
-URL_OMNIPATH_ENZPTM_LATEST = (
-    "https://archive.omnipathdb.org/omnipath_webservice_enz_sub__latest.tsv.gz"
-)
-URL_OMNIPATH_INTERCELL_LATEST = (
-    "https://archive.omnipathdb.org/omnipath_webservice_intercell__latest.tsv.gz"
-)
+PANDERA_SCHEMAS = {
+    "networks": NetworksPanderaModel,
+}
 
-URL_OMNIPATH_COMPLEXES_LATEST = (
-    "https://archive.omnipathdb.org/omnipath_webservice_complexes__latest.tsv.gz"
-)
+ONTOWEAVER_MAPPING_FILES = {
+    "networks": "./omnipath_secondary_adapter/adapters/networks.yaml"
+}
+
+
+BIOCYPHER_CONFIG_PATH = "config/biocypher_config.yaml"
+SCHEMA_PATH = "config/schema_config.yaml"
+
+
+logger = logging.getLogger("biocypher")
 
 
 # ----------------------    HELPER FUNCTIONS    ----------------------
 def parse_arguments():
     """
-    Extract nodes and edges from CSV tables of Omnipath database: networks, enzyme-PTM, complexes, annotations and intercell.
+    Extract nodes and edges from CSV tables of the Omnipath database: networks, enzyme-PTM, complexes, annotations, and intercell.
 
     This function uses 'argparse' to define and parse arguments related to different
     Omnipath data sources, including networks, enzyme-PTM interactions, complexes,
@@ -148,84 +162,260 @@ def parse_arguments():
         help="set the verbose level (default: %(default)s).",
     )
 
+    if len(sys.argv) == 1:
+        parser.print_help(sys.stderr)
+        sys.exit(1)  # Exit with error code 1
+
     return parser.parse_args()
 
 
-def download_resources(url_resource: str) -> list:
-    """Download the Omnipath dataset given an URL to the resource
-
-    Args:
-        url_resource (str): URL to the Omnipath dataset
-
-    Returns:
-        list: list containing the directories where the dataset is stored.
-    """
+def download_resource(resource_name: str, url_resource: str) -> list:
 
     # Define the directory where the data will be store
-    cache_directory = CACHE_DIRECTORY
+    cache_directory = CACHE_DATA_PATH
 
-    # Instanciate the Downloader
+    # Instantiate the Downloader class
     downloader = Downloader(cache_dir=cache_directory)
 
-    # Define the resource
-    dataset = FileDownload(
-        name="omnipath_archive",
-        url_s=[url_resource],
+    # Create a resource to download
+    file_resource = FileDownload(
+        name="omnipath_" + resource_name,
+        url_s=url_resource,
         lifetime=7,  # Cache for 7 days
     )
 
-    # Download the resource and store the paths where is stored
-    paths = downloader.download(dataset)
+    # Download the resource and return the stored file paths
+    paths = downloader.download(file_resource)
 
     return paths
 
 
-def setup_logging(level: int | str) -> None:
-    """Configure logging."""
-    logging.basicConfig(level=level, format="%(asctime)s - %(levelname)s - %(message)s")
+def access_to_resource(resource_name: str, argument_resource: str) -> str:
+
+    logger.info(f"Processing resource: {resource_name} with option: {argument_resource}")
+
+    if argument_resource is None:
+        logger.error("Invalid option: None. Use --help for guidance.")
+        raise ValueError("Invalid option: None. Consult the menu using --help.")
+
+    if argument_resource == "download":
+        url = URLS_OMNIPATH.get(resource_name)
+        if not url:
+            logger.error(f"No download URL found for resource: {resource_name}")
+            raise ValueError(f"Download URL not found for resource: {resource_name}")
+
+        paths = download_resource(resource_name=resource_name, url_resource=url)
+        if not paths:
+            logger.error(f"Download failed for resource: {resource_name}")
+            raise RuntimeError(f"Failed to download resource: {resource_name}")
+
+        return paths[0]
+
+    if os.path.isfile(argument_resource):
+        return argument_resource
+
+    logger.error(f"Invalid option provided: {argument_resource}")
+    raise ValueError(f"Invalid option: {argument_resource}")
 
 
-def initialize_biocypher():
-    """Initialize BioCypher with configuration files."""
-    return BioCypher(
-        biocypher_config_path="config/biocypher_config.yaml",
-        schema_config_path="config/schema_config.yaml",
-    )
+def load_dataframe(resource_path: str, resource_name: str) -> pd.DataFrame:
+    """
+    Load a TSV file into a pandas DataFrame using a specified Pandera schema.
+
+    Args:
+        resource_path (str): Path to the TSV file.
+        resource_name (str): The name of the resource used to retrieve the schema.
+
+    Returns:
+        pd.DataFrame: A cleaned and schema-conformant DataFrame.
+    """
+    schema_model = PANDERA_SCHEMAS.get(resource_name)
+
+    if schema_model is None:
+        logger.warning(f"No schema model found for resource: {resource_name}")
+
+    try:
+        dataframe_resource = pd.read_table(
+            resource_path,
+            sep="\t",
+            dtype=schema_model._return_pandas_dtypes() if schema_model else None,
+        )
+        logger.info("DataFrame successfully loaded.")
+    except Exception as e:
+        logger.error(f"Failed to load dataset from {resource_path}: {e}")
+        raise
+
+    # Identify boolean columns using pandas type system
+    boolean_columns = dataframe_resource.select_dtypes(include=["boolean"]).columns
+
+    if not boolean_columns.empty:
+        # Replace NaN with False and ensure dtype is bool
+        dataframe_resource[boolean_columns] = (
+            dataframe_resource[boolean_columns].fillna(False).astype(bool)
+        )
+
+    logger.info(f"DataFrame shape: {dataframe_resource.shape}")
+    memory_mb = dataframe_resource.memory_usage(deep=True).sum() / 1024**2
+    logger.info(f"Memory usage (MB): {memory_mb:.2f}")
+
+    return dataframe_resource
 
 
-def extract_networks(networks_file):
-    """Extract nodes and edges from Omnipath networks file."""
-    logging.info("Weaving Omnipath networks data...")
-    networks_df = pd.read_csv(networks_file, sep="\t")
+def validate_schema(
+    dataframe: pd.DataFrame,
+    resource_name: str,
+    enable_validation: bool = True,
+) -> None:
+    """
+    Whether to enable schema validation. Set to False to skip validation.
 
-    print("Dataset in memory")
+    Args:
+        dataframe (pd.DataFrame): The DataFrame to validate.
+        resource_name (str): The key to retrieve the schema from PANDERA_SCHEMAS.
+        enable_validation (bool): Whether to perform schema validation.
+    """
+    if not enable_validation:
+        logger.info("Skipping schema validation.")
+        return
 
-    # Filter by "omnipath" field
-    networks_df = networks_df[(networks_df["omnipath"]) == True]
+    schema = PANDERA_SCHEMAS.get(resource_name)
+    if schema is None:
+        logger.warning(
+            f"No schema defined for resource: {resource_name}. Skipping validation."
+        )
+        return
 
-    mapping_file = "./omnipath_secondary_adapter/adapters/networks.yaml"
-    with open(mapping_file) as fd:
-        mapping = yaml.full_load(fd)
+    try:
+        schema.validate(dataframe)
+        logger.info("DataFrame complies with the schema.")
+    except Exception as e:
+        logger.error(f"Schema validation failed: {e}")
+        raise
 
-    print("Ontoweaver adapter start")
+
+def filtering_data(resource_name: str, dataframe: pd.DataFrame) -> pd.DataFrame:
+    """Apply additional filtering to the data in before using it
+
+    Args:
+        resource_name (str): Name of the database, i.e networks, annotations, etc.
+        dataframe (pd.DataFrame): DataFrame, for now it is a Pandas DataFrame_
+
+    Returns:
+        pd.DataFrame: Returns a Pandas DataFrame
+    """
+    if resource_name == "annotations":
+        dataframe = dataframe
+
+    if resource_name == "complexes":
+        dataframe = dataframe
+
+    if resource_name == "enzyme_PTM":
+        dataframe = dataframe
+
+    if resource_name == "intercell":
+        dataframe = dataframe
+
+    if resource_name == "networks":
+        dataframe = dataframe
+
+    return dataframe
+
+
+def extract_nodes_edges_ontoweaver(resource_name: str, dataframe_resource: pd.DataFrame):
+
+    # Read Ontoweaver mapping file
+    mapping_file = ONTOWEAVER_MAPPING_FILES.get(resource_name)
+    if mapping_file is None:
+        raise ValueError(f"No mapping file found for resource: {resource_name}")
+
+    try:
+        with open(mapping_file) as fd:
+            mapping = yaml.full_load(fd)
+    except FileNotFoundError:
+        raise FileNotFoundError(f"Mapping file not found: {mapping_file}")
+    except Exception as e:
+        raise RuntimeError(f"An error occurred while reading the mapping file: {e}")
+
+    # Extract nodes and edges with Ontoweaver
+    logger.info("Ontoweaver adapter start...")
+    nodes, edges = [], []
     adapter = ontoweaver.tabular.extract_table(
-        df=networks_df, config=mapping, separator=":", affix="none"
+        df=dataframe_resource,
+        config=mapping,
+        separator=":",
+        affix="none",
+        parallel_mapping=min(32, (os.cpu_count() or 1) + 4),
     )
-    print("Ontoweaver adapter end")
+    nodes += adapter.nodes
+    edges += adapter.edges
 
-    return adapter.nodes, adapter.edges
+    logger.info("Ontoweaver adapter end.")
+
+    return nodes, edges
 
 
 def fuse_and_write(nodes, edges):
     """Fuse duplicated nodes and edges and write the output."""
-    print("Fuse start")
-    return ontoweaver.reconciliate_write(
-        nodes,
-        edges,
-        "config/biocypher_config.yaml",
-        "config/schema_config.yaml",
+    logger.info("Fuse step starting...")
+    import_file = ontoweaver.reconciliate_write(
+        nodes=nodes,
+        edges=edges,
+        biocypher_config_path=BIOCYPHER_CONFIG_PATH,
+        schema_path=SCHEMA_PATH,
         separator=", ",
     )
+    logger.info("Fuse step end.")
+    return import_file
+
+
+def process_resource(resource_name: str, argument_resource: str):
+    """Process a given resource, extract nodes and edges, and update the lists."""
+
+    logger.info(f"Resource Option: {argument_resource}")
+    logger.info(f"Resource Name: {resource_name}")
+
+    # EXTRACTION
+    logger.info("======================")
+    logger.info("=  STEP: Extraction  =")
+    logger.info("======================")
+    path_resource = access_to_resource(
+        resource_name=resource_name,
+        argument_resource=argument_resource,
+    )
+
+    # LOADING
+    logger.info("===================")
+    logger.info("=  STEP: Loading  =")
+    logger.info("===================")
+    dataframe = load_dataframe(path_resource, resource_name=resource_name)
+    validate_schema(dataframe, resource_name, enable_validation=False)
+
+    # TRANSFORMATION
+    # -- Filtering information
+    logger.info("==========================")
+    logger.info("=  STEP: Transformation  =")
+    logger.info("==========================")
+    dataframe = filtering_data(resource_name, dataframe)
+
+    # -- Extract nodes and edges
+    nodes, edges = extract_nodes_edges_ontoweaver(
+        resource_name=resource_name,
+        dataframe_resource=dataframe,
+    )
+
+    # -- Fuse nodes, edges and write script for importing to Neo4j
+    import_file = fuse_and_write(nodes, edges)
+    logger.info(f"Processed {resource_name}: {len(nodes)} nodes, {len(edges)} edges.")
+
+
+def resources_to_process(cli_arguments: argparse.Namespace) -> Dict[str, Any]:
+    resource_mapping = {
+        key: value
+        for key, value in vars(cli_arguments).items()
+        if value is not None and key != "verbose"
+    }
+
+    return resource_mapping
 
 
 # ---------------------------------------------------------------------------
@@ -234,37 +424,22 @@ def fuse_and_write(nodes, edges):
 def main():
 
     # Parse CLI arguments
-    asked = parse_arguments()
+    cli_parsed = parse_arguments()
+    logger.info(f"CLI arguments: {cli_parsed}")
 
-    # Configure logging settings
-    setup_logging(asked.verbose)
+    # Map the resources to be processed based on CLI arguments
+    resource_mapping = resources_to_process(cli_arguments=cli_parsed)
+    logger.info(f"Resources to process: {resource_mapping}")
 
-    # Current graph data (empty in this point)
-    nodes, edges = [], []
-
-    print(asked)
-
-    if asked.networks:
-
-        print(asked.networks)
-
-        # Extract nodes and edges from the TSV file
-        if asked.networks == "download":
-            path_networks = download_resources(url_resource=URL_OMNIPATH_NETWORKS_LATEST)
-            extracted_nodes, extracted_edges = extract_networks(path_networks[0])
-        else:
-            extracted_nodes, extracted_edges = extract_networks(asked.networks)
-
-        nodes += extracted_nodes
-        edges += extracted_edges
-        logging.info(f"\nInfo Networks: {len(nodes)} nodes, {len(edges)} edges.")
-
-        import_file = fuse_and_write(nodes, edges)
-        print("Fuse end")
+    # Process the resources (ELT)
+    for resource_name, argument_resource in resource_mapping.items():
+        process_resource(resource_name, argument_resource)
 
 
 if __name__ == "__main__":
     main()
 
 
-# Example profiling:  poetry run python -m cProfile -s time weave_knowledge_graph.py -net ./data_testing/networks/subset_interactions_edgecases.tsv
+# Example profiling:  poetry run python -m cProfile -s time weave_knowledge_graph_backup.py -net ./data_testing/networks/subset_interactions_edgecases.tsv
+# Example execution:  poetry run python weave_knowledge_graph_backup.py -net ./data_testing/networks/subset_interactions_edgecases.tsv
+# Example profiling:  poetry run python -m cProfile -s time weave_knowledge_graph_backup.py -net /home/egcarren/WorkspaceEdwin/e-Repositories/a-ecarrenolozano/omnipath-secondary-adapter/data/subset_networks_10000.tsv

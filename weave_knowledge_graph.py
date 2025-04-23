@@ -83,6 +83,7 @@ if __name__ == "__main__":
         logging.info(f"Weave Omnipath networks data...")
 
         networks_df = pd.read_csv(asked.networks[0], sep="\t")
+        print(networks_df.info())
 
         mapping_file = "./omnipath_secondary_adapter/adapters/networks.yaml"
         with open(mapping_file) as fd:
@@ -107,7 +108,7 @@ if __name__ == "__main__":
         edges,
         "config/biocypher_config.yaml",
         "config/schema_config.yaml",
-        separator=", "
+        separator=", ",
     )
 
 

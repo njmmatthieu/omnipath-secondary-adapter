@@ -10,7 +10,7 @@ from ontoweaver.exceptions import DataValidationError
 
 # ----------------------------------------   CONSTANTS    -------------------------------------
 SCHEMA_FILE = "config/schema_config.yaml"
-ONTOWEAVER_SCHEMA_FILES = ["networks.yaml"]
+ONTOWEAVER_MAPPING_FILES = ["networks.yaml"]
 
 BIOCYPHER_OUTPUT_FOLDER = "./biocypher-out"
 
@@ -155,7 +155,7 @@ def test_biocypher_schema_exists():
 def test_ontoweaver_schemas_exists():
     adapter_path = os.path.join("omnipath_secondary_adapter", "adapters")
 
-    for schema in ONTOWEAVER_SCHEMA_FILES:
+    for schema in ONTOWEAVER_MAPPING_FILES:
         schema_path = os.path.join(adapter_path, schema)
         assert check_file_exists_and_not_empty(schema_path)
 
@@ -224,7 +224,7 @@ def test_number_nodes():
 # TODO: verify header in the CSV related to relationships
 def test_csv_header_edges():
 
-    # Extract node properties as header
+    # Extract edge properties as header
     expected_header = extract_edge_properties(
         schema_file=SCHEMA_FILE,
         edge_type="protein protein interaction",
@@ -298,7 +298,14 @@ def test_missing_target():
     ), f"Expected 'DataValidationError' in stderr, but got: {excinfo.value.stderr}"
 
 
-# TODO: verify properties are case sensitive, and none of those properties are discarded
-
-
 # TODO: verify the Neo4 script runs normally
+# def test_neo4j_script():
+#     # Read header from current file from last folder generated
+#     last_folder = open_latest_folder(BIOCYPHER_OUTPUT_FOLDER)
+#     script_name = "neo4j-admin-import-call.sh"
+
+#     script_path = os.path.join(last_folder, script_name)
+
+#     result = subprocess.run([script_path], capture_output=True, text=True)
+
+#     assert result.returncode == 0, f"Script failed with return code {result.returncode}"
