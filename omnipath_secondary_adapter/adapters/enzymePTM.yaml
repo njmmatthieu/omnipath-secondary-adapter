@@ -1,0 +1,70 @@
+row:
+    map:
+        column: enzyme # column name in the datafrane
+        to_subject: enzyme # give name to the node type in the KG
+        final_type: protein
+
+transformers:
+    - map:
+        column: substrate
+        to_object: substrate
+        final_type: protein
+        via_relation: protein_protein_interaction
+    # ----------    Properties for NODES    ----------
+    # Properties of the node type 'enzyme'
+    - map:
+        column: enzyme # column name of the property to extract
+        to_property: uniprot_id # give name of the property
+        for_object: enzyme # node type | label to which the property will be linked 
+    - map:
+        column: enzyme_genesymbol 
+        to_property: genesymbol
+        for_object: enzyme
+    - map:
+        column: ncbi_tax_id 
+        to_property: ncbi_tax_id 
+        for_object: enzyme
+    # Properties of for the node type 'substrate'
+    - map:
+        column: substrate 
+        to_property: uniprot_id
+        for_object: substrate
+    - map:
+        column: substrate_genesymbol 
+        to_property: genesymbol
+        for_object: substrate
+    - map:
+        column: ncbi_tax_id
+        to_property: ncbi_tax_id
+        for_object: substrate
+
+    # ----------    Properties for EDGES    ----------
+    # Properties for the edge type 'protein_protein_interaction'
+    - map:
+        column: modification
+        to_property: modification
+        for_object: protein_protein_interaction
+    - map:
+        column: residue_type
+        to_property: residue_type
+        for_object: protein_protein_interaction
+    - map:
+        column: residue_offset
+        to_property: residue_offset
+        for_object: protein_protein_interaction
+    - map:
+        column: isoforms
+        to_property: isoforms
+        for_object: protein_protein_interaction
+    - map:
+        column: sources
+        to_property: sources
+        for_object: protein_protein_interaction
+    - map:
+        column: references
+        to_property: references
+        for_object: protein_protein_interaction
+    - map:
+        column: curation_effort
+        to_property: curation_effort
+        for_object: protein_protein_interaction

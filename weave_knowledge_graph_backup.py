@@ -43,7 +43,10 @@ from biocypher._get import (
     FileDownload,
 )
 
-from omnipath_secondary_adapter.models import NetworksPanderaModel
+from omnipath_secondary_adapter.models import (
+    NetworksPanderaModel,
+    EnzymePTMPanderaModel,
+)
 
 # ----------------------    CONSTANTS    ----------------------
 CACHE_DATA_PATH = "./data"
@@ -51,22 +54,30 @@ CACHE_DATA_PATH = "./data"
 URLS_OMNIPATH = {
     "annotations": "https://archive.omnipathdb.org/omnipath_webservice_annotations__latest.tsv.gz",
     "complexes": "https://archive.omnipathdb.org/omnipath_webservice_complexes__latest.tsv.gz",
-    "enz_PTM": "https://archive.omnipathdb.org/omnipath_webservice_enz_sub__latest.tsv.gz",
+    "enzyme_PTM": "https://archive.omnipathdb.org/omnipath_webservice_enz_sub__latest.tsv.gz",
     "intercell": "https://archive.omnipathdb.org/omnipath_webservice_intercell__latest.tsv.gz",
     "networks": "https://archive.omnipathdb.org/omnipath_webservice_interactions__latest.tsv.gz",
 }
 
 PANDERA_SCHEMAS = {
     "networks": NetworksPanderaModel,
+    "enzyme_PTM": EnzymePTMPanderaModel,
 }
 
 ONTOWEAVER_MAPPING_FILES = {
-    "networks": "./omnipath_secondary_adapter/adapters/networks.yaml"
+    "networks": "./omnipath_secondary_adapter/adapters/networks.yaml",
+    "enzyme_PTM": "./omnipath_secondary_adapter/adapters/enzymePTM.yaml",
 }
 
+BIOCYPHER_CONFIG_PATHS = {
+    "networks": "config/biocypher_config.yaml",
+    "enzyme_PTM": "config/biocypher_config_enzymePTM.yaml",
+}
 
-BIOCYPHER_CONFIG_PATH = "config/biocypher_config.yaml"
-SCHEMA_PATH = "config/schema_config.yaml"
+BIOCYPHER_SCHEMA_PATHS = {
+    "networks": "config/schema_config.yaml",
+    "enzyme_PTM": "config/schema_config_enzymePTM.yaml",
+}
 
 
 logger = logging.getLogger("biocypher")
@@ -354,14 +365,18 @@ def extract_nodes_edges_ontoweaver(resource_name: str, dataframe_resource: pd.Da
     return nodes, edges
 
 
-def fuse_and_write(nodes, edges):
+def fuse_and_write(nodes, edges, resource_name):
     """Fuse duplicated nodes and edges and write the output."""
     logger.info("Fuse step starting...")
+
+    schema_path = BIOCYPHER_SCHEMA_PATHS.get(resource_name)
+    biocypher_config_path = BIOCYPHER_CONFIG_PATHS.get(resource_name)
+
     import_file = ontoweaver.reconciliate_write(
         nodes=nodes,
         edges=edges,
-        biocypher_config_path=BIOCYPHER_CONFIG_PATH,
-        schema_path=SCHEMA_PATH,
+        biocypher_config_path=biocypher_config_path,
+        schema_path=schema_path,
         separator=", ",
     )
     logger.info("Fuse step end.")
@@ -388,7 +403,7 @@ def process_resource(resource_name: str, argument_resource: str):
     logger.info("=  STEP: Loading  =")
     logger.info("===================")
     dataframe = load_dataframe(path_resource, resource_name=resource_name)
-    validate_schema(dataframe, resource_name, enable_validation=False)
+    validate_schema(dataframe, resource_name, enable_validation=True)
 
     # TRANSFORMATION
     # -- Filtering information
@@ -404,7 +419,7 @@ def process_resource(resource_name: str, argument_resource: str):
     )
 
     # -- Fuse nodes, edges and write script for importing to Neo4j
-    import_file = fuse_and_write(nodes, edges)
+    import_file = fuse_and_write(nodes, edges, resource_name)
     logger.info(f"Processed {resource_name}: {len(nodes)} nodes, {len(edges)} edges.")
 
 
@@ -440,6 +455,8 @@ if __name__ == "__main__":
     main()
 
 
-# Example profiling:  poetry run python -m cProfile -s time weave_knowledge_graph_backup.py -net ./data_testing/networks/subset_interactions_edgecases.tsv
-# Example execution:  poetry run python weave_knowledge_graph_backup.py -net ./data_testing/networks/subset_interactions_edgecases.tsv
-# Example profiling:  poetry run python -m cProfile -s time weave_knowledge_graph_backup.py -net /home/egcarren/WorkspaceEdwin/e-Repositories/a-ecarrenolozano/omnipath-secondary-adapter/data/subset_networks_10000.tsv
+# Examples for execute:
+# poetry run python weave_knowledge_graph_backup.py -net download
+# poetry run python weave_knowledge_graph_backup.py -net ./data_testing/networks/subset_interactions_edgecases.tsv
+# poetry run python -m cProfile -s time weave_knowledge_graph_backup.py -net ./data_testing/networks/subset_interactions_edgecases.tsv > profile_.txt
+# poetry run python -enz download

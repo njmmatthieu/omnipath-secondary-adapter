@@ -1,0 +1,47 @@
+# add your desired knowledge graph components here
+# Authors:  Matthieu Najm - Edwin Carreño
+
+#--- Ontology: BioLink
+
+
+#--------------------  Information about Nodes
+protein:
+    represented_as: node
+    input_label: protein # final_type node type
+    properties:
+        uniprot_id: str
+        genesymbol: str
+        ncbi_tax_id: int
+
+enzyme:
+    is_a: protein
+    represented_as: node
+    input_label: enzyme # temporary node type
+    properties:
+        uniprot_id: str
+        genesymbol: str
+        ncbi_tax_id: int
+
+substrate:
+    is_a: protein
+    represented_as: node
+    input_label: substrate # temporary node type
+    properties:
+        uniprot_id: str
+        genesymbol: str
+        ncbi_tax_id: int
+
+
+#--------------------  Information about Edges
+protein protein interaction:
+    is_a: pairwise molecular interaction
+    represented_as: edge
+    input_label: protein_protein_interaction
+    properties:
+        modification: str
+        residue_type: str
+        residue_offset: str
+        isoforms: str
+        sources: str
+        references: str
+        curation_effort: str
