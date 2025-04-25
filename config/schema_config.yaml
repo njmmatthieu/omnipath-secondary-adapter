@@ -11,7 +11,7 @@ source:
     input_label: source_protein # temporary node type
     properties:
         genesymbol: str
-        ncbi_tax_id: int
+        ncbi_tax_id: str
         entity_type: str
 
 target:
@@ -20,7 +20,7 @@ target:
     input_label: target_protein # temporary node type
     properties:
         genesymbol: str
-        ncbi_tax_id: int
+        ncbi_tax_id: str
         entity_type: str
 
 protein:
@@ -28,7 +28,7 @@ protein:
     input_label: protein # final_type node type
     properties:
         genesymbol: str
-        ncbi_tax_id: int
+        ncbi_tax_id: str
         entity_type: str
 
 
@@ -62,7 +62,7 @@ post translational:
         dorothea_coexp: bool
         dorothea_level: str
         type: str
-        curation_effort: int
+        curation_effort: str
         extra_attrs: str
         evidences: str
 
