@@ -6,10 +6,33 @@ row:
 
 transformers:
     - map:
-        column: target
-        to_object: target_protein
+        id_from_column: target
+        match_type_from_column: type
         final_type: protein
-        via_relation: protein_protein_interaction
+        match:
+            - post_translational:
+                to_object: target_protein
+                # final_type: protein
+                via_relation: post_translational
+            - transcriptional:
+                to_object: target_protein
+                # final_type: protein
+                via_relation: transcriptional
+            - post_transcriptional:
+                to_object: target_protein
+                # final_type: protein
+                via_relation: post_transcriptional
+            - mirna_transcriptional:
+                to_object: target_protein
+                # final_type: protein
+                via_relation: mirna_transcriptional
+            - lncrna_post_transcriptional:
+                to_object: target_protein
+                # final_type: protein
+                via_relation: lncrna_post_transcriptional
+            - small_molecule_protein:
+                to_object: target_protein
+                via_relation: small_molecule_protein
     # Properties of for the node type 'source'
     - map:
         column: source_genesymbol # column name of the property to extract
@@ -40,113 +63,279 @@ transformers:
     - map:
         column: is_directed
         to_property: is_directed
-        for_object: protein_protein_interaction
+        for_objects: 
+            - post_translational
+            - transcriptional
+            - post_transcriptional
+            - mirna_transcriptional
+            - lncrna_post_transcriptional
+            - small_molecule_protein
     - map:
         column: is_stimulation
         to_property: is_stimulation
-        for_object: protein_protein_interaction
+        for_objects: 
+            - post_translational
+            - transcriptional
+            - post_transcriptional
+            - mirna_transcriptional
+            - lncrna_post_transcriptional
+            - small_molecule_protein
     - map:
         column: is_inhibition
         to_property: is_inhibition
-        for_object: protein_protein_interaction
+        for_objects:  
+            - post_translational
+            - transcriptional
+            - post_transcriptional
+            - mirna_transcriptional
+            - lncrna_post_transcriptional
+            - small_molecule_protein
     - map:
         column: consensus_direction
         to_property: consensus_direction
-        for_object: protein_protein_interaction
+        for_objects:  
+            - post_translational
+            - transcriptional
+            - post_transcriptional
+            - mirna_transcriptional
+            - lncrna_post_transcriptional
+            - small_molecule_protein
     - map:
         column: consensus_stimulation
         to_property: consensus_stimulation
-        for_object: protein_protein_interaction
+        for_objects:   
+            - post_translational
+            - transcriptional
+            - post_transcriptional
+            - mirna_transcriptional
+            - lncrna_post_transcriptional
+            - small_molecule_protein
     - map:
         column: consensus_inhibition
         to_property: consensus_inhibition
-        for_object: protein_protein_interaction
+        for_objects:   
+            - post_translational
+            - transcriptional
+            - post_transcriptional
+            - mirna_transcriptional
+            - lncrna_post_transcriptional
+            - small_molecule_protein
     - map:
         column: sources
         to_property: sources
-        for_object: protein_protein_interaction
+        for_objects:   
+            - post_translational
+            - transcriptional
+            - post_transcriptional
+            - mirna_transcriptional
+            - lncrna_post_transcriptional
+            - small_molecule_protein
     - map:
         column: references
         to_property: references
-        for_object: protein_protein_interaction
+        for_objects:   
+            - post_translational
+            - transcriptional
+            - post_transcriptional
+            - mirna_transcriptional
+            - lncrna_post_transcriptional
+            - small_molecule_protein
     - map:
         column: omnipath
         to_property: omnipath
-        for_object: protein_protein_interaction
+        for_objects:   
+            - post_translational
+            - transcriptional
+            - post_transcriptional
+            - mirna_transcriptional
+            - lncrna_post_transcriptional
+            - small_molecule_protein
     - map:
         column: kinaseextra
         to_property: kinaseextra
-        for_object: protein_protein_interaction
+        for_objects:   
+            - post_translational
+            - transcriptional
+            - post_transcriptional
+            - mirna_transcriptional
+            - lncrna_post_transcriptional
+            - small_molecule_protein
     - map:
         column: ligrecextra
         to_property: ligrecextra
-        for_object: protein_protein_interaction
+        for_objects:   
+            - post_translational
+            - transcriptional
+            - post_transcriptional
+            - mirna_transcriptional
+            - lncrna_post_transcriptional
+            - small_molecule_protein
     - map:
         column: pathwayextra
         to_property: pathwayextra
-        for_object: protein_protein_interaction
+        for_objects:   
+            - post_translational
+            - transcriptional
+            - post_transcriptional
+            - mirna_transcriptional
+            - lncrna_post_transcriptional
+            - small_molecule_protein
     - map:
         column: mirnatarget
         to_property: mirnatarget
-        for_object: protein_protein_interaction
-    - map:
+        for_objects:   
+            - post_translational
+            - transcriptional
+            - post_transcriptional
+            - mirna_transcriptional
+            - lncrna_post_transcriptional
+            - small_molecule_protein
         column: dorothea
         to_property: dorothea
-        for_object: protein_protein_interaction
+        for_objects:   
+            - post_translational
+            - transcriptional
+            - post_transcriptional
+            - mirna_transcriptional
+            - lncrna_post_transcriptional
+            - small_molecule_protein
     - map:
         column: collectri
         to_property: collectri
-        for_object: protein_protein_interaction
+        for_objects:   
+            - post_translational
+            - transcriptional
+            - post_transcriptional
+            - mirna_transcriptional
+            - lncrna_post_transcriptional
+            - small_molecule_protein
     - map:
         column: tf_target
         to_property: tf_target
-        for_object: protein_protein_interaction
+        for_objects:   
+            - post_translational
+            - transcriptional
+            - post_transcriptional
+            - mirna_transcriptional
+            - lncrna_post_transcriptional
+            - small_molecule_protein
     - map:
         column: lncrna_mrna
         to_property: lncrna_mrna
-        for_object: protein_protein_interaction
+        for_objects:   
+            - post_translational
+            - transcriptional
+            - post_transcriptional
+            - mirna_transcriptional
+            - lncrna_post_transcriptional
+            - small_molecule_protein
     - map:
         column: tf_mirna
         to_property: tf_mirna
-        for_object: protein_protein_interaction
+        for_objects:   
+            - post_translational
+            - transcriptional
+            - post_transcriptional
+            - mirna_transcriptional
+            - lncrna_post_transcriptional
+            - small_molecule_protein
     - map:
         column: small_molecule
         to_property: small_molecule
-        for_object: protein_protein_interaction
+        for_objects:   
+            - post_translational
+            - transcriptional
+            - post_transcriptional
+            - mirna_transcriptional
+            - lncrna_post_transcriptional
+            - small_molecule_protein
     - map:
         column: dorothea_curated
         to_property: dorothea_curated
-        for_object: protein_protein_interaction
+        for_objects:   
+            - post_translational
+            - transcriptional
+            - post_transcriptional
+            - mirna_transcriptional
+            - lncrna_post_transcriptional
+            - small_molecule_protein
     - map:
         column: dorothea_chipseq
         to_property: dorothea_chipseq
-        for_object: protein_protein_interaction
+        for_objects:   
+            - post_translational
+            - transcriptional
+            - post_transcriptional
+            - mirna_transcriptional
+            - lncrna_post_transcriptional
+            - small_molecule_protein
     - map:
         column: dorothea_tfbs
         to_property: dorothea_tfbs
-        for_object: protein_protein_interaction
+        for_objects:   
+            - post_translational
+            - transcriptional
+            - post_transcriptional
+            - mirna_transcriptional
+            - lncrna_post_transcriptional
+            - small_molecule_protein
     - map:
         column: dorothea_coexp
         to_property: dorothea_coexp
-        for_object: protein_protein_interaction
+        for_objects:   
+            - post_translational
+            - transcriptional
+            - post_transcriptional
+            - mirna_transcriptional
+            - lncrna_post_transcriptional
+            - small_molecule_protein
     - map:
         column: dorothea_level
         to_property: dorothea_level
-        for_object: protein_protein_interaction
+        for_objects:   
+            - post_translational
+            - transcriptional
+            - post_transcriptional
+            - mirna_transcriptional
+            - lncrna_post_transcriptional
+            - small_molecule_protein
     - map:
         column: type
         to_property: type
-        for_object: protein_protein_interaction
+        for_objects:   
+            - post_translational
+            - transcriptional
+            - post_transcriptional
+            - mirna_transcriptional
+            - lncrna_post_transcriptional
+            - small_molecule_protein
     - map:
         column: curation_effort
         to_property: curation_effort
-        for_object: protein_protein_interaction
+        for_objects:   
+            - post_translational
+            - transcriptional
+            - post_transcriptional
+            - mirna_transcriptional
+            - lncrna_post_transcriptional
+            - small_molecule_protein
     - map:
         column: extra_attrs
         to_property: extra_attrs
-        for_object: protein_protein_interaction
+        for_objects:   
+            - post_translational
+            - transcriptional
+            - post_transcriptional
+            - mirna_transcriptional
+            - lncrna_post_transcriptional
+            - small_molecule_protein
     - map:
         column: evidences
         to_property: evidences
-        for_object: protein_protein_interaction
-    
+        for_objects:   
+            - post_translational
+            - transcriptional
+            - post_transcriptional
+            - mirna_transcriptional
+            - lncrna_post_transcriptional
+            - small_molecule_protein
