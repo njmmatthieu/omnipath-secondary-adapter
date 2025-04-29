@@ -31,6 +31,23 @@ protein:
         ncbi_tax_id: str
         entity_type: str
 
+complex:
+    is_a: molecular mixture
+    represented_as: node
+    input_label: complex # final_type node type
+    properties:
+        complex_genesymbol: str
+        ncbi_tax_id: str
+        # entity_type: str
+
+small molecule:
+    is_a: molecular mixture
+    represented_as: node
+    input_label: small_moelcule
+    properties:
+        name: str
+        ncbi_tax_id: str
+        # entity_type: str
 
 #--------------------  Information about Edges
 post translational:
