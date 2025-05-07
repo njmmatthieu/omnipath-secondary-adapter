@@ -71,12 +71,12 @@ We have built a ready-to-use script that downloads the resources from Omnipath, 
 
 ### *Networks*
 ```bash
-poetry run python weave_knowledge_graph_backup.py -net download
+poetry run python weave_knowledge_graph.py -net download
 ```
 
 ### *Enzyme-PTM*
 ```bash
-poetry run python weave_knowledge_graph_backup.py -enz download
+poetry run python weave_knowledge_graph.py -enz download
 ``` 
 
 4. Once the script has processed the data, you can verify a folder has been generated in `biocypher-out`. It contains the following:

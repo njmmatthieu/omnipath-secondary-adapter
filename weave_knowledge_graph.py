@@ -456,7 +456,8 @@ if __name__ == "__main__":
 
 
 # Examples for execute:
-# poetry run python weave_knowledge_graph_backup.py -net download
-# poetry run python weave_knowledge_graph_backup.py -net ./data_testing/networks/subset_interactions_edgecases.tsv
-# poetry run python -m cProfile -s time weave_knowledge_graph_backup.py -net ./data_testing/networks/subset_interactions_edgecases.tsv > profile_.txt
-# poetry run python -enz download
+# poetry run python weave_knowledge_graph.py -net download
+# poetry run python weave_knowledge_graph.py -net ./data_testing/networks/subset_interactions_edgecases.tsv
+# poetry run python -m cProfile -s time weave_knowledge_graph.py -net ./data_testing/networks/subset_interactions_edgecases.tsv > profile_.txt
+
+# poetry run python weave_knowledge_graph.py -enz download
