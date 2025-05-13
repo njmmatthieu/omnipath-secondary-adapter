@@ -86,17 +86,13 @@ poetry run python weave_knowledge_graph.py -enz download
   - ```*-header.csv```: indicate the node/edge properties fields
   - ```*-part000.csv, *-part001.csv,...```: store nodes/edges data based on the structure indicated in the ```*-header.csv``` files.
 
-5. Ensure the script points to the Neo4j binary path. To do so, open the script: it should looks like this:
-
-![](./docs_adapter/img/script-edit-binary.png)
-
-6. Populate the neo4j database, adapt the script path:
+5. Populate the neo4j database, adapt the script path:
 ```bash
 sudo neo4j stop
 sudo bash biocypher-out/20250430155445/neo4j-admin-import-call.sh
 sudo neo4j start
 ```
 
-7. Open the Neo4j platform on http://localhost:7474
-8. At the end, you have you Knowledge Graph! 🎉 Congratulations!
+6. Open the Neo4j platform on http://localhost:7474
+7. At the end, you have you Knowledge Graph! 🎉 Congratulations!
 ![](./docs_adapter/img/example-neo4j-vis.png)
