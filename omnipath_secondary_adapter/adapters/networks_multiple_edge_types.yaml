@@ -1,8 +1,13 @@
 row:
     map:
-        column: source # column name in the datafrane
-        to_subject: source_protein # give name to the node type in the KG
-        final_type: protein
+        id_from_column: source
+        match_type_from_column: type
+        match:
+        - ^(?!small_molecule_protein$).*: 
+            to_subject: source_protein
+            final_type: protein
+        - small_molecule_protein:
+            to_subject: drug
 
 transformers:
     - map:
@@ -12,23 +17,18 @@ transformers:
         match:
             - post_translational:
                 to_object: target_protein
-                # final_type: protein
                 via_relation: post_translational
             - transcriptional:
                 to_object: target_protein
-                # final_type: protein
                 via_relation: transcriptional
             - post_transcriptional:
                 to_object: target_protein
-                # final_type: protein
                 via_relation: post_transcriptional
             - mirna_transcriptional:
                 to_object: target_protein
-                # final_type: protein
                 via_relation: mirna_transcriptional
             - lncrna_post_transcriptional:
                 to_object: target_protein
-                # final_type: protein
                 via_relation: lncrna_post_transcriptional
             - small_molecule_protein:
                 to_object: target_protein

@@ -65,7 +65,7 @@ PANDERA_SCHEMAS = {
 }
 
 ONTOWEAVER_MAPPING_FILES = {
-    "networks": "./omnipath_secondary_adapter/adapters/networks.yaml",
+    "networks": "./omnipath_secondary_adapter/adapters/networks_single_edge_type.yaml",
     "enzyme_PTM": "./omnipath_secondary_adapter/adapters/enzymePTM.yaml",
 }
 
@@ -75,7 +75,7 @@ BIOCYPHER_CONFIG_PATHS = {
 }
 
 BIOCYPHER_SCHEMA_PATHS = {
-    "networks": "config/schema_config.yaml",
+    "networks": "config/single_edge_type_schema_config.yaml",
     "enzyme_PTM": "config/schema_config_enzymePTM.yaml",
 }
 

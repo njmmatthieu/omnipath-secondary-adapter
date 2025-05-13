@@ -22,13 +22,21 @@ WHERE r.is_stimulation = 1
 RETURN source, target
 
 /*
-QUERY 4: count the number of edges in the graph
+QUERY 4: count the number of edges in the graph per type of edges, and order the results by the number of edges in descending order.
+*/
+
+MATCH ()-[r]->()
+RETURN type(r) AS edgeType, COUNT(r) AS edgeCount
+ORDER BY edgeCount DESC
+
+/*
+QUERY 5: count the number of edges in the graph
 */
 MATCH ()-[r]->()
 RETURN COUNT(r) as total_edges
 
 /*
-QUERY 5: count the number of edges in the graph, that don't have some databases as sources properties.
+QUERY 6: count the number of edges in the graph, that don't have some databases as sources properties.
 */
 WITH ['Wang', 'SPIKE', 'SPIKE_LC'] AS forbiddenSources
 MATCH ()-[r]->()
@@ -37,7 +45,7 @@ WHERE NONE(source IN sourcesArray WHERE source IN forbiddenSources)
 RETURN COUNT(r) AS count
 
 /*
-QUERY 6: count the number of edges in the graph, with more than 3 different sources as properties.
+QUERY 7: count the number of edges in the graph, with more than 3 different sources as properties.
 */
 WITH ['Wang', 'SPIKE', 'SPIKE_LC'] AS forbiddenSources
 MATCH ()-[r]->()

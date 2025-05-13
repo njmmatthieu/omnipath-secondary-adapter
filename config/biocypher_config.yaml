@@ -16,4 +16,4 @@ neo4j:
   array_delimiter: "|"
   skip_duplicate_nodes: true
   skip_bad_relationships: true
-  import_call_bin_prefix: /bin/  # path to "neo4j-admin"
+  import_call_bin_prefix: ""  # path to "neo4j-admin"

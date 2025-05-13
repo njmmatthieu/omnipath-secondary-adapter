@@ -31,6 +31,7 @@ protein:
         ncbi_tax_id: str
         entity_type: str
 
+<<<<<<< Updated upstream
 complex:
     is_a: molecular mixture
     represented_as: node
@@ -43,11 +44,18 @@ complex:
 small molecule:
     is_a: molecular mixture
     represented_as: node
-    input_label: small_moelcule
+    input_label: small_molecule
     properties:
         name: str
+=======
+drug:
+    represented_as: node
+    input_label: drug
+    properties:
+        genesymbol: str
+>>>>>>> Stashed changes
         ncbi_tax_id: str
-        # entity_type: str
+        entity_type: str
 
 #--------------------  Information about Edges
 post translational:
