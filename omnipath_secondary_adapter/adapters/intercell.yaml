@@ -1,8 +1,7 @@
 row:
     map:
         column: uniprot # column name in the dataframe
-        to_subject: named_thing # give name to the node type in the KG
-        #final_type: named_thing
+        to_subject: biological_entity # give name to the node type in the KG
 transformers:
     - map:
         column: category
@@ -17,35 +16,35 @@ transformers:
         via_relation: subclass_of
 
     # ----------    Properties for NODES    ----------
-    # Properties of the node type 'named_thing'
+    # Properties of the node type 'biological_entity'
     - map:
         column: entity_type 
         to_property: entity_type
-        for_object: named_thing
+        for_object: biological_entity
     - map:
         column: genesymbol # column name of the property to extract
         to_property: genesymbol # give name of the property
-        for_object: named_thing # node type | label to which the property will be linked 
+        for_object: biological_entity # node type | label to which the property will be linked 
     - map:
         column: plasma_membrane_peripheral
         to_property: plasma_membrane_peripheral
-        for_object: named_thing
+        for_object: biological_entity
     - map:
         column: plasma_membrane_transmembrane
         to_property: plasma_membrane_transmembrane 
-        for_object: named_thing
+        for_object: biological_entity
     - map:
         column: receiver
         to_property: receiver
-        for_object: named_thing
+        for_object: biological_entity
     - map:
         column: secreted
         to_property: secreted
-        for_object: named_thing
+        for_object: biological_entity
     - map:
         column: transmitter
         to_property: transmitter
-        for_object: named_thing
+        for_object: biological_entity
     # Properties of for the node type 'category'
 
     # Properties of for the node type 'parent'
