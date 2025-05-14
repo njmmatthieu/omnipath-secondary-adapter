@@ -133,10 +133,11 @@ transformers:
     - map:
         column: mirnatarget
         to_property: mirnatarget
-        for_object: pairwise_molecular_interaction 
+        for_object: pairwise_molecular_interaction
+    - map:
         column: dorothea
         to_property: dorothea
-        for_object: pairwise_molecular_interaction 
+        for_object: pairwise_molecular_interaction
     - map:
         column: collectri
         to_property: collectri
