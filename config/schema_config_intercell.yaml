@@ -3,9 +3,9 @@
 
 #--- Ontology: BioLink
 #--------------------  Information about Nodes
-named thing:
+biological entity:
     represented_as: node
-    input_label: named_thing # temporary node type
+    input_label: biological_entity # temporary node type
     properties:
         entity_type: str
         genesymbol: str
@@ -16,17 +16,17 @@ named thing:
         transmitter: str
 
 child category:
-    is_a: biological entity     
+    is_a: entity     
     represented_as: node
     input_label: child_category # temporary node type
 
 parent category:
-    is_a: biological entity     
+    is_a: entity    
     represented_as: node
     input_label: parent_category # temporary node type
 
 category:
-    is_a: biological entity     
+    is_a: entity     
     represented_as: node
     input_label: category # temporary node type
 
