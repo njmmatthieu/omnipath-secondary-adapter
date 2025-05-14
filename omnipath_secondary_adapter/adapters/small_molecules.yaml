@@ -22,16 +22,18 @@ transformers:
             - complex:
                 to_object: complex
                 via_relation: small_molecule_protein
-    - map:
-        id_from_column: source_genesymbol # column name in the datafrane
-        match_type_from_column: entity_type_source
-        match:
-            - small_molecule:
-                to_property: name
-                for_object: small_molecule
-            - protein:
-                to_property: genesymbol
-                for_object: protein
+
+#FIXME: To_property mappings cannot be used in the same way with the `match` keyword (yet).
+#    - map:
+#        id_from_column: source_genesymbol # column name in the datafrane
+#        match_type_from_column: entity_type_source
+#        match:
+#            - small_molecule:
+#                to_property: name
+#                for_object: small_molecule
+#            - protein:
+#                to_property: genesymbol
+#                for_object: protein
     # - map:
     #     id_from_column: ncbi_tax_id_source # column name in the datafrane
     #     match_type_from_column: entity_type_source
