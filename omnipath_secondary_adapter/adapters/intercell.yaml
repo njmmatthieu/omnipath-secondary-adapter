@@ -1,0 +1,69 @@
+row:
+    map:
+        column: uniprot # column name in the datafrane
+        to_subject: named_thing # give name to the node type in the KG
+        final_type: entity
+
+transformers:
+    - map:
+        column: category
+        to_object: category
+        final_type: category
+        via_relation: located_in 
+
+
+
+
+    # ----------    Properties for NODES    ----------
+    # Properties of the node type 'named_thing'
+    - map:
+        column: genesymbol # column name of the property to extract
+        to_property: name # give name of the property
+        for_object: named_thing # node type | label to which the property will be linked 
+    - map:
+        column: entity_type 
+        to_property: entity_type
+        for_object: named_thing
+    - map:
+        column: plasma_membrane_transmembrane
+        to_property: plasma_membrane_transmembrane 
+        for_object: named_thing
+    - map:
+        column: plasma_membrane_peripheral
+        to_property: plasma_membrane_peripheral
+        for_object: named_thing
+    - map:
+        column: transmitter
+        to_property: transmitter
+        for_object: named_thing
+    - map:
+        column: receiver
+        to_property: receiver
+        for_object: named_thing
+    - map:
+        column: secreted
+        to_property: secreted
+        for_object: named_thing
+    # Properties of for the node type 'category'
+
+    # Properties of for the node type 'parent'
+
+
+    # ----------    Properties for EDGES    ----------
+    # Properties for the edge type 'located_in'
+    - map:
+        column: aspect
+        to_property: aspect
+        for_object: located_in
+    - map:
+        column: scope
+        to_property: scope
+        for_object: located_in
+    - map:
+        column: consensus_score
+        to_property: consensus_score
+        for_object: located_in
+    - map:
+        column: database
+        to_property: database
+        for_object: located_in
