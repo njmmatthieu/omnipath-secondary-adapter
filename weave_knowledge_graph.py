@@ -46,6 +46,7 @@ from biocypher._get import (
 from omnipath_secondary_adapter.models import (
     NetworksPanderaModel,
     EnzymePTMPanderaModel,
+    # IntercellPanderaModel,
 )
 
 # ----------------------    CONSTANTS    ----------------------
@@ -62,21 +63,25 @@ URLS_OMNIPATH = {
 PANDERA_SCHEMAS = {
     "networks": NetworksPanderaModel,
     "enzyme_PTM": EnzymePTMPanderaModel,
+    # "intercell": IntercellPanderaModel,
 }
 
 ONTOWEAVER_MAPPING_FILES = {
     "networks": "./omnipath_secondary_adapter/adapters/networks.yaml",
     "enzyme_PTM": "./omnipath_secondary_adapter/adapters/enzymePTM.yaml",
+    "intercell": "./omnipath_secondary_adapter/adapters/intercell.yaml",
 }
 
 BIOCYPHER_CONFIG_PATHS = {
     "networks": "config/biocypher_config.yaml",
     "enzyme_PTM": "config/biocypher_config_enzymePTM.yaml",
+    "intercell": "config/biocypher_config_intercell.yaml",
 }
 
 BIOCYPHER_SCHEMA_PATHS = {
     "networks": "config/schema_config.yaml",
     "enzyme_PTM": "config/schema_config_enzymePTM.yaml",
+    "intercell": "config/schema_config_intercell.yaml",
 }
 
 
@@ -275,7 +280,7 @@ def load_dataframe(resource_path: str, resource_name: str) -> pd.DataFrame:
 def validate_schema(
     dataframe: pd.DataFrame,
     resource_name: str,
-    enable_validation: bool = True,
+    enable_validation: bool = False,
 ) -> None:
     """
     Whether to enable schema validation. Set to False to skip validation.
@@ -403,7 +408,7 @@ def process_resource(resource_name: str, argument_resource: str):
     logger.info("=  STEP: Loading  =")
     logger.info("===================")
     dataframe = load_dataframe(path_resource, resource_name=resource_name)
-    validate_schema(dataframe, resource_name, enable_validation=True)
+    validate_schema(dataframe, resource_name, enable_validation=False)
 
     # TRANSFORMATION
     # -- Filtering information

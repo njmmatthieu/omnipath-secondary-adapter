@@ -1,0 +1,47 @@
+# add your desired knowledge graph components here
+# Authors:  Matthieu Najm - Edwin Carreño
+
+#--- Ontology: BioLink
+#--------------------  Information about Nodes
+named thing:
+    represented_as: node
+    input_label: named_thing # temporary node type
+    properties:
+        entity_type: str
+        genesymbol: str
+        plasma_membrane_peripheral: str
+        plasma_membrane_transmembrane: str
+        receiver: str
+        secreted: str
+        transmitter: str
+
+child category:
+    is_a: biological entity     
+    represented_as: node
+    input_label: child_category # temporary node type
+
+parent category:
+    is_a: biological entity     
+    represented_as: node
+    input_label: parent_category # temporary node type
+
+category:
+    is_a: biological entity     
+    represented_as: node
+    input_label: category # temporary node type
+
+#--------------------  Information about Edges
+located in:
+    is_a: related to
+    represented_as: edge
+    input_label: located_in
+    properties:
+        aspect: str
+        consensus_score: int
+        database: str
+        scope: str
+        
+subclass of:
+    is_a: subclass_of
+    represented_as: edge
+    input_label: subclass_of
