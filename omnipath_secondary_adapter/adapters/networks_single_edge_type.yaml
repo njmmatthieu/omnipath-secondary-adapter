@@ -24,23 +24,23 @@ transformers:
         match_type_from_column: entity_type_target
         match:
         - complex:
-            to_subject: target_complex
+            to_object: target_complex
             final_type: macromolecular_complex
             via_relation: pairwise_molecular_interaction
         - lncrna:
-            to_subject: target_lncrna
+            to_object: target_lncrna
             final_type: lncrna
             via_relation: pairwise_molecular_interaction
         - mirna:
-            to_subject: target_mirna
+            to_object: target_mirna
             final_type: mirna
             via_relation: pairwise_molecular_interaction
         - protein:
-            to_subject: target_protein
+            to_object: target_protein
             final_type: protein
             via_relation: pairwise_molecular_interaction
         - small_molecule:
-            to_subject: target_small_molecule
+            to_object: target_small_molecule
             final_type: small_molecule
             via_relation: pairwise_molecular_interaction
     # Properties of for the node type 'source'
