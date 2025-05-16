@@ -1,0 +1,41 @@
+row:
+    rowIndex:
+        to_subject: macromolecular_complex
+
+transformers:
+    - split:
+        column: components
+        to_object: protein
+        separator: "_"
+        via_relation: macromolecular_complex_has_part_protein
+# ----------    Properties for NODES    ----------
+# Properties of the node type 'macromolecular_complex'
+    - map:
+        column: name
+        to_property: name
+        for_object: macromolecular_complex
+    - map:
+        column: components 
+        to_property: components
+        for_object: macromolecular_complex
+    - map:
+        column: components_genesymbols 
+        to_property: components_genesymbols
+        for_object: macromolecular_complex
+    - map:
+        column: stoichiometry 
+        to_property: stoichiometry
+        for_object: macromolecular_complex
+    - map:
+        column: sources 
+        to_property: sources
+        for_object: macromolecular_complex
+    - map:
+        column: references 
+        to_property: references
+        for_object: macromolecular_complex
+    - map:
+        column: identifiers 
+        to_property: identifiers
+        for_object: macromolecular_complex
+    
