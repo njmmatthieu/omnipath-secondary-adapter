@@ -1,0 +1,29 @@
+# add your desired knowledge graph components here
+# Authors:  Matthieu Najm - Edwin Carreño
+
+#--- Ontology: BioLink
+#--------------------  Information about Nodes
+protein:
+    represented_as: node
+    input_label: protein
+
+macromolecular complex:
+    # is_a: entity     
+    represented_as: node
+    input_label: macromolecular_complex
+    properties:
+        name: str
+        components: str
+        components_genesymbols: str
+        stoichiometry: str
+        sources: str
+        references: str
+        identifiers: str
+
+#--------------------  Information about Edges
+macromolecular complex has part protein:
+    is_a: has part
+    represented_as: edge
+    input_label: macromolecular_complex_has_part_protein
+    source: macromolecular complex
+    target: protein
