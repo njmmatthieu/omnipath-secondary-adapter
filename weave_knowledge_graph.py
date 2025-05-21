@@ -63,6 +63,7 @@ URLS_OMNIPATH = {
 }
 
 PANDERA_SCHEMAS = {
+    # "annotations": AnnotationsPanderaModel,
     # "complexes": ComplexesPanderaModel,
     "enzyme_PTM": EnzymePTMPanderaModel,
     # "intercell": IntercellPanderaModel,
@@ -70,6 +71,7 @@ PANDERA_SCHEMAS = {
 }
 
 ONTOWEAVER_MAPPING_FILES = {
+    "annotations": "./omnipath_secondary_adapter/adapters/annotations.yaml",
     "complexes": "./omnipath_secondary_adapter/adapters/complexes.yaml",
     "enzyme_PTM": "./omnipath_secondary_adapter/adapters/enzymePTM.yaml",
     "intercell": "./omnipath_secondary_adapter/adapters/intercell.yaml",
@@ -77,6 +79,7 @@ ONTOWEAVER_MAPPING_FILES = {
 }
 
 BIOCYPHER_CONFIG_PATHS = {
+    "annotations": "config/biocypher_config_annotations.yaml",
     "complexes": "config/biocypher_config_complexes.yaml",
     "enzyme_PTM": "config/biocypher_config_enzymePTM.yaml",
     "intercell": "config/biocypher_config_intercell.yaml",
@@ -84,6 +87,7 @@ BIOCYPHER_CONFIG_PATHS = {
 }
 
 BIOCYPHER_SCHEMA_PATHS = {
+    "annotations": "config/schema_config_annotations.yaml",
     "complexes": "config/schema_config_complexes.yaml",
     "enzyme_PTM": "config/schema_config_enzymePTM.yaml",
     "intercell": "config/schema_config_intercell.yaml",
