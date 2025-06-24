@@ -102,6 +102,12 @@ sudo bash biocypher-out/<datetime>/neo4j-admin-import-call.sh
 sudo neo4j start
 ``` 
 
-8. Open the Neo4j platform on http://localhost:7474
-9. At the end, you have you Knowledge Graph! 🎉 Congratulations!
+8. Open the Neo4j platform on http://localhost:7474. You will be ask for credentials. By default the Neo4j credentials are:
+   
+- Database User: `neo4j`
+- Password: `neo4j`
+
+Note: change the password as requested.
+
+9.  At the end, you have you Knowledge Graph! 🎉 Congratulations!
 ![](./docs_adapter/img/example-neo4j-vis.png)
