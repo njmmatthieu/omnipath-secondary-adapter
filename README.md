@@ -67,7 +67,7 @@ poetry install --no-root
 | *Annotations*      | ```-an``` or ```--annotations```  |           ✅ Done           |
 | *Intercell*        | ```-inter``` or ```--intercell``` |        ✅ Done          |
 
-We have built a ready-to-use script that downloads the resources from Omnipath, and generate the scripts to export a Neo4j graph.
+Use the following commands to generate import scripts for each Omnipath table:
 
 ### *Networks*
 ```bash
@@ -77,6 +77,21 @@ poetry run python weave_knowledge_graph.py -net download
 ### *Enzyme-PTM*
 ```bash
 poetry run python weave_knowledge_graph.py -enz download
+``` 
+
+### *Complexess*
+```bash
+poetry run python weave_knowledge_graph.py -co download
+```
+
+### *Annotations*
+```bash
+poetry run python weave_knowledge_graph.py -an download
+``` 
+
+### *Intercell*
+```bash
+poetry run python weave_knowledge_graph.py -inter download
 ``` 
 
 <a id="step-4"></a>
