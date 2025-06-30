@@ -3,7 +3,7 @@
     "@language": "en",
     "@vocab": "https://schema.org/"
   },
-  "type": "BioCypherAdapter",
+  "@type": "Dataset",
   "name": "omnipath_secondary_adapter",
   "conformsTo": "http://mlcommons.org/croissant/1.0",
   "description": "Adapter for integrating Omnipath secondary interactions into BioCypher.",
