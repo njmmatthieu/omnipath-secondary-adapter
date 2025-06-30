@@ -11,7 +11,11 @@
   "url": "https://github.com/biocypher/omnipath-secondary-adapter",
   "conformsTo": "http://mlcommons.org/croissant/1.0",
   "version": "0.1.0",
-  "license": "https://opensource.org/licenses/MIT",
+  "license": {
+    "@type": "sc:CreativeWork",
+    "name": "MIT License",
+    "url": "https://opensource.org/licenses/MIT"
+  },
   "creator": [
     {
       "@type": "sc:Person",
@@ -38,7 +42,7 @@
       "name": "GitHub repository",
       "description": "Repository containing the BioCypher adapter code.",
       "contentUrl": "https://github.com/biocypher/omnipath-secondary-adapter",
-      "encodingFormat": "application/vnd.github.vcs"
+      "encodingFormat": "text/html"
     }
   ]
 }
