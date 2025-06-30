@@ -1,10 +1,14 @@
 {
-  "@context": "https://w3id.org/croissant/v1",
+  "@context": {
+    "@language": "en",
+    "@vocab": "https://schema.org/"
+  },
   "type": "BioCypherAdapter",
   "name": "omnipath_secondary_adapter",
-  "version": "0.1.0",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
   "description": "Adapter for integrating Omnipath secondary interactions into BioCypher.",
-  "license": "MIT",
+  "version": "0.1.0",
+  "license": "MIT",  
   "authors": [
     {
         "name": "Edwin C.",
