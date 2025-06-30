@@ -1,0 +1,27 @@
+{
+  "@context": "https://w3id.org/croissant/v1",
+  "type": "BioCypherAdapter",
+  "name": "omnipath_secondary_adapter",
+  "version": "0.1.0",
+  "description": "Adapter for integrating Omnipath secondary interactions into BioCypher.",
+  "license": "MIT",
+  "authors": [
+    {
+        "name": "Edwin C.",
+        "email": "edwin.carreno@iwr.uni-heidelberg.de",
+        "affiliation": "Saez-Rodriguez Lab"
+    },
+    {
+        "name": "Matthieu Najm",
+        "email":"matthieu.najm@pasteur.fr",
+        "affiliation": "Institute Pasteur"
+    }
+  ],
+  "github_repo": "https://github.com/biocypher/omnipath-secondary-adapter",
+  "keywords": ["biocypher", "adapter", "omnipath", "secondary interactions"],
+  "homepage": "https://github.com/biocypher/omnipath-secondary-adapter",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/biocypher/omnipath-secondary-adapter.git"
+  }
+}
