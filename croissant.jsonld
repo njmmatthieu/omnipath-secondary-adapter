@@ -1,35 +1,33 @@
 {
   "@context": {
-    "sc": "http://schema.org/",
-    "cr": "http://mlcommons.org/croissant/",
     "@language": "en",
     "@vocab": "http://schema.org/"
   },
-  "@type": "sc:Dataset",
+  "@type": "Dataset",
   "name": "BioCypher Omnipath Secondary Adapter",
   "description": "Adapter that produces a knowledge graph of OmniPath secondary interactions for use with BioCypher.",
   "url": "https://github.com/biocypher/omnipath-secondary-adapter",
   "conformsTo": "http://mlcommons.org/croissant/1.0",
   "version": "0.1.0",
   "license": {
-    "@type": "sc:CreativeWork",
+    "@type": "CreativeWork",
     "name": "MIT License",
     "url": "https://opensource.org/licenses/MIT"
   },
   "creator": [
     {
-      "@type": "sc:Person",
+      "@type": "Person",
       "name": "Edwin C.",
       "affiliation": {
-        "@type": "sc:Organization",
+        "@type": "Organization",
         "name": "Saez‑Rodriguez Lab"
       }
     },
     {
-      "@type": "sc:Person",
+      "@type": "Person",
       "name": "Matthieu Najm",
       "affiliation": {
-        "@type": "sc:Organization",
+        "@type": "Organization",
         "name": "Institut Pasteur"
       }
     }
@@ -37,7 +35,7 @@
   "keywords": ["BioCypher", "adapter", "OmniPath", "secondary interactions"],
   "distribution": [
     {
-      "@type": "cr:FileObject",
+      "@type": "FileObject",
       "@id": "repo",
       "name": "GitHub repository",
       "description": "Repository containing the BioCypher adapter code.",
