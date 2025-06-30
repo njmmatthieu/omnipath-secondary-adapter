@@ -1,5 +1,7 @@
 {
-  "@context": "https://mlcommons.org/croissant/context/v1",
+  "@context": {
+    "@vocab": "https://schema.org/", 
+  },
   "@type": "Dataset",
   "name": "BioCypher Omnipath Secondary Adapter",
   "description": "Adapter that produces a knowledge graph of OmniPath secondary interactions for use with BioCypher.",
