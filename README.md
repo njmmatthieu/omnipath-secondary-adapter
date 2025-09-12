@@ -4,7 +4,7 @@ This repository contains the scripts to run OntoWeaver and BioCypher for the cre
 
 ## Overview
 
-The repository contains an Ontoweaver mapping file that serves as a BioCypher "secondary adapter" for OmniPath database. The adapter includes predefined sets of node types (entitites) and edge types (relationships) for the diffrent tables of Omnipath database (*Networks*, *Enzyme-PTM*, *Complexes*, *Annotations*, *Intercell*). A script is also provided to run OntoWeaver and BioCypher to create the knowledge graph. 
+The repository contains an Ontoweaver mapping file that serves as a BioCypher "secondary adapter" for OmniPath database. The adapter includes predefined sets of node types (entitites) and edge types (relationships) for the different tables of Omnipath database (*Networks*, *Enzyme-PTM*, *Complexes*, *Annotations*, *Intercell*). A script is also provided to run OntoWeaver and BioCypher to create the knowledge graph. 
 
 ## About OmniPath
 
