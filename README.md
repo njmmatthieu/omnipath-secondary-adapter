@@ -1,5 +1,11 @@
 # Omnipath Secondary Adapter
 
+This repository contains the scripts to run OntoWeaver and BioCypher for the creation of knowledge graphs from the OmniPath database. The project is currently under development. 
+
+## Overview
+
+The repository contains an Ontoweaver mapping file that serves as a BioCypher "secondary adapter" for OmniPath database. The adapter includes predefined sets of node types (entitites) and edge types (relationships) for the diffrent tables of Omnipath database (*Networks*, *Enzyme-PTM*, *Complexes*, *Annotations*, *Intercell*). A script is also provided to run OntoWeaver and BioCypher to create the knowledge graph. 
+
 ## About OmniPath
 
 [Omnipath](https://omnipathdb.org/) is a database of molecular biology prior knowledge developed in [Saez Lab](https://saezlab.org/) and [Korcsmaros Lab](https://www.earlham.ac.uk/korcsmaros-group). It combines data from more than 100 resources and contains:
