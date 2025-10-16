@@ -11,9 +11,9 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.12"
-biocypher = "^0.9.1"
+biocypher = "^0.10.1"
 ipykernel = "^6.29.5"
-ontoweaver = "0.2.1"
+ontoweaver = "^0.2.5"
 pytest-cov = "^6.0"
 sqlalchemy = "^2.0"
 
