@@ -2,7 +2,7 @@ row:
     map:
         column: source_genesymbol # column name in the datafrane
         to_subject: drug # give name to the node type in the KG
-        
+
 transformers:
     - map:
         id_from_column: target
@@ -13,7 +13,7 @@ transformers:
                 via_relation: drug_has_target_protein
                 # TODO: add opposite
             - complex:
-                to_object: complex
+                to_object: macromolecular_complex
                 via_relation: drug_has_target_complex
                 # TODO: add opposite
     # PROPERTIES of for the NODE type 'source'
@@ -27,13 +27,13 @@ transformers:
         to_property: genesymbol 
         for_objects: 
             - protein
-            - complex
+            - macromolecular_complex
     - map:
         column: ncbi_tax_id_target 
         to_property: ncbi_tax_id
         for_objects: 
             - protein
-            - complex
+            - macromolecular_complex
     # PROPERTIES for the EDGE types 'drug_has_target'
     - map:
         column: is_directed

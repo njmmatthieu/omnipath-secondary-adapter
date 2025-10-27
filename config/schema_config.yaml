@@ -12,7 +12,7 @@ source:
     properties:
         genesymbol: str
         ncbi_tax_id: str
-        entity_type: str
+        # entity_type: str
 
 target:
     is_a: protein
@@ -21,7 +21,7 @@ target:
     properties:
         genesymbol: str
         ncbi_tax_id: str
-        entity_type: str
+        # entity_type: str
 
 protein:
     represented_as: node
@@ -29,11 +29,11 @@ protein:
     properties:
         genesymbol: str
         ncbi_tax_id: str
-        entity_type: str
+        # entity_type: str
 
-complex:
+macromolecular complex:
     represented_as: node
-    input_label: protein # final_type node type
+    input_label: macromolecular_complex # final_type node type
     properties:
         genesymbol: str
         ncbi_tax_id: str
@@ -44,6 +44,13 @@ drug:
     properties:
         ncbi_tax_id: str
 
+mirna:
+    is_a: microRNA
+    represented_as: node
+    input_label: mirna
+    properties:
+        name: str # TODO: change to NAME
+        ncbi_tax_id: str
 
 #--------------------  Information about Edges
 post translational:
@@ -278,7 +285,7 @@ drug has target:
         evidences: str
 
 drug has target complex:
-    is_a: pairwise molecular interaction
+    is_a: drug has target
     represented_as: edge
     input_label: drug_has_target_complex
     properties:
@@ -311,7 +318,7 @@ drug has target complex:
         evidences: str
 
 drug has target protein:
-    is_a: pairwise molecular interaction
+    is_a: drug has target
     represented_as: edge
     input_label: drug_has_target_protein
     properties:
