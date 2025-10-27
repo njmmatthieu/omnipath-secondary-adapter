@@ -75,8 +75,8 @@ ONTOWEAVER_MAPPING_FILES = {
     "complexes": "./omnipath_secondary_adapter/adapters/complexes.yaml",
     "enzyme_PTM": "./omnipath_secondary_adapter/adapters/enzymePTM.yaml",
     "intercell": "./omnipath_secondary_adapter/adapters/intercell.yaml",
-    # "networks": "./omnipath_secondary_adapter/adapters/transcriptional_networks.yaml",
-    "networks": "./omnipath_secondary_adapter/adapters/small_molecule_protein_networks.yaml",
+    "networks": "./omnipath_secondary_adapter/adapters/transcriptional_networks.yaml",
+    # "networks": "./omnipath_secondary_adapter/adapters/small_molecule_protein_networks.yaml",
 }
 
 BIOCYPHER_CONFIG_PATHS = {
@@ -95,10 +95,11 @@ BIOCYPHER_SCHEMA_PATHS = {
     "networks": "config/schema_config.yaml",
 }
 
-# ontoweaver.logging.getLogger("ontoweaver").setLevel(logging.DEBUG)
-# logger.setLevel("DEBUG")
 logger = logging.getLogger("biocypher")
 
+
+logging.basicConfig(level=logging.DEBUG)
+logging.getLogger("ontoweaver").setLevel(logging.DEBUG)
 
 # logging.basicConfig(level=logging.DEBUG)
 
@@ -376,7 +377,7 @@ def extract_nodes_edges_ontoweaver(resource_name: str, dataframe_resource: pd.Da
         config=mapping,
         separator=":",
         affix="none",
-        parallel_mapping=min(32, (os.cpu_count() or 1) + 4),
+        # parallel_mapping=min(32, (os.cpu_count() or 1) + 4),
     )
     nodes += adapter.nodes
     edges += adapter.edges
