@@ -75,7 +75,8 @@ ONTOWEAVER_MAPPING_FILES = {
     "complexes": "./omnipath_secondary_adapter/adapters/complexes.yaml",
     "enzyme_PTM": "./omnipath_secondary_adapter/adapters/enzymePTM.yaml",
     "intercell": "./omnipath_secondary_adapter/adapters/intercell.yaml",
-    "networks": "./omnipath_secondary_adapter/adapters/transcriptional_networks.yaml",
+    # "networks": "./omnipath_secondary_adapter/adapters/transcriptional_networks.yaml",
+    "networks": "./omnipath_secondary_adapter/adapters/lncrna_post_transcriptional_networks.yaml",
     # "networks": "./omnipath_secondary_adapter/adapters/small_molecule_protein_networks.yaml",
 }
 
@@ -98,8 +99,8 @@ BIOCYPHER_SCHEMA_PATHS = {
 logger = logging.getLogger("biocypher")
 
 
-logging.basicConfig(level=logging.DEBUG)
-logging.getLogger("ontoweaver").setLevel(logging.DEBUG)
+# logging.basicConfig(level=logging.DEBUG)
+# logging.getLogger("ontoweaver").setLevel(logging.DEBUG)
 
 # logging.basicConfig(level=logging.DEBUG)
 
@@ -177,21 +178,21 @@ def parse_arguments():
         help="extract from the Omnipath 'intercell' TSV file.",
     )
 
-    levels = {
-        "DEBUG": logging.DEBUG,
-        "INFO": logging.INFO,
-        "WARNING": logging.WARNING,
-        "ERROR": logging.ERROR,
-        "CRITICAL": logging.CRITICAL,
-    }
+    # levels = {
+    #     "DEBUG": logging.DEBUG,
+    #     "INFO": logging.INFO,
+    #     "WARNING": logging.WARNING,
+    #     "ERROR": logging.ERROR,
+    #     "CRITICAL": logging.CRITICAL,
+    # }
 
-    parser.add_argument(
-        "-l",
-        "--log-level",
-        choices=levels.keys(),
-        default="WARNING",
-        help="set the verbose level (default: %(default)s).",
-    )
+    # parser.add_argument(
+    #     "-l",
+    #     "--log-level",
+    #     choices=levels.keys(),
+    #     default="INFO",
+    #     help="set the verbose level (default: %(default)s).",
+    # )
 
     if len(sys.argv) == 1:
         parser.print_help(sys.stderr)
@@ -347,9 +348,9 @@ def filtering_data(resource_name: str, dataframe: pd.DataFrame) -> pd.DataFrame:
         dataframe = dataframe
 
     if resource_name == "networks":
-        dataframe = dataframe
+        # dataframe = dataframe
         # dataframe = dataframe.groupby("type").get_group("transcriptional")
-        # dataframe = dataframe.groupby("type").get_group("small_molecule_protein")
+        dataframe = dataframe.groupby("type").get_group("lncrna_post_transcriptional")
 
     return dataframe
 

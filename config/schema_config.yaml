@@ -5,38 +5,8 @@
 
 
 #--------------------  Information about Nodes
-source:
-    is_a: protein
-    represented_as: node
-    input_label: source_protein # temporary node type
-    properties:
-        genesymbol: str
-        ncbi_tax_id: str
-        # entity_type: str
 
-target:
-    is_a: protein
-    represented_as: node
-    input_label: target_protein # temporary node type
-    properties:
-        genesymbol: str
-        ncbi_tax_id: str
-        # entity_type: str
-
-protein:
-    represented_as: node
-    input_label: protein # final_type node type
-    properties:
-        genesymbol: str
-        ncbi_tax_id: str
-        # entity_type: str
-
-macromolecular complex:
-    represented_as: node
-    input_label: macromolecular_complex # final_type node type
-    properties:
-        genesymbol: str
-        ncbi_tax_id: str
+# Drug
 
 drug:
     represented_as: node
@@ -44,12 +14,74 @@ drug:
     properties:
         ncbi_tax_id: str
 
+# Long non Coding - RNA
+
+lncrna:
+    is_a: noncoding RNA product
+    represented_as: node
+    input_label: lncrna
+    properties:
+        name: str
+        ncbi_tax_id: str
+
+# Macromolecular complex
+
+source complex:
+    is_a: macromolecular_complex
+    represented_as: node
+    input_label: source_complex
+    properties:
+        genesymbol: str
+        ncbi_tax_id: str
+
+target complex:
+    is_a: macromolecular_complex
+    represented_as: node
+    input_label: target_complex
+    properties:
+        genesymbol: str
+        ncbi_tax_id: str
+
+macromolecular complex:
+    represented_as: node
+    input_label: macromolecular_complex 
+    properties:
+        genesymbol: str
+        ncbi_tax_id: str
+
+# Micro-RNA
+
 mirna:
     is_a: microRNA
     represented_as: node
     input_label: mirna
     properties:
-        name: str # TODO: change to NAME
+        name: str
+        ncbi_tax_id: str
+
+# Protein
+
+source protein:
+    is_a: protein
+    represented_as: node
+    input_label: source_protein
+    properties:
+        genesymbol: str
+        ncbi_tax_id: str
+
+target protein:
+    is_a: protein
+    represented_as: node
+    input_label: target_protein
+    properties:
+        genesymbol: str
+        ncbi_tax_id: str
+
+protein:
+    represented_as: node
+    input_label: protein
+    properties:
+        genesymbol: str
         ncbi_tax_id: str
 
 #--------------------  Information about Edges
