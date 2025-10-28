@@ -77,7 +77,8 @@ ONTOWEAVER_MAPPING_FILES = {
     "intercell": "./omnipath_secondary_adapter/adapters/intercell.yaml",
     # "networks": "./omnipath_secondary_adapter/adapters/post_translational_networks.yaml",
     # "networks": "./omnipath_secondary_adapter/adapters/transcriptional_networks.yaml",
-    "networks": "./omnipath_secondary_adapter/adapters/mirna_transcriptional_networks.yaml",
+    "networks": "./omnipath_secondary_adapter/adapters/post_transcriptional_networks.yaml",
+    # "networks": "./omnipath_secondary_adapter/adapters/mirna_transcriptional_networks.yaml",
     # "networks": "./omnipath_secondary_adapter/adapters/lncrna_post_transcriptional_networks.yaml",
     # "networks": "./omnipath_secondary_adapter/adapters/small_molecule_protein_networks.yaml",
 }
@@ -350,8 +351,8 @@ def filtering_data(resource_name: str, dataframe: pd.DataFrame) -> pd.DataFrame:
         dataframe = dataframe
 
     if resource_name == "networks":
-        # dataframe = dataframe
-        dataframe = dataframe.groupby("type").get_group("mirna_transcriptional")
+        dataframe = dataframe
+        # dataframe = dataframe.groupby("type").get_group("mirna_transcriptional")
         # dataframe = dataframe.groupby("type").get_group("small_molecule_protein")
 
     return dataframe
