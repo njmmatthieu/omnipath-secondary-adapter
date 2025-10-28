@@ -4,7 +4,7 @@ row:
         match_type_from_column: entity_type_source
         match:
           - protein:
-                to_sucject: source_protein
+                to_subject: source_protein
                 final_type: protein
           - complex:
                 to_subject: source_complex
@@ -42,18 +42,15 @@ transformers:
             - source_complex
     # Properties of for the node type 'target'
     - map:
-        id_from_column: target_genesymbol
-        match_type_from_column: entity_type_target
-        match:
-            - protein:
-                to_property: genesymbol
-                for_object: target_protein
-            - complex:
-                to_property: genesymbol
-                for_object: target_complex
-            - mirna:
-                to_property: name
-                for_obejct: mirna
+        column: target_genesymbol
+        to_property: genesymbol
+        for objects:
+            - target_protein
+            - target_complex
+    - map:
+        column: target_genesymbol
+        to_property: name
+        for_object: mirna
     - map:
         column: ncbi_tax_id_target 
         to_property: ncbi_tax_id

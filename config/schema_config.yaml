@@ -81,7 +81,7 @@ protein:
     represented_as: node
     input_label: protein
     properties:
-        genesymbol: str
+        genesymbol: str d
         ncbi_tax_id: str
 
 #--------------------  Information about Edges
