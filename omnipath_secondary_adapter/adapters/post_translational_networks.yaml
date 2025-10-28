@@ -41,7 +41,7 @@ transformers:
     - map:
         column: target_genesymbol
         to_property: genesymbol
-        for objects:
+        for_objects:
             - target_protein
             - target_complex
     - map:
