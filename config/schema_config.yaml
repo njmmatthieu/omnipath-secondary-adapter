@@ -12,6 +12,7 @@ drug:
     represented_as: node
     input_label: drug # final_type node type
     properties:
+        name: str
         ncbi_tax_id: str
 
 # Long non Coding - RNA

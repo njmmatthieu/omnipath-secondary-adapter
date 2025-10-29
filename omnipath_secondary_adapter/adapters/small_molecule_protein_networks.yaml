@@ -18,6 +18,10 @@ transformers:
                 # TODO: add opposite
     # PROPERTIES of for the NODE type 'source'
     - map:
+        column: source_genesymbol 
+        to_property: name 
+        for_object: drug
+    - map:
         column: ncbi_tax_id_source 
         to_property: ncbi_tax_id 
         for_object: drug
