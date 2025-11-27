@@ -11,7 +11,7 @@ row:
                 final_type: macromolecular_complex
           - mirna:
                 to_subject: mirna
-          - drug:
+          - small_molecule:
                 to_subject: drug
           - lncrna:
                 to_subject: lncrna
