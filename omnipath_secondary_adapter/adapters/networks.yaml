@@ -17,76 +17,24 @@ row:
                 to_subject: lncrna
 
 transformers:
-    - map:
-        id_from_column: target
-        # match_type_from_column: type
-        match:
-            - type==transcriptional:
-                - match:
-                    - entity_type_target==protein:
-                        to_object: target_protein
-                        final_type: protein
-                        via_relation: transcriptional
-                    - entity_type_target==complex:
-                        to_object: target_complex
-                        final_type: macromolecular_complex
-                        via_relation: transcriptional
-                    - entity_type_target==mirna:
-                        to_object: mirna
-                        via_relation: transcriptional
-            - type==post_translational:
-                - match:
-                    - entity_type_target==protein:
-                        to_object: target_protein
-                        final_type: protein
-                        via_relation: post_translational
-                    - entity_type_target==complex:
-                        to_object: target_complex
-                        final_type: macromolecular_complex
-                        via_relation: post_translational
-            - type==post_transcriptional:
-                - map:
-                    to_object: target_protein
-                    final_type: protein
-                    via_relation: post_transcriptional
-            - type==small_molecule_protein:
-                - match:
-                    - protein:
-                        to_object: target_protein
-                        final_type: protein
-                        via_relation: drug_has_target_protein
-                    - complex:
-                        to_object: target_complex
-                        final_type: macromolecular_complex
-                        via_relation: drug_has_target_complex
-            - type==mirna_transcriptional:
-                - map:
-                    to_object: mirna
-                    via_relation: mirna_transcriptional
-            - type==lncrna_post_transcriptional:
-                - map:
-                    to_object: target_protein
-                    final_type: protein
-                    via_relation: lncrna_post_transcriptional
-
+    - OmniPath
     # Properties of for the node type 'source'
-    # TODO
     - map:
         column: source_genesymbol
         to_property: genesymbol
-        for_objects: 
+        for_objects:
             - source_protein
-            - source_complex  
+            - source_complex
     - map:
         column: source_genesymbol
         to_property: name
-        for_objects: 
+        for_objects:
             - mirna
             - drug
             - lncrna
     - map:
-        column: ncbi_tax_id_source 
-        to_property: ncbi_tax_id 
+        column: ncbi_tax_id_source
+        to_property: ncbi_tax_id
         for_objects:
             - source_protein
             - source_complex
@@ -105,7 +53,7 @@ transformers:
         to_property: name
         for_object: mirna
     - map:
-        column: ncbi_tax_id_target 
+        column: ncbi_tax_id_target
         to_property: ncbi_tax_id
         for_objects:
             - target_protein
@@ -115,279 +63,280 @@ transformers:
     - map:
         column: is_directed
         to_property: is_directed
-        for_objects: 
+        for_objects:
             - post_translational
             - transcriptional
             - post_transcriptional
             - mirna_transcriptional
             - lncrna_post_transcriptional
-            - small_molecule_protein
+            - drug_has_target
     - map:
         column: is_stimulation
         to_property: is_stimulation
-        for_objects: 
+        for_objects:
             - post_translational
             - transcriptional
             - post_transcriptional
             - mirna_transcriptional
             - lncrna_post_transcriptional
-            - small_molecule_protein
+            - drug_has_target
     - map:
         column: is_inhibition
         to_property: is_inhibition
-        for_objects:  
+        for_objects:
             - post_translational
             - transcriptional
             - post_transcriptional
             - mirna_transcriptional
             - lncrna_post_transcriptional
-            - small_molecule_protein
+            - drug_has_target
     - map:
         column: consensus_direction
         to_property: consensus_direction
-        for_objects:  
+        for_objects:
             - post_translational
             - transcriptional
             - post_transcriptional
             - mirna_transcriptional
             - lncrna_post_transcriptional
-            - small_molecule_protein
+            - drug_has_target
     - map:
         column: consensus_stimulation
         to_property: consensus_stimulation
-        for_objects:   
+        for_objects:
             - post_translational
             - transcriptional
             - post_transcriptional
             - mirna_transcriptional
             - lncrna_post_transcriptional
-            - small_molecule_protein
+            - drug_has_target
     - map:
         column: consensus_inhibition
         to_property: consensus_inhibition
-        for_objects:   
+        for_objects:
             - post_translational
             - transcriptional
             - post_transcriptional
             - mirna_transcriptional
             - lncrna_post_transcriptional
-            - small_molecule_protein
+            - drug_has_target
     - map:
         column: sources
         to_property: sources
-        for_objects:   
+        for_objects:
             - post_translational
             - transcriptional
             - post_transcriptional
             - mirna_transcriptional
             - lncrna_post_transcriptional
-            - small_molecule_protein
+            - drug_has_target
     - map:
         column: references
         to_property: references
-        for_objects:   
+        for_objects:
             - post_translational
             - transcriptional
             - post_transcriptional
             - mirna_transcriptional
             - lncrna_post_transcriptional
-            - small_molecule_protein
+            - drug_has_target
     - map:
         column: omnipath
         to_property: omnipath
-        for_objects:   
+        for_objects:
             - post_translational
             - transcriptional
             - post_transcriptional
             - mirna_transcriptional
             - lncrna_post_transcriptional
-            - small_molecule_protein
+            - drug_has_target
     - map:
         column: kinaseextra
         to_property: kinaseextra
-        for_objects:   
+        for_objects:
             - post_translational
             - transcriptional
             - post_transcriptional
             - mirna_transcriptional
             - lncrna_post_transcriptional
-            - small_molecule_protein
+            - drug_has_target
     - map:
         column: ligrecextra
         to_property: ligrecextra
-        for_objects:   
+        for_objects:
             - post_translational
             - transcriptional
             - post_transcriptional
             - mirna_transcriptional
             - lncrna_post_transcriptional
-            - small_molecule_protein
+            - drug_has_target
     - map:
         column: pathwayextra
         to_property: pathwayextra
-        for_objects:   
+        for_objects:
             - post_translational
             - transcriptional
             - post_transcriptional
             - mirna_transcriptional
             - lncrna_post_transcriptional
-            - small_molecule_protein
+            - drug_has_target
     - map:
         column: mirnatarget
         to_property: mirnatarget
-        for_objects:   
+        for_objects:
             - post_translational
             - transcriptional
             - post_transcriptional
             - mirna_transcriptional
             - lncrna_post_transcriptional
-            - small_molecule_protein
+            - drug_has_target
+    - map:
         column: dorothea
         to_property: dorothea
-        for_objects:   
+        for_objects:
             - post_translational
             - transcriptional
             - post_transcriptional
             - mirna_transcriptional
             - lncrna_post_transcriptional
-            - small_molecule_protein
+            - drug_has_target
     - map:
         column: collectri
         to_property: collectri
-        for_objects:   
+        for_objects:
             - post_translational
             - transcriptional
             - post_transcriptional
             - mirna_transcriptional
             - lncrna_post_transcriptional
-            - small_molecule_protein
+            - drug_has_target
     - map:
         column: tf_target
         to_property: tf_target
-        for_objects:   
+        for_objects:
             - post_translational
             - transcriptional
             - post_transcriptional
             - mirna_transcriptional
             - lncrna_post_transcriptional
-            - small_molecule_protein
+            - drug_has_target
     - map:
         column: lncrna_mrna
         to_property: lncrna_mrna
-        for_objects:   
+        for_objects:
             - post_translational
             - transcriptional
             - post_transcriptional
             - mirna_transcriptional
             - lncrna_post_transcriptional
-            - small_molecule_protein
+            - drug_has_target
     - map:
         column: tf_mirna
         to_property: tf_mirna
-        for_objects:   
+        for_objects:
             - post_translational
             - transcriptional
             - post_transcriptional
             - mirna_transcriptional
             - lncrna_post_transcriptional
-            - small_molecule_protein
+            - drug_has_target
     - map:
         column: small_molecule
         to_property: small_molecule
-        for_objects:   
+        for_objects:
             - post_translational
             - transcriptional
             - post_transcriptional
             - mirna_transcriptional
             - lncrna_post_transcriptional
-            - small_molecule_protein
+            - drug_has_target
     - map:
         column: dorothea_curated
         to_property: dorothea_curated
-        for_objects:   
+        for_objects:
             - post_translational
             - transcriptional
             - post_transcriptional
             - mirna_transcriptional
             - lncrna_post_transcriptional
-            - small_molecule_protein
+            - drug_has_target
     - map:
         column: dorothea_chipseq
         to_property: dorothea_chipseq
-        for_objects:   
+        for_objects:
             - post_translational
             - transcriptional
             - post_transcriptional
             - mirna_transcriptional
             - lncrna_post_transcriptional
-            - small_molecule_protein
+            - drug_has_target
     - map:
         column: dorothea_tfbs
         to_property: dorothea_tfbs
-        for_objects:   
+        for_objects:
             - post_translational
             - transcriptional
             - post_transcriptional
             - mirna_transcriptional
             - lncrna_post_transcriptional
-            - small_molecule_protein
+            - drug_has_target
     - map:
         column: dorothea_coexp
         to_property: dorothea_coexp
-        for_objects:   
+        for_objects:
             - post_translational
             - transcriptional
             - post_transcriptional
             - mirna_transcriptional
             - lncrna_post_transcriptional
-            - small_molecule_protein
+            - drug_has_target
     - map:
         column: dorothea_level
         to_property: dorothea_level
-        for_objects:   
+        for_objects:
             - post_translational
             - transcriptional
             - post_transcriptional
             - mirna_transcriptional
             - lncrna_post_transcriptional
-            - small_molecule_protein
+            - drug_has_target
     - map:
         column: type
         to_property: type
-        for_objects:   
+        for_objects:
             - post_translational
             - transcriptional
             - post_transcriptional
             - mirna_transcriptional
             - lncrna_post_transcriptional
-            - small_molecule_protein
+            - drug_has_target
     - map:
         column: curation_effort
         to_property: curation_effort
-        for_objects:   
+        for_objects:
             - post_translational
             - transcriptional
             - post_transcriptional
             - mirna_transcriptional
             - lncrna_post_transcriptional
-            - small_molecule_protein
+            - drug_has_target
     - map:
         column: extra_attrs
         to_property: extra_attrs
-        for_objects:   
+        for_objects:
             - post_translational
             - transcriptional
             - post_transcriptional
             - mirna_transcriptional
             - lncrna_post_transcriptional
-            - small_molecule_protein
+            - drug_has_target
     - map:
         column: evidences
         to_property: evidences
-        for_objects:   
+        for_objects:
             - post_translational
             - transcriptional
             - post_transcriptional
             - mirna_transcriptional
             - lncrna_post_transcriptional
-            - small_molecule_protein
+            - drug_has_target
