@@ -121,6 +121,10 @@ BIOCYPHER_SCHEMA_PATHS = {
 
 logger = logging.getLogger("biocypher")
 
+from omnipath_secondary_adapter.adapters.networks import OmniPath
+
+ontoweaver.transformer.register(OmniPath)
+
 
 # logging.basicConfig(level=logging.DEBUG)
 # logging.getLogger("ontoweaver").setLevel(logging.DEBUG)
