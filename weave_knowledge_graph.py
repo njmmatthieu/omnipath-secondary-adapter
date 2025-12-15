@@ -51,6 +51,10 @@ from omnipath_secondary_adapter.models import (
     NetworksPanderaModel,
 )
 
+from omnipath_secondary_adapter.adapters.networks import OmniPath
+
+ontoweaver.transformer.register(OmniPath)
+
 # ----------------------    CONSTANTS    ----------------------
 CACHE_DATA_PATH = "./data"
 
@@ -59,25 +63,15 @@ URLS_OMNIPATH = {
     "complexes": "https://archive.omnipathdb.org/omnipath_webservice_complexes__latest.tsv.gz",
     "enzyme_PTM": "https://archive.omnipathdb.org/omnipath_webservice_enz_sub__latest.tsv.gz",
     "intercell": "https://archive.omnipathdb.org/omnipath_webservice_intercell__latest.tsv.gz",
-    "lncrna_post_transcriptional": "https://archive.omnipathdb.org/omnipath_webservice_interactions__latest.tsv.gz",
-    "mirna_transcriptional": "https://archive.omnipathdb.org/omnipath_webservice_interactions__latest.tsv.gz",
-    "post_transcriptional": "https://archive.omnipathdb.org/omnipath_webservice_interactions__latest.tsv.gz",
-    "post_translational": "https://archive.omnipathdb.org/omnipath_webservice_interactions__latest.tsv.gz",
-    "small_molecule_protein": "https://archive.omnipathdb.org/omnipath_webservice_interactions__latest.tsv.gz",
-    "transcriptional": "https://archive.omnipathdb.org/omnipath_webservice_interactions__latest.tsv.gz",
+    "networks": "https://archive.omnipathdb.org/omnipath_webservice_interactions__latest.tsv.gz",
 }
 
 PANDERA_SCHEMAS = {
     # "annotations": AnnotationsPanderaModel,
     # "complexes": ComplexesPanderaModel,
-    "enzyme_PTM": EnzymePTMPanderaModel,
+    # "enzyme_PTM": EnzymePTMPanderaModel,
     # "intercell": IntercellPanderaModel,
-    "lncrna_post_transcriptional": NetworksPanderaModel,
-    "mirna_transcriptional": NetworksPanderaModel,
-    "post_transcriptional": NetworksPanderaModel,
-    "post_translational": NetworksPanderaModel,
-    "small_molecule_protein": NetworksPanderaModel,
-    "transcriptional": NetworksPanderaModel,
+    "networks": NetworksPanderaModel,
 }
 
 ONTOWEAVER_MAPPING_FILES = {
@@ -85,12 +79,7 @@ ONTOWEAVER_MAPPING_FILES = {
     "complexes": "./omnipath_secondary_adapter/adapters/complexes.yaml",
     "enzyme_PTM": "./omnipath_secondary_adapter/adapters/enzymePTM.yaml",
     "intercell": "./omnipath_secondary_adapter/adapters/intercell.yaml",
-    "lncrna_post_transcriptional": "./omnipath_secondary_adapter/adapters/lncrna_post_transcriptional_networks.yaml",
-    "mirna_transcriptional": "./omnipath_secondary_adapter/adapters/mirna_transcriptional_networks.yaml",
-    "post_transcriptional": "./omnipath_secondary_adapter/adapters/post_transcriptional_networks.yaml",
-    "post_translational": "./omnipath_secondary_adapter/adapters/post_translational_networks.yaml",
-    "small_molecule_protein": "./omnipath_secondary_adapter/adapters/small_molecule_protein_networks.yaml",
-    "transcriptional": "./omnipath_secondary_adapter/adapters/transcriptional_networks.yaml",
+    "networks": "./omnipath_secondary_adapter/adapters/networks.yaml",
 }
 
 BIOCYPHER_CONFIG_PATHS = {
@@ -98,12 +87,7 @@ BIOCYPHER_CONFIG_PATHS = {
     "complexes": "config/biocypher_config_complexes.yaml",
     "enzyme_PTM": "config/biocypher_config_enzymePTM.yaml",
     "intercell": "config/biocypher_config_intercell.yaml",
-    "lncrna_post_transcriptional": "config/biocypher_config.yaml",
-    "mirna_transcriptional": "config/biocypher_config.yaml",
-    "post_transcriptional": "config/biocypher_config.yaml",
-    "post_translational": "config/biocypher_config.yaml",
-    "small_molecule_protein": "config/biocypher_config.yaml",
-    "transcriptional": "config/biocypher_config.yaml",
+    "networks": "config/biocypher_config.yaml",
 }
 
 BIOCYPHER_SCHEMA_PATHS = {
@@ -111,25 +95,11 @@ BIOCYPHER_SCHEMA_PATHS = {
     "complexes": "config/schema_config_complexes.yaml",
     "enzyme_PTM": "config/schema_config_enzymePTM.yaml",
     "intercell": "config/schema_config_intercell.yaml",
-    "lncrna_post_transcriptional": "config/schema_config.yaml",
-    "mirna_transcriptional": "config/schema_config.yaml",
-    "post_transcriptional": "config/schema_config.yaml",
-    "post_translational": "config/schema_config.yaml",
-    "small_molecule_protein": "config/schema_config.yaml",
-    "transcriptional": "config/schema_config.yaml",
+    "networks": "config/schema_config.yaml",
 }
 
 logger = logging.getLogger("biocypher")
-
-from omnipath_secondary_adapter.adapters.networks import OmniPath
-
-ontoweaver.transformer.register(OmniPath)
-
-
-# logging.basicConfig(level=logging.DEBUG)
-# logging.getLogger("ontoweaver").setLevel(logging.DEBUG)
-
-# logging.basicConfig(level=logging.DEBUG)
+# ontoweaver.logger.setLevel(logging.DEBUG)
 
 # ----------------------    HELPER FUNCTIONS    ----------------------
 def parse_arguments():
@@ -143,12 +113,6 @@ def parse_arguments():
 
     Arguments:
         -net, --networks                                Path to the 'networks' dataset, or download latest from archive.
-        -transcr, --transcriptional                     Subset 'networks' dataset to transcriptional interactions.
-        -mtranscr, --mirna_transcriptional              Subset 'networks' dataset to mirna transcriptional interactions.
-        -ptranscr, -post_transcriptional                Subset 'networks' dataset to post_transcriptional interactions.
-        -lptranscr, --lncrna_post_transcriptional       Subset 'networks' dataset to long non coding post transcriptional interactions.
-        -ptransl, --post_translational                  Subset 'networks' dataset to post translational interactions.
-        -smp, --small_molecule_protein                  Subset 'networks' dataset to small molecule protein interactions.
         -enz, --enzyme-PTM                              Path to the 'enz-PTM' dataset, or download latest from archive.
         -co, --complexes                                Path to the 'complexes' dataset, or download latest from archive.
         -an, --annotations                              Path to the 'annotations' dataset, or download latest from archive.
@@ -178,60 +142,6 @@ def parse_arguments():
         metavar="TSV",
         nargs="?",
         help="extract from the Omnipath 'networks' TSV file.",
-    )
-
-    parser.add_argument(
-        "-transcr",
-        "--transcriptional",
-        nargs="?",
-        const=True,
-        default=False,
-        help="extract only transcriptional interactions from the Omnipath 'networks' database.",
-    )
-
-    parser.add_argument(
-        "-mtranscr",
-        "--mirna_transcriptional",
-        nargs="?",
-        const=True,
-        default=False,
-        help="extract only mirna transcriptional interactions from the Omnipath 'networks' database.",
-    )
-
-    parser.add_argument(
-        "-mtranscr",
-        "--mirna_transcriptional",
-        nargs="?",
-        const=True,
-        default=False,
-        help="extract only mirna transcriptional interactions from the Omnipath 'networks' database.",
-    )
-
-    parser.add_argument(
-        "-ptranscr",
-        "--post_transcriptional",
-        nargs="?",
-        const=True,
-        default=False,
-        help="extract only post transcriptional interactions from the Omnipath 'networks' database.",
-    )
-
-    parser.add_argument(
-        "-ptransl",
-        "--post_translational",
-        nargs="?",
-        const=True,
-        default=False,
-        help="extract only post translational interactions from the Omnipath 'networks' database.",
-    )
-
-    parser.add_argument(
-        "-smp",
-        "--small_molecule_protein",
-        nargs="?",
-        const=True,
-        default=False,
-        help="extract only small molecule protein interactions from the Omnipath 'networks' database.",
     )
 
     parser.add_argument(
@@ -437,8 +347,6 @@ def filtering_data(resource_name: str, dataframe: pd.DataFrame) -> pd.DataFrame:
 
     if resource_name == "networks":
         dataframe = dataframe
-        # dataframe = dataframe.groupby("type").get_group("mirna_transcriptional")
-        # dataframe = dataframe.groupby("type").get_group("small_molecule_protein")
 
     return dataframe
 
@@ -461,22 +369,27 @@ def extract_nodes_edges_ontoweaver(resource_name: str, dataframe_resource: pd.Da
     # Extract nodes and edges with Ontoweaver
     logger.info("Ontoweaver adapter start...")
     nodes, edges = [], []
-    adapter = ontoweaver.tabular.extract_table(
+    n, e = ontoweaver.extract_table(
         df=dataframe_resource,
         config=mapping,
-        separator=":",
+        type_affix_sep=":",
         affix="none",
         # parallel_mapping=min(32, (os.cpu_count() or 1) + 4),
     )
-    nodes += adapter.nodes
-    edges += adapter.edges
+    nodes += n
+    edges += e
+
+    # The fusion module is independant from OntoWeaver,
+    # and thus operates on BioCypher's tuples.
+    bc_nodes = [n.as_tuple() for n in nodes]
+    bc_edges = [e.as_tuple() for e in edges]
 
     logger.info("Ontoweaver adapter end.")
 
-    return nodes, edges
+    return bc_nodes, bc_edges
 
 
-def fuse_and_write(nodes, edges, resource_name):
+def fuse_and_write(bc_nodes, bc_edges, resource_name):
     """Fuse duplicated nodes and edges and write the output."""
     logger.info("Fuse step starting...")
 
@@ -484,11 +397,11 @@ def fuse_and_write(nodes, edges, resource_name):
     biocypher_config_path = BIOCYPHER_CONFIG_PATHS.get(resource_name)
 
     import_file = ontoweaver.reconciliate_write(
-        nodes=nodes,
-        edges=edges,
+        nodes=bc_nodes,
+        edges=bc_edges,
         biocypher_config_path=biocypher_config_path,
         schema_path=schema_path,
-        separator=", ",
+        reconciliate_sep="|",
     )
     logger.info("Fuse step end.")
     return import_file
