@@ -99,7 +99,7 @@ BIOCYPHER_SCHEMA_PATHS = {
 }
 
 logger = logging.getLogger("biocypher")
-# ontoweaver.logger.setLevel(logging.DEBUG)
+ontoweaver.logger.setLevel(logging.ERROR)
 
 # ----------------------    HELPER FUNCTIONS    ----------------------
 def parse_arguments():
