@@ -1,6 +1,6 @@
 
 from ontoweaver import transformer, validate
-import types as owtypes
+import ontoweaver.types as owtypes
 
 
 class OmniPath(transformer.Transformer):
