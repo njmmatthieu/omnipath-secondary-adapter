@@ -24,3 +24,8 @@ dev = [
     "pre-commit>=2.17.0",
     "ruff>=0.2.0",
 ]
+
+[tool.setuptools.packages.find]
+where = ["omnipath_secondary_adapter"]
+namespaces = false
+
