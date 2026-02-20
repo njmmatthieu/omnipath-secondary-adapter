@@ -75,11 +75,11 @@ PANDERA_SCHEMAS = {
 }
 
 ONTOWEAVER_MAPPING_FILES = {
-    "annotations": "./omnipath_secondary_adapter/adapters/annotations.yaml",
-    "complexes": "./omnipath_secondary_adapter/adapters/complexes.yaml",
-    "enzyme_PTM": "./omnipath_secondary_adapter/adapters/enzymePTM.yaml",
-    "intercell": "./omnipath_secondary_adapter/adapters/intercell.yaml",
-    "networks": "./omnipath_secondary_adapter/adapters/networks.yaml",
+    "annotations": "./src/omnipath_secondary_adapter/adapters/annotations.yaml",
+    "complexes": "./src/omnipath_secondary_adapter/adapters/complexes.yaml",
+    "enzyme_PTM": "./src/omnipath_secondary_adapter/adapters/enzymePTM.yaml",
+    "intercell": "./src/omnipath_secondary_adapter/adapters/intercell.yaml",
+    "networks": "./src/omnipath_secondary_adapter/adapters/networks.yaml",
 }
 
 BIOCYPHER_CONFIG_PATHS = {

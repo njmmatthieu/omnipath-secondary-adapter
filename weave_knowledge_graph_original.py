@@ -85,7 +85,7 @@ if __name__ == "__main__":
         networks_df = pd.read_csv(asked.networks[0], sep="\t")
         print(networks_df.info())
 
-        mapping_file = "./omnipath_secondary_adapter/adapters/networks.yaml"
+        mapping_file = "./src/omnipath_secondary_adapter/adapters/networks.yaml"
         with open(mapping_file) as fd:
             mapping = yaml.full_load(fd)
 
