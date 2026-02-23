@@ -43,7 +43,7 @@ from biocypher._get import (
     FileDownload,
 )
 
-from omnipath_secondary_adapter.models import (
+from src.omnipath_secondary_adapter.models import (
     # AnnotationsPanderaModel,
     # ComplexesPanderaModel,
     # IntercellPanderaModel,
@@ -51,7 +51,7 @@ from omnipath_secondary_adapter.models import (
     NetworksPanderaModel,
 )
 
-from omnipath_secondary_adapter.adapters.networks import OmniPath
+from src.omnipath_secondary_adapter.adapters.networks import OmniPath
 
 ontoweaver.transformer.register(OmniPath)
 
@@ -99,7 +99,7 @@ BIOCYPHER_SCHEMA_PATHS = {
 }
 
 logger = logging.getLogger("biocypher")
-ontoweaver.logger.setLevel(logging.ERROR)
+ontoweaver.logger.setLevel(logging.DEBUG)
 
 # ----------------------    HELPER FUNCTIONS    ----------------------
 def parse_arguments():

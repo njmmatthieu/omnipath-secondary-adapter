@@ -25,6 +25,13 @@ transformers:
         for_objects:
             - source_protein
             - source_complex
+    # - map:
+    #     id_from_column: source_genesymbol
+    #     match_type_from_column: entity_type_source
+    #     match:
+    #       - protein:
+    #             to_subject: source_gene
+    #             final_type: gene
     - map:
         column: source_genesymbol
         to_property: name
@@ -48,6 +55,13 @@ transformers:
         for_objects:
             - target_protein
             - target_complex
+    # - map:
+    #     id_from_column: target_genesymbol
+    #     match_type_from_column: entity_type_target
+    #     match:
+    #       - protein:
+    #             to_subject: target_gene
+    #             final_type: gene
     - map:
         column: target_genesymbol
         to_property: name
@@ -340,3 +354,5 @@ transformers:
             - mirna_transcriptional
             - lncrna_post_transcriptional
             - drug_has_target
+metadata:
+        - data_source: omnipath_networks
