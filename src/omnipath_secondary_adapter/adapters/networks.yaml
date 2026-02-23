@@ -21,7 +21,7 @@ transformers:
     # Properties of for the node type 'source'
     - map:
         column: source_genesymbol
-        to_property: genesymbol
+        to_property: gene_symbol
         for_objects:
             - source_protein
             - source_complex
@@ -51,7 +51,7 @@ transformers:
     # Properties of for the node type 'target'
     - map:
         column: target_genesymbol
-        to_property: genesymbol
+        to_property: gene_symbol
         for_objects:
             - target_protein
             - target_complex

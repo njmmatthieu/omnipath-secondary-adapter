@@ -32,7 +32,7 @@ source complex:
     represented_as: node
     input_label: source_complex
     properties:
-        genesymbol: str
+        gene_symbol: str
         ncbi_tax_id: str
 
 target complex:
@@ -40,14 +40,14 @@ target complex:
     represented_as: node
     input_label: target_complex
     properties:
-        genesymbol: str
+        gene_symbol: str
         ncbi_tax_id: str
 
 macromolecular complex:
     represented_as: node
     input_label: macromolecular_complex 
     properties:
-        genesymbol: str
+        gene_symbol: str
         ncbi_tax_id: str
 
 # Micro-RNA
@@ -67,7 +67,7 @@ source protein:
     represented_as: node
     input_label: source_protein
     properties:
-        genesymbol: str
+        gene_symbol: str
         ncbi_tax_id: str
 
 target protein:
@@ -75,14 +75,14 @@ target protein:
     represented_as: node
     input_label: target_protein
     properties:
-        genesymbol: str
+        gene_symbol: str
         ncbi_tax_id: str
 
 protein:
     represented_as: node
     input_label: protein
     properties:
-        genesymbol: str d
+        gene_symbol: str d
         ncbi_tax_id: str
 
 #--------------------  Information about Edges
