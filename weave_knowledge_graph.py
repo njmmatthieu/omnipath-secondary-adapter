@@ -51,9 +51,10 @@ from src.omnipath_secondary_adapter.models import (
     NetworksPanderaModel,
 )
 
-from src.omnipath_secondary_adapter.adapters.networks import OmniPath
+from src.omnipath_secondary_adapter.transformers.networks import OmniPath, OmniPath_directed
 
 ontoweaver.transformer.register(OmniPath)
+ontoweaver.transformer.register(OmniPath_directed)
 
 # ----------------------    CONSTANTS    ----------------------
 CACHE_DATA_PATH = "./data"
@@ -99,7 +100,7 @@ BIOCYPHER_SCHEMA_PATHS = {
 }
 
 logger = logging.getLogger("biocypher")
-ontoweaver.logger.setLevel(logging.DEBUG)
+ontoweaver.logger.setLevel(logging.INFO)
 
 # ----------------------    HELPER FUNCTIONS    ----------------------
 def parse_arguments():
