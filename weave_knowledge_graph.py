@@ -349,6 +349,17 @@ def filtering_data(resource_name: str, dataframe: pd.DataFrame) -> pd.DataFrame:
     if resource_name == "networks":
         dataframe = dataframe
 
+        translations_file = "./data/HGNC/hgnc_complete_set.txt"
+        translations_table = pd.read_table(translations_file, sep="\t")
+
+        dataframe['source_genesymbol'] = dataframe['source_genesymbol'].str.upper()
+        dataframe['target_genesymbol'] = dataframe['target_genesymbol'].str.upper()
+
+        dataframe = dataframe[
+            ((dataframe['source_genesymbol'].isin(translations_table.symbol)) | (dataframe.entity_type_source!="protein")) & 
+            ((dataframe['target_genesymbol'].isin(translations_table.symbol)) | (dataframe.entity_type_target!="protein"))
+        ]
+
     return dataframe
 
 
