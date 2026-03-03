@@ -215,3 +215,7 @@ inhibition:
         curation_effort: int
         extra_attrs: str
         evidences: str
+
+transcript to gene relationship:
+    represented_as: edge
+    input_label: transcript_to_gene_relationship
