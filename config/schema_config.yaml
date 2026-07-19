@@ -219,3 +219,7 @@ inhibition:
 transcript to gene relationship:
     represented_as: edge
     input_label: transcript_to_gene_relationship
+
+gene to gene product relationship:
+    represented_as: edge
+    input_label: gene_to_gene_product_relationship

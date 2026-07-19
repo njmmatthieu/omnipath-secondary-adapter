@@ -32,6 +32,7 @@ transformers:
                 to_object: source_gene
                 final_type: gene
                 via_relation: transcript_to_gene_relationship
+                reverse_relation: gene_to_gene_product_relationship
     - translate:
         id_from_column: target_genesymbol
         match_type_from_column: entity_type_target
@@ -45,6 +46,7 @@ transformers:
                 to_object: target_gene
                 final_type: gene
                 via_relation: transcript_to_gene_relationship
+                reverse_relation: gene_to_gene_product_relationship
     # # Properties of for the node type 'source'
     - map:
         column: source_genesymbol
