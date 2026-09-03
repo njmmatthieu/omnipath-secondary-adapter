@@ -21,7 +21,6 @@ Arguments:
     -co, --complexes        Path to the 'complexes' dataset, or download the latest from archive.
     -an, --annotations      Path to the 'annotations' dataset, or download the latest from archive.
     -inter, --intercell     Path to the 'intercell' dataset, or download the latest from archive.
-    -v, --verbose
 
 """
 
@@ -119,7 +118,6 @@ def parse_arguments():
         -co, --complexes                                Path to the 'complexes' dataset, or download latest from archive.
         -an, --annotations                              Path to the 'annotations' dataset, or download latest from archive.
         -inter, --intercell                             Path to the 'intercell' dataset, or download latest from archive.
-        -v, --verbose
 
     Returns:
         argparse.Namespace: An object containing the parsed command-line arguments.
@@ -187,21 +185,21 @@ def parse_arguments():
         "(e.g. lines, for tabular data). '100' means no sub-sampling. [default: %(default)s]"
     )
 
-    # levels = {
-    #     "DEBUG": logging.DEBUG,
-    #     "INFO": logging.INFO,
-    #     "WARNING": logging.WARNING,
-    #     "ERROR": logging.ERROR,
-    #     "CRITICAL": logging.CRITICAL,
-    # }
+    levels = {
+        "DEBUG": logging.DEBUG,
+        "INFO": logging.INFO,
+        "WARNING": logging.WARNING,
+        "ERROR": logging.ERROR,
+        "CRITICAL": logging.CRITICAL,
+    }
 
-    # parser.add_argument(
-    #     "-l",
-    #     "--log-level",
-    #     choices=levels.keys(),
-    #     default="INFO",
-    #     help="set the verbose level (default: %(default)s).",
-    # )
+    parser.add_argument(
+        "-l",
+        "--log-level",
+        choices=levels.keys(),
+        default="INFO",
+        help="set the verbose level (default: %(default)s).",
+    )
 
     if len(sys.argv) == 1:
         parser.print_help(sys.stderr)
@@ -487,7 +485,7 @@ def resources_to_process(cli_arguments: argparse.Namespace) -> Dict[str, Any]:
     resource_mapping = {
         key: value
         for key, value in vars(cli_arguments).items()
-        if value is not None and key != "verbose" and key != "sub_sample"
+        if value is not None and key != "log_level" and key != "sub_sample"
     }
 
     return resource_mapping
@@ -501,6 +499,9 @@ def main():
     # Parse CLI arguments
     cli_parsed = parse_arguments()
     logger.info(f"CLI arguments: {cli_parsed}")
+
+    logger.setLevel(cli_parsed.log_level)
+    ontoweaver.logger.setLevel(cli_parsed.log_level)
 
     # Map the resources to be processed based on CLI arguments
     resource_mapping = resources_to_process(cli_arguments=cli_parsed)
