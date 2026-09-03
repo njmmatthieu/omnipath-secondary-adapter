@@ -455,8 +455,9 @@ def process_resource(resource_name: str, argument_resource: str):
     )
 
     # -- Fuse nodes, edges and write script for importing to Neo4j
-    import_file = fuse_and_write(nodes, edges, resource_name)
     logger.info(f"Processed {resource_name}: {len(nodes)} nodes, {len(edges)} edges.")
+
+    return nodes, edges
 
 
 def resources_to_process(cli_arguments: argparse.Namespace) -> Dict[str, Any]:
@@ -483,8 +484,16 @@ def main():
     logger.info(f"Resources to process: {resource_mapping}")
 
     # Process the resources (ELT)
+    nodes = []
+    edges = []
     for resource_name, argument_resource in resource_mapping.items():
-        process_resource(resource_name, argument_resource)
+        n,e = process_resource(resource_name, argument_resource)
+        nodes += n
+        edges += e
+
+    import_file = fuse_and_write(nodes, edges, resource_name)
+
+    print(import_file)
 
 
 if __name__ == "__main__":
