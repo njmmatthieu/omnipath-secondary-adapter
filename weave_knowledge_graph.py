@@ -21,7 +21,6 @@ Arguments:
     -co, --complexes        Path to the 'complexes' dataset, or download the latest from archive.
     -an, --annotations      Path to the 'annotations' dataset, or download the latest from archive.
     -inter, --intercell     Path to the 'intercell' dataset, or download the latest from archive.
-    -v, --verbose
 
 """
 
@@ -60,11 +59,12 @@ ontoweaver.transformer.register(OmniPath_directed)
 CACHE_DATA_PATH = "./data"
 
 URLS_OMNIPATH = {
-    "annotations": "https://archive.omnipathdb.org/omnipath_webservice_annotations__latest.tsv.gz",
-    "complexes": "https://archive.omnipathdb.org/omnipath_webservice_complexes__latest.tsv.gz",
-    "enzyme_PTM": "https://archive.omnipathdb.org/omnipath_webservice_enz_sub__latest.tsv.gz",
-    "intercell": "https://archive.omnipathdb.org/omnipath_webservice_intercell__latest.tsv.gz",
-    "networks": "https://archive.omnipathdb.org/omnipath_webservice_interactions__latest.tsv.gz",
+    "annotations": ("omnipath_", "https://archive.omnipathdb.org/omnipath_webservice_annotations__latest.tsv.gz"),
+    "complexes": ("omnipath_", "https://archive.omnipathdb.org/omnipath_webservice_complexes__latest.tsv.gz"),
+    "enzyme_PTM": ("omnipath_", "https://archive.omnipathdb.org/omnipath_webservice_enz_sub__latest.tsv.gz"),
+    "intercell": ("omnipath_", "https://archive.omnipathdb.org/omnipath_webservice_intercell__latest.tsv.gz"),
+    "networks": ("omnipath_", "https://archive.omnipathdb.org/omnipath_webservice_interactions__latest.tsv.gz"),
+
 }
 
 PANDERA_SCHEMAS = {
@@ -118,7 +118,6 @@ def parse_arguments():
         -co, --complexes                                Path to the 'complexes' dataset, or download latest from archive.
         -an, --annotations                              Path to the 'annotations' dataset, or download latest from archive.
         -inter, --intercell                             Path to the 'intercell' dataset, or download latest from archive.
-        -v, --verbose
 
     Returns:
         argparse.Namespace: An object containing the parsed command-line arguments.
@@ -177,21 +176,30 @@ def parse_arguments():
         help="extract from the Omnipath 'intercell' TSV file.",
     )
 
-    # levels = {
-    #     "DEBUG": logging.DEBUG,
-    #     "INFO": logging.INFO,
-    #     "WARNING": logging.WARNING,
-    #     "ERROR": logging.ERROR,
-    #     "CRITICAL": logging.CRITICAL,
-    # }
+    parser.add_argument(
+        "-u",
+        "--sub-sample",
+        type=float,
+        default=100.0,
+        help="Reduce the size of input data by random sampling of the given percentage of items" \
+        "(e.g. lines, for tabular data). '100' means no sub-sampling. [default: %(default)s]"
+    )
 
-    # parser.add_argument(
-    #     "-l",
-    #     "--log-level",
-    #     choices=levels.keys(),
-    #     default="INFO",
-    #     help="set the verbose level (default: %(default)s).",
-    # )
+    levels = {
+        "DEBUG": logging.DEBUG,
+        "INFO": logging.INFO,
+        "WARNING": logging.WARNING,
+        "ERROR": logging.ERROR,
+        "CRITICAL": logging.CRITICAL,
+    }
+
+    parser.add_argument(
+        "-l",
+        "--log-level",
+        choices=levels.keys(),
+        default="INFO",
+        help="set the verbose level (default: %(default)s).",
+    )
 
     if len(sys.argv) == 1:
         parser.print_help(sys.stderr)
@@ -200,7 +208,7 @@ def parse_arguments():
     return parser.parse_args()
 
 
-def download_resource(resource_name: str, url_resource: str) -> list:
+def download_resource(resource_name: str, url_resource: str, prefix = "omnipath_") -> list:
 
     # Define the directory where the data will be store
     cache_directory = CACHE_DATA_PATH
@@ -210,7 +218,7 @@ def download_resource(resource_name: str, url_resource: str) -> list:
 
     # Create a resource to download
     file_resource = FileDownload(
-        name="omnipath_" + resource_name,
+        name = prefix + resource_name,
         url_s=url_resource,
         lifetime=7,  # Cache for 7 days
     )
@@ -230,12 +238,12 @@ def access_to_resource(resource_name: str, argument_resource: str) -> str:
         raise ValueError("Invalid option: None. Consult the menu using --help.")
 
     if argument_resource == "download":
-        url = URLS_OMNIPATH.get(resource_name)
+        prefix,url = URLS_OMNIPATH.get(resource_name)
         if not url:
             logger.error(f"No download URL found for resource: {resource_name}")
             raise ValueError(f"Download URL not found for resource: {resource_name}")
 
-        paths = download_resource(resource_name=resource_name, url_resource=url)
+        paths = download_resource(resource_name=resource_name, url_resource=url, prefix=prefix)
         if not paths:
             logger.error(f"Download failed for resource: {resource_name}")
             raise RuntimeError(f"Failed to download resource: {resource_name}")
@@ -249,7 +257,7 @@ def access_to_resource(resource_name: str, argument_resource: str) -> str:
     raise ValueError(f"Invalid option: {argument_resource}")
 
 
-def load_dataframe(resource_path: str, resource_name: str) -> pd.DataFrame:
+def load_dataframe(resource_path: str, resource_name: str, subsample = 100.0) -> pd.DataFrame:
     """
     Load a TSV file into a pandas DataFrame using a specified Pandera schema.
 
@@ -266,11 +274,19 @@ def load_dataframe(resource_path: str, resource_name: str) -> pd.DataFrame:
         logger.warning(f"No schema model found for resource: {resource_name}")
 
     try:
-        dataframe_resource = pd.read_table(
+        data = pd.read_table(
             resource_path,
             sep="\t",
             dtype=schema_model._return_pandas_dtypes() if schema_model else None,
         )
+        logger.info(f"DataFrame shape: {data.shape}")
+        if subsample < 100.0:
+            logger.info(f"Sub-sampling {subsample}% of {len(data)} rows of input data.")
+            dataframe_resource = data.sample(frac = subsample/100.0)
+        else:
+            logger.info("No sub-sampling.")
+            dataframe_resource = data
+
         logger.info("DataFrame successfully loaded.")
     except Exception as e:
         logger.error(f"Failed to load dataset from {resource_path}: {e}")
@@ -285,7 +301,7 @@ def load_dataframe(resource_path: str, resource_name: str) -> pd.DataFrame:
             dataframe_resource[boolean_columns].fillna(False).astype(bool)
         )
 
-    logger.info(f"DataFrame shape: {dataframe_resource.shape}")
+    logger.info(f"Final DataFrame shape: {dataframe_resource.shape}")
     memory_mb = dataframe_resource.memory_usage(deep=True).sum() / 1024**2
     logger.info(f"Memory usage (MB): {memory_mb:.2f}")
 
@@ -348,8 +364,13 @@ def filtering_data(resource_name: str, dataframe: pd.DataFrame) -> pd.DataFrame:
 
     if resource_name == "networks":
         dataframe = dataframe
-
         translations_file = "./data/HGNC/hgnc_complete_set.txt"
+        download_resource(
+            "HGNC",
+            "https://storage.googleapis.com/public-download-files/hgnc/tsv/tsv/hgnc_complete_set.txt",
+            prefix=""
+        )
+
         translations_table = pd.read_table(translations_file, sep="\t")
 
         dataframe['source_genesymbol'] = dataframe['source_genesymbol'].str.upper()
@@ -419,7 +440,7 @@ def fuse_and_write(bc_nodes, bc_edges, resource_name):
     return import_file
 
 
-def process_resource(resource_name: str, argument_resource: str):
+def process_resource(resource_name: str, argument_resource: str, subsample = 100.0):
     """Process a given resource, extract nodes and edges, and update the lists."""
 
     logger.info(f"Resource Option: {argument_resource}")
@@ -427,7 +448,7 @@ def process_resource(resource_name: str, argument_resource: str):
 
     # EXTRACTION
     logger.info("======================")
-    logger.info("=  STEP: Extraction  =")
+    logger.info("=  STEP: Download    =")
     logger.info("======================")
     path_resource = access_to_resource(
         resource_name=resource_name,
@@ -438,7 +459,7 @@ def process_resource(resource_name: str, argument_resource: str):
     logger.info("===================")
     logger.info("=  STEP: Loading  =")
     logger.info("===================")
-    dataframe = load_dataframe(path_resource, resource_name=resource_name)
+    dataframe = load_dataframe(path_resource, resource_name=resource_name, subsample = subsample)
     validate_schema(dataframe, resource_name, enable_validation=False)
 
     # TRANSFORMATION
@@ -455,15 +476,16 @@ def process_resource(resource_name: str, argument_resource: str):
     )
 
     # -- Fuse nodes, edges and write script for importing to Neo4j
-    import_file = fuse_and_write(nodes, edges, resource_name)
     logger.info(f"Processed {resource_name}: {len(nodes)} nodes, {len(edges)} edges.")
+
+    return nodes, edges
 
 
 def resources_to_process(cli_arguments: argparse.Namespace) -> Dict[str, Any]:
     resource_mapping = {
         key: value
         for key, value in vars(cli_arguments).items()
-        if value is not None and key != "verbose"
+        if value is not None and key != "log_level" and key != "sub_sample"
     }
 
     return resource_mapping
@@ -478,13 +500,24 @@ def main():
     cli_parsed = parse_arguments()
     logger.info(f"CLI arguments: {cli_parsed}")
 
+    logger.setLevel(cli_parsed.log_level)
+    ontoweaver.logger.setLevel(cli_parsed.log_level)
+
     # Map the resources to be processed based on CLI arguments
     resource_mapping = resources_to_process(cli_arguments=cli_parsed)
     logger.info(f"Resources to process: {resource_mapping}")
 
     # Process the resources (ELT)
+    nodes = []
+    edges = []
     for resource_name, argument_resource in resource_mapping.items():
-        process_resource(resource_name, argument_resource)
+        n,e = process_resource(resource_name, argument_resource, subsample = cli_parsed.sub_sample)
+        nodes += n
+        edges += e
+
+    import_file = fuse_and_write(nodes, edges, resource_name)
+
+    print(import_file)
 
 
 if __name__ == "__main__":
