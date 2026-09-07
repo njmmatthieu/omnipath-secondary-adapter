@@ -14,6 +14,7 @@ drug:
     properties:
         name: str
         ncbi_tax_id: str
+        visualisation_label: str
 
 # Long non Coding - RNA
 
@@ -24,6 +25,7 @@ lncrna:
     properties:
         name: str
         ncbi_tax_id: str
+        visualisation_label: str
 
 # Macromolecular complex
 
@@ -34,6 +36,7 @@ source complex:
     properties:
         name: str
         ncbi_tax_id: str
+        visualisation_label: str
 
 target complex:
     is_a: macromolecular_complex
@@ -42,6 +45,7 @@ target complex:
     properties:
         name: str
         ncbi_tax_id: str
+        visualisation_label: str
 
 macromolecular complex:
     represented_as: node
@@ -49,6 +53,7 @@ macromolecular complex:
     properties:
         name: str
         ncbi_tax_id: str
+        visualisation_label: str
 
 # Micro-RNA
 
@@ -59,6 +64,7 @@ mirna:
     properties:
         name: str
         ncbi_tax_id: str
+        visualisation_label: str
 
 # Protein
 
@@ -70,6 +76,7 @@ source protein:
         ensembl_gene_id: str
         gene_symbol: str
         ncbi_tax_id: str
+        visualisation_label: str
 
 target protein:
     is_a: protein
@@ -79,6 +86,7 @@ target protein:
         ensembl_gene_id: str
         gene_symbol: str
         ncbi_tax_id: str
+        visualisation_label: str
 
 protein:
     represented_as: node
@@ -87,6 +95,7 @@ protein:
         ensembl_gene_id: str
         gene_symbol: str
         ncbi_tax_id: str
+        visualisation_label: str
 
 # Gene
 
@@ -97,6 +106,7 @@ source gene:
     properties:
         gene_symbol: str
         gene_summary: str
+        visualisation_label: str
         data_source: str
 
 target gene:
@@ -107,6 +117,7 @@ target gene:
         gene_symbol: str
         gene_summary: str
         data_source: str
+        visualisation_label: str
 
 gene:
     represented_as: node
@@ -115,6 +126,7 @@ gene:
         gene_symbol: str
         gene_summary: str
         data_source: str
+        visualisation_label: str
 
 #--------------------  Information about Edges
 undirected molecular interaction:

@@ -70,6 +70,18 @@ transformers:
             - mirna
             - drug
             - lncrna
+    - map:
+        column: source_genesymbol
+        to_property: visualisation_label
+        for_object: source_protein
+    - split:
+        column: source_genesymbol
+        to_property: visualisation_label
+        for_objects:
+            - source_complex
+            - mirna
+            - drug
+            - lncrna
     # # Properties of for the node type 'target'
     - map:
         column: target_genesymbol
@@ -89,6 +101,16 @@ transformers:
             - target_protein
             - target_complex
             - mirna
+    - map:
+        column: target_genesymbol
+        to_property: visualisation_label
+        for_object: target_protein
+    - split:
+        column: target_genesymbol
+        to_property: visualisation_label
+        for_objects: 
+            - target_complex
+            - mirna
     # Properties for genes
     - map:
         column: source_genesymbol
@@ -97,6 +119,15 @@ transformers:
     - map:
         id_from_column: target_genesymbol
         to_property: gene_symbol
+        for_object: target_gene
+    # Properties for genes
+    - map:
+        column: source_genesymbol
+        to_property: visualisation_label
+        for_object: source_gene
+    - map:
+        id_from_column: target_genesymbol
+        to_property: visualisation_label
         for_object: target_gene
     # Properties for the edge type 'protein_protein_interaction'
     - map:
