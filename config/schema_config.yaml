@@ -228,10 +228,12 @@ inhibition:
         extra_attrs: str
         evidences: str
 
-transcript to gene relationship:
+gene product of gene:
+    is_a: transcript to gene relationship
     represented_as: edge
-    input_label: transcript_to_gene_relationship
+    input_label: gene_product_of_gene
 
-gene to gene product relationship:
+gene has gene product:
+    is_a: gene to gene product relationship
     represented_as: edge
-    input_label: gene_to_gene_product_relationship
+    input_label: gene_has_gene_product
