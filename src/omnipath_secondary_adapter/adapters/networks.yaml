@@ -130,7 +130,7 @@ transformers:
         to_property: visualisation_label
         for_object: target_gene
     # Properties for the edge type 'protein_protein_interaction'
-    - map:
+    - boolean:
         column: is_directed
         to_property: is_directed
         for_objects:
@@ -143,7 +143,11 @@ transformers:
             - mirna_transcriptional
             - lncrna_post_transcriptional
             - drug_has_target
-    - map:
+        consider_true:
+            - 1
+        consider_false:
+            - 0
+    - boolean:
         column: is_stimulation
         to_property: is_stimulation
         for_objects:
@@ -156,7 +160,11 @@ transformers:
             - mirna_transcriptional
             - lncrna_post_transcriptional
             - drug_has_target
-    - map:
+        consider_true:
+            - 1
+        consider_false:
+            - 0
+    - boolean:
         column: is_inhibition
         to_property: is_inhibition
         for_objects:
@@ -169,7 +177,11 @@ transformers:
             - mirna_transcriptional
             - lncrna_post_transcriptional
             - drug_has_target
-    - map:
+        consider_true:
+            - 1
+        consider_false:
+            - 0
+    - boolean:
         column: consensus_direction
         to_property: consensus_direction
         for_objects:
@@ -182,7 +194,11 @@ transformers:
             - mirna_transcriptional
             - lncrna_post_transcriptional
             - drug_has_target
-    - map:
+        consider_true:
+            - 1
+        consider_false:
+            - 0
+    - boolean:
         column: consensus_stimulation
         to_property: consensus_stimulation
         for_objects:
@@ -195,7 +211,11 @@ transformers:
             - mirna_transcriptional
             - lncrna_post_transcriptional
             - drug_has_target
-    - map:
+        consider_true:
+            - 1
+        consider_false:
+            - 0
+    - boolean:
         column: consensus_inhibition
         to_property: consensus_inhibition
         for_objects:
@@ -208,6 +228,10 @@ transformers:
             - mirna_transcriptional
             - lncrna_post_transcriptional
             - drug_has_target
+        consider_true:
+            - 1
+        consider_false:
+            - 0
     - map:
         column: sources
         to_property: sources
@@ -234,7 +258,7 @@ transformers:
             - mirna_transcriptional
             - lncrna_post_transcriptional
             - drug_has_target
-    - map:
+    - boolean:
         column: omnipath
         to_property: omnipath
         for_objects:
@@ -247,7 +271,11 @@ transformers:
             - mirna_transcriptional
             - lncrna_post_transcriptional
             - drug_has_target
-    - map:
+        consider_true:
+            - True
+        consider_false:
+            - False
+    - boolean:
         column: kinaseextra
         to_property: kinaseextra
         for_objects:
@@ -260,7 +288,11 @@ transformers:
             - mirna_transcriptional
             - lncrna_post_transcriptional
             - drug_has_target
-    - map:
+        consider_true:
+            - True
+        consider_false:
+            - False
+    - boolean:
         column: ligrecextra
         to_property: ligrecextra
         for_objects:
@@ -273,7 +305,11 @@ transformers:
             - mirna_transcriptional
             - lncrna_post_transcriptional
             - drug_has_target
-    - map:
+        consider_true:
+            - True
+        consider_false:
+            - False
+    - boolean:
         column: pathwayextra
         to_property: pathwayextra
         for_objects:
@@ -286,7 +322,11 @@ transformers:
             - mirna_transcriptional
             - lncrna_post_transcriptional
             - drug_has_target
-    - map:
+        consider_true:
+            - True
+        consider_false:
+            - False
+    - boolean:
         column: mirnatarget
         to_property: mirnatarget
         for_objects:
@@ -299,7 +339,11 @@ transformers:
             - mirna_transcriptional
             - lncrna_post_transcriptional
             - drug_has_target
-    - map:
+        consider_true:
+            - True
+        consider_false:
+            - False
+    - boolean:
         column: dorothea
         to_property: dorothea
         for_objects:
@@ -312,7 +356,11 @@ transformers:
             - mirna_transcriptional
             - lncrna_post_transcriptional
             - drug_has_target
-    - map:
+        consider_true:
+            - True
+        consider_false:
+            - False
+    - boolean:
         column: collectri
         to_property: collectri
         for_objects:
@@ -325,7 +373,11 @@ transformers:
             - mirna_transcriptional
             - lncrna_post_transcriptional
             - drug_has_target
-    - map:
+        consider_true:
+            - True
+        consider_false:
+            - False
+    - boolean:
         column: tf_target
         to_property: tf_target
         for_objects:
@@ -338,7 +390,11 @@ transformers:
             - mirna_transcriptional
             - lncrna_post_transcriptional
             - drug_has_target
-    - map:
+        consider_true:
+            - True
+        consider_false:
+            - False
+    - boolean:
         column: lncrna_mrna
         to_property: lncrna_mrna
         for_objects:
@@ -351,7 +407,11 @@ transformers:
             - mirna_transcriptional
             - lncrna_post_transcriptional
             - drug_has_target
-    - map:
+        consider_true:
+            - True
+        consider_false:
+            - False
+    - boolean:
         column: tf_mirna
         to_property: tf_mirna
         for_objects:
@@ -364,7 +424,11 @@ transformers:
             - mirna_transcriptional
             - lncrna_post_transcriptional
             - drug_has_target
-    - map:
+        consider_true:
+            - True
+        consider_false:
+            - False
+    - boolean:
         column: small_molecule
         to_property: small_molecule
         for_objects:
@@ -377,7 +441,11 @@ transformers:
             - mirna_transcriptional
             - lncrna_post_transcriptional
             - drug_has_target
-    - map:
+        consider_true:
+            - True
+        consider_false:
+            - False
+    - boolean:
         column: dorothea_curated
         to_property: dorothea_curated
         for_objects:
@@ -390,7 +458,11 @@ transformers:
             - mirna_transcriptional
             - lncrna_post_transcriptional
             - drug_has_target
-    - map:
+        consider_true:
+            - True
+        consider_false:
+            - False
+    - boolean:
         column: dorothea_chipseq
         to_property: dorothea_chipseq
         for_objects:
@@ -403,7 +475,11 @@ transformers:
             - mirna_transcriptional
             - lncrna_post_transcriptional
             - drug_has_target
-    - map:
+        consider_true:
+            - True
+        consider_false:
+            - False
+    - boolean:
         column: dorothea_tfbs
         to_property: dorothea_tfbs
         for_objects:
@@ -416,7 +492,11 @@ transformers:
             - mirna_transcriptional
             - lncrna_post_transcriptional
             - drug_has_target
-    - map:
+        consider_true:
+            - True
+        consider_false:
+            - False
+    - boolean:
         column: dorothea_coexp
         to_property: dorothea_coexp
         for_objects:
@@ -429,6 +509,10 @@ transformers:
             - mirna_transcriptional
             - lncrna_post_transcriptional
             - drug_has_target
+        consider_true:
+            - True
+        consider_false:
+            - False
     - map:
         column: dorothea_level
         to_property: dorothea_level
@@ -498,3 +582,4 @@ transformers:
         forbidden: "'"
 metadata:
         - data_source: omnipath_networks
+        
