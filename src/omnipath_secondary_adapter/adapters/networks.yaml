@@ -17,7 +17,7 @@ row:
                 to_subject: lncrna
 
 transformers:
-    - OmniPath_directed
+    - OmniPath
     # Genes
     - translate:
         id_from_column: source_genesymbol
@@ -137,6 +137,12 @@ transformers:
             - undirected_molecular_interaction
             - stimulation
             - inhibition
+            - post_translational
+            - transcriptional
+            - post_transcriptional
+            - mirna_transcriptional
+            - lncrna_post_transcriptional
+            - drug_has_target
     - map:
         column: is_stimulation
         to_property: is_stimulation
@@ -144,6 +150,12 @@ transformers:
             - undirected_molecular_interaction
             - stimulation
             - inhibition
+            - post_translational
+            - transcriptional
+            - post_transcriptional
+            - mirna_transcriptional
+            - lncrna_post_transcriptional
+            - drug_has_target
     - map:
         column: is_inhibition
         to_property: is_inhibition
@@ -151,6 +163,12 @@ transformers:
             - undirected_molecular_interaction
             - stimulation
             - inhibition
+            - post_translational
+            - transcriptional
+            - post_transcriptional
+            - mirna_transcriptional
+            - lncrna_post_transcriptional
+            - drug_has_target
     - map:
         column: consensus_direction
         to_property: consensus_direction
@@ -158,6 +176,12 @@ transformers:
             - undirected_molecular_interaction
             - stimulation
             - inhibition
+            - post_translational
+            - transcriptional
+            - post_transcriptional
+            - mirna_transcriptional
+            - lncrna_post_transcriptional
+            - drug_has_target
     - map:
         column: consensus_stimulation
         to_property: consensus_stimulation
@@ -165,6 +189,12 @@ transformers:
             - undirected_molecular_interaction
             - stimulation
             - inhibition
+            - post_translational
+            - transcriptional
+            - post_transcriptional
+            - mirna_transcriptional
+            - lncrna_post_transcriptional
+            - drug_has_target
     - map:
         column: consensus_inhibition
         to_property: consensus_inhibition
@@ -172,6 +202,12 @@ transformers:
             - undirected_molecular_interaction
             - stimulation
             - inhibition
+            - post_translational
+            - transcriptional
+            - post_transcriptional
+            - mirna_transcriptional
+            - lncrna_post_transcriptional
+            - drug_has_target
     - map:
         column: sources
         to_property: sources
@@ -179,6 +215,12 @@ transformers:
             - undirected_molecular_interaction
             - stimulation
             - inhibition
+            - post_translational
+            - transcriptional
+            - post_transcriptional
+            - mirna_transcriptional
+            - lncrna_post_transcriptional
+            - drug_has_target
     - map:
         column: references
         to_property: references
@@ -186,6 +228,12 @@ transformers:
             - undirected_molecular_interaction
             - stimulation
             - inhibition
+            - post_translational
+            - transcriptional
+            - post_transcriptional
+            - mirna_transcriptional
+            - lncrna_post_transcriptional
+            - drug_has_target
     - map:
         column: omnipath
         to_property: omnipath
@@ -193,6 +241,12 @@ transformers:
             - undirected_molecular_interaction
             - stimulation
             - inhibition
+            - post_translational
+            - transcriptional
+            - post_transcriptional
+            - mirna_transcriptional
+            - lncrna_post_transcriptional
+            - drug_has_target
     - map:
         column: kinaseextra
         to_property: kinaseextra
@@ -200,6 +254,12 @@ transformers:
             - undirected_molecular_interaction
             - stimulation
             - inhibition
+            - post_translational
+            - transcriptional
+            - post_transcriptional
+            - mirna_transcriptional
+            - lncrna_post_transcriptional
+            - drug_has_target
     - map:
         column: ligrecextra
         to_property: ligrecextra
@@ -207,6 +267,12 @@ transformers:
             - undirected_molecular_interaction
             - stimulation
             - inhibition
+            - post_translational
+            - transcriptional
+            - post_transcriptional
+            - mirna_transcriptional
+            - lncrna_post_transcriptional
+            - drug_has_target
     - map:
         column: pathwayextra
         to_property: pathwayextra
@@ -214,6 +280,12 @@ transformers:
             - undirected_molecular_interaction
             - stimulation
             - inhibition
+            - post_translational
+            - transcriptional
+            - post_transcriptional
+            - mirna_transcriptional
+            - lncrna_post_transcriptional
+            - drug_has_target
     - map:
         column: mirnatarget
         to_property: mirnatarget
@@ -221,6 +293,12 @@ transformers:
             - undirected_molecular_interaction
             - stimulation
             - inhibition
+            - post_translational
+            - transcriptional
+            - post_transcriptional
+            - mirna_transcriptional
+            - lncrna_post_transcriptional
+            - drug_has_target
     - map:
         column: dorothea
         to_property: dorothea
@@ -228,6 +306,12 @@ transformers:
             - undirected_molecular_interaction
             - stimulation
             - inhibition
+            - post_translational
+            - transcriptional
+            - post_transcriptional
+            - mirna_transcriptional
+            - lncrna_post_transcriptional
+            - drug_has_target
     - map:
         column: collectri
         to_property: collectri
@@ -235,6 +319,12 @@ transformers:
             - undirected_molecular_interaction
             - stimulation
             - inhibition
+            - post_translational
+            - transcriptional
+            - post_transcriptional
+            - mirna_transcriptional
+            - lncrna_post_transcriptional
+            - drug_has_target
     - map:
         column: tf_target
         to_property: tf_target
@@ -242,6 +332,12 @@ transformers:
             - undirected_molecular_interaction
             - stimulation
             - inhibition
+            - post_translational
+            - transcriptional
+            - post_transcriptional
+            - mirna_transcriptional
+            - lncrna_post_transcriptional
+            - drug_has_target
     - map:
         column: lncrna_mrna
         to_property: lncrna_mrna
@@ -249,6 +345,12 @@ transformers:
             - undirected_molecular_interaction
             - stimulation
             - inhibition
+            - post_translational
+            - transcriptional
+            - post_transcriptional
+            - mirna_transcriptional
+            - lncrna_post_transcriptional
+            - drug_has_target
     - map:
         column: tf_mirna
         to_property: tf_mirna
@@ -256,6 +358,12 @@ transformers:
             - undirected_molecular_interaction
             - stimulation
             - inhibition
+            - post_translational
+            - transcriptional
+            - post_transcriptional
+            - mirna_transcriptional
+            - lncrna_post_transcriptional
+            - drug_has_target
     - map:
         column: small_molecule
         to_property: small_molecule
@@ -263,6 +371,12 @@ transformers:
             - undirected_molecular_interaction
             - stimulation
             - inhibition
+            - post_translational
+            - transcriptional
+            - post_transcriptional
+            - mirna_transcriptional
+            - lncrna_post_transcriptional
+            - drug_has_target
     - map:
         column: dorothea_curated
         to_property: dorothea_curated
@@ -270,6 +384,12 @@ transformers:
             - undirected_molecular_interaction
             - stimulation
             - inhibition
+            - post_translational
+            - transcriptional
+            - post_transcriptional
+            - mirna_transcriptional
+            - lncrna_post_transcriptional
+            - drug_has_target
     - map:
         column: dorothea_chipseq
         to_property: dorothea_chipseq
@@ -277,6 +397,12 @@ transformers:
             - undirected_molecular_interaction
             - stimulation
             - inhibition
+            - post_translational
+            - transcriptional
+            - post_transcriptional
+            - mirna_transcriptional
+            - lncrna_post_transcriptional
+            - drug_has_target
     - map:
         column: dorothea_tfbs
         to_property: dorothea_tfbs
@@ -284,6 +410,12 @@ transformers:
             - undirected_molecular_interaction
             - stimulation
             - inhibition
+            - post_translational
+            - transcriptional
+            - post_transcriptional
+            - mirna_transcriptional
+            - lncrna_post_transcriptional
+            - drug_has_target
     - map:
         column: dorothea_coexp
         to_property: dorothea_coexp
@@ -291,6 +423,12 @@ transformers:
             - undirected_molecular_interaction
             - stimulation
             - inhibition
+            - post_translational
+            - transcriptional
+            - post_transcriptional
+            - mirna_transcriptional
+            - lncrna_post_transcriptional
+            - drug_has_target
     - map:
         column: dorothea_level
         to_property: dorothea_level
@@ -298,6 +436,12 @@ transformers:
             - undirected_molecular_interaction
             - stimulation
             - inhibition
+            - post_translational
+            - transcriptional
+            - post_transcriptional
+            - mirna_transcriptional
+            - lncrna_post_transcriptional
+            - drug_has_target
     - map:
         column: type
         to_property: type
@@ -305,6 +449,12 @@ transformers:
             - undirected_molecular_interaction
             - stimulation
             - inhibition
+            - post_translational
+            - transcriptional
+            - post_transcriptional
+            - mirna_transcriptional
+            - lncrna_post_transcriptional
+            - drug_has_target
     - map:
         column: curation_effort
         to_property: curation_effort
@@ -312,6 +462,12 @@ transformers:
             - undirected_molecular_interaction
             - stimulation
             - inhibition
+            - post_translational
+            - transcriptional
+            - post_transcriptional
+            - mirna_transcriptional
+            - lncrna_post_transcriptional
+            - drug_has_target
     - replace:
         column: extra_attrs
         to_property: extra_attrs
@@ -319,6 +475,12 @@ transformers:
             - undirected_molecular_interaction
             - stimulation
             - inhibition
+            - post_translational
+            - transcriptional
+            - post_transcriptional
+            - mirna_transcriptional
+            - lncrna_post_transcriptional
+            - drug_has_target
         forbidden: "'"
     - replace:
         column: evidences
@@ -327,6 +489,12 @@ transformers:
             - undirected_molecular_interaction
             - stimulation
             - inhibition
+            - post_translational
+            - transcriptional
+            - post_transcriptional
+            - mirna_transcriptional
+            - lncrna_post_transcriptional
+            - drug_has_target
         forbidden: "'"
 metadata:
         - data_source: omnipath_networks
